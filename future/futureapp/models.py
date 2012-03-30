@@ -26,8 +26,28 @@ class User(models.Model):
     adminid = models.CharField("Administrator Type", max_length=4, choices=ADMIN_TYPE_CHOICES)
 
 class Post(models.Model):
-    author = models.ForeignKey(User, verbose_name="Post Author")
+	
+	postid = models.IntegerField("Post Id", unique=True)
+	author = models.ForeignKey(User, verbose_name="Post Author")
     time = models.DateTimeField(auto_now_add=True)
     title = models.CharField("Post Title", max_length=80)
     text = models.TextField("Post Text")
-    
+	tags = models. # How do I make this an array?
+	mentions = 
+
+class Comment(models.Model):
+	commentid = models.IntegerField("Comment Id", unique=True)
+	author = models.ForeignKey(User, verbose_name="Comment Author")
+    time = models.DateTimeField(auto_now_add=True)
+    text = models.TextField("Comment Text")
+	tags = models. # How do I make this an array?
+	mentions = 
+
+class Type(models.Model):
+	POST_TYPE_CHOICES = (
+		(u'MENU', u'Menu')
+		(u'EVNT', u'Event')
+		(u'POST', u'Normal Post')
+	) 
+    typeid = models.CharField("Post Type", max_length=4, choices=POST_TYPE_CHOICES)
+
