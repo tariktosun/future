@@ -1,0 +1,87 @@
+body, html{
+	margin: 0 auto;
+}
+
+#container
+{
+	margin: 0 auto;
+	width: 900px;
+	background: #fff;
+}
+
+#header
+{
+	min-height: 40px;
+	border: solid thin #ccc;
+	border-bottom: solid 4px #ccc;
+	overflow: hidden;
+}
+
+#header img{
+	margin: 20px;
+	float: left;
+	
+
+}
+
+#name{
+	color: #424242;
+	font-weight: 700;
+	font-size: 36px;
+	margin-top: 20px;
+}
+
+#card{
+	background: yellow;
+
+
+}
+
+#right_top{
+	background: blue;
+	height: 100px;
+	width:200px;
+	float: right;
+	margin-right: 20px;
+}
+
+#navigation
+{
+	float: left;
+	width: 900px;
+	background: #333;
+}
+
+#content-container
+{
+	float: left;
+	width: 900px;
+}
+
+#content
+{
+	clear: left;
+	float: left;
+	width: 560px;
+	display: inline;
+}
+
+
+#aside
+{
+	float: right;
+	width: 240px;
+	padding: 20px 0;
+	margin: 0 20px 0 0;
+	display: inline;
+}
+
+
+#footer
+{
+	clear: both;
+	background: #ccc;
+	text-align: right;
+	padding: 20px;
+	height: 1%;
+}
