@@ -6,6 +6,12 @@ class User(models.Model):
         (u'2013', u'Junior'),
         (u'2014', u'Sophomore')
     )
+    ADMIN_TITLE_CHOICES = (
+        (u'ME', u'Member'),
+        (u'OF', u'Officer'),
+        (u'FC', u'Food Chair'),
+        (u'BAMF', u'Developer')
+    )
 
     netid = models.CharField(max_length=8, unique=True)
     firstname = models.CharField("First Name", max_length=30)
@@ -14,15 +20,8 @@ class User(models.Model):
     fbid = models.BigIntegerField("Facebook ID", unique=True)
     authenticated = models.BooleanField("User Authenticated?")
     authcode = models.CharField("Authentication Code", max_length=30)
+    admin = models.CharField("Administrator Title", max_length=4, choices=ADMIN_TITLE_CHOICES)
 
-class Admin(models.Model):
-    ADMIN_TITLE_CHOICES = (
-        (u'ME', u'Member'),
-        (u'OF', u'Officer'),
-        (u'FC', u'Food Chair'),
-        (u'BAMF', u'Developer')
-    )
-    title = models.CharField("Administrator Title", max_length=4, choices=ADMIN_TITLE_CHOICES)
 
 class Tag(models.Model):
     text = models.CharField("Tag text", max_length=15)
@@ -34,8 +33,6 @@ class Post(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag) 
     mentions = models.ManyToManyField(User, related_name="users_mentioned") 
-    
-    class Meta:
         
 # general purpose user post, with a title
 class UserPost(Post):
