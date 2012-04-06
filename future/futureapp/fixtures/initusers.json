@@ -1,6 +1,6 @@
 [
   {
-    "model": "myapp.user",
+    "model": "futureapp.User",
     "pk": 1,
     "fields": {
       "netid": "jasnyder",
@@ -14,7 +14,7 @@
     }
   },
   {
-    "model": "myapp.user",
+    "model": "futureapp.User",
     "pk": 2,
     "fields": {
       "netid": "ttosun",
@@ -28,7 +28,7 @@
     }
   },
   {
-    "model": "myapp.user",
+    "model": "futureapp.User",
     "pk": 3,
     "fields": {
       "netid": "pzakin",
