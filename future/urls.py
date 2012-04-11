@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.http import HttpResponse
 from futureapp.views import post 
 
 # Uncomment the next two lines to enable the admin:
@@ -6,7 +7,8 @@ from futureapp.views import post
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^post/$',views.post),
+    url(r'^post/$',post),
+    url(r'^home/$', 'django.views.generic.simple.direct_to_template', {'template': 'future/static2.html'})
     # Examples:
     # url(r'^$', 'future.views.home', name='home'),
     # url(r'^future/', include('future.foo.urls')),

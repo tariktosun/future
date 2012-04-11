@@ -29,10 +29,10 @@ class Tag(models.Model):
 # post is a superclass for many kinds of things that are posted
 class Post(models.Model):
     
-    author = models.ForeignKey(User, verbose_name="Post Author")
+    #author = models.ForeignKey(User, verbose_name="Post Author")
     time = models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField(Tag) 
-    mentions = models.ManyToManyField(User, related_name="users_mentioned") 
+#    tags = models.ManyToManyField(Tag) 
+#    mentions = models.ManyToManyField(User)# , related_name="users_mentioned") 
         
 # general purpose user post, with a title
 class UserPost(Post):
