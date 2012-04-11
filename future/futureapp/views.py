@@ -6,8 +6,8 @@ def post(request):
         newPost = UserPost(title = 'foo', #title=request.POST['title'],
                      text = request.POST['text'],
                      author = request.session['userid'],
-                     tags = ''
-                     mentions = '')
+                     tags = (),
+                     mentions = ())
         newPost.save()
         return HttpResponse('woot.')
     else:

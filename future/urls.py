@@ -1,10 +1,12 @@
 from django.conf.urls.defaults import patterns, include, url
+from futureapp.views import post 
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^post/$',views.post),
     # Examples:
     # url(r'^$', 'future.views.home', name='home'),
     # url(r'^future/', include('future.foo.urls')),
