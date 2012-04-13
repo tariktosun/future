@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from models import *
 from fandjango.decorators import facebook_authorization_required
 
@@ -11,8 +12,10 @@ from fandjango.decorators import facebook_authorization_required
 @facebook_authorization_required
 def renderHomepage(request):
    now = datetime.now()
-   return render_to_response('future/testhome.html', {'current_date':now})
-
+   p = UserPost.objects.get(text="THETESTPOST")
+   c = RequestContext(request, {'current_date':now, 'title': p.title, 'text':
+           p.text})
+   return render_to_response('future/testhome.html', c)
 
 
 # make a post.
