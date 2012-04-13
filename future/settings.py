@@ -1,5 +1,4 @@
 # Django settings for future project.
-import 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -19,6 +18,12 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+
+# Facebook Settings: to be placed eventually in env variables
+FACEBOOK_APPLICATION_ID = '120606374729212'
+FACEBOOK_APPLICATION_SECRET_KEY = 'afa4d7423e6c95ea6f8b61e56f3c2d8f'
+FACEBOOK_APPLICATION_NAMESPACE = 'futurenettest'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
