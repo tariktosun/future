@@ -45,15 +45,15 @@
 			
 		</div>
 		
-		{% for post in post_list %}
+		{% for post in get_feed_posts %}
 		<div class="content-container">
 				
 				<div class='post'>
 					<img src="{{post.picture}}" />
 					<div class="author">
-					Peter Zakin
+					{{post.author}}
 					</div>
-					{{post.text}} 
+					{{post.message}} 
 				</div>
 		</div>
 		{% endfor %}
