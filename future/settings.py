@@ -20,11 +20,6 @@ DATABASES = {
 }
 
 
-# Facebook Settings: to be placed eventually in env variables
-FACEBOOK_APPLICATION_ID = '120606374729212'
-FACEBOOK_APPLICATION_SECRET_KEY = 'afa4d7423e6c95ea6f8b61e56f3c2d8f'
-FACEBOOK_APPLICATION_NAMESPACE = 'futurenettest'
-
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -100,7 +95,6 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'fandjango.middleware.FacebookMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -125,7 +119,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'gunicorn',
     'future.futureapp',
-    'fandjango', 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

@@ -3,10 +3,12 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from models import *
+from fandjango.decorators import facebook_authorization_required
 
 # Create your views here.
 
 # Render homepage with posts from DB:
+@facebook_authorization_required
 def renderHomepage(request):
    now = datetime.now()
    return render_to_response('future/testhome.html', {'current_date':now})
