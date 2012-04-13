@@ -4,12 +4,10 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from models import *
-from fandjango.decorators import facebook_authorization_required
 
 # Create your views here.
 
 # Render homepage with posts from DB:
-@facebook_authorization_required
 def renderHomepage(request):
    now = datetime.now()
    p = UserPost.objects.get(text="THETESTPOST")
