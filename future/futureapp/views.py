@@ -10,10 +10,12 @@ from models import *
 # Render homepage with posts from DB:
 def renderHomepage(request):
    now = datetime.now()
+   posts = UserPost.objects.all();
+
    p = UserPost.objects.get(text="THETESTPOST")
    c = RequestContext(request, {'current_date':now, 'title': p.title, 'text':
-           p.text})
-   return render_to_response('future/testhome.html', c)
+           p.text, 'post_list':posts})
+   return render_to_response('future/testIteratorHome.html', c)
 
 
 # make a post.
