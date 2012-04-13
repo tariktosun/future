@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.http import HttpResponse
-from futureapp.views import post 
+from futureapp.views import * 
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -8,7 +8,8 @@ from futureapp.views import post
 
 urlpatterns = patterns('',
     url(r'^post/$',post),
-    url(r'^home/$', 'django.views.generic.simple.direct_to_template', {'template': 'future/static2.html'})
+    #url(r'^home/$', 'django.views.generic.simple.direct_to_template', {'template': 'future/static2.html'})
+    url(r'^home/$',renderHomepage)
     # Examples:
     # url(r'^$', 'future.views.home', name='home'),
     # url(r'^future/', include('future.foo.urls')),
