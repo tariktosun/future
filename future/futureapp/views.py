@@ -1,9 +1,19 @@
+from datetime import datetime
+
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 from models import *
 
 # Create your views here.
 
-# make a post.  first prototype.
+# Render homepage with posts from DB:
+def renderHomepage(request):
+   now = datetime.now()
+   return render_to_response('future/testhome.html', {'current_date':now})
+
+
+
+# make a post.
 def post(request):
     if request.method == 'POST':
         newPost = UserPost(title = 'foo', #title=request.POST['title'],
@@ -13,7 +23,7 @@ def post(request):
         #             mentions = ()
                           )
         newPost.save()
-        return HttpResponse('woot.')
+        return HttpResponse(newPost.text)
     else:
         return HttpResponse('SOMETHING IS WRONG.')
 
