@@ -9,7 +9,7 @@ from futureapp.views import *
 urlpatterns = patterns('',
     url(r'^post/$',post),
     #url(r'^home/$', 'django.views.generic.simple.direct_to_template', {'template': 'future/static2.html'})
-    url(r'^home/$',renderHomepage)
+    url(r'^home/$',renderHomepage),
     url(r'^fandjango/', include('fandjango.urls'))
     # Examples:
     # url(r'^$', 'future.views.home', name='home'),
