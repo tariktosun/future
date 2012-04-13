@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script src="bootsrap-modal.js"></script>
+	<link rel="stylesheet" href="static2.css" />
+
+</head>
+
+<body>	
+	<div id="container">
+		<div id="header">
+		
+			
+			<img src="profpic.jpg" />
+				
+			<div id="left_top">
+				Peter Zakin 
+
+			</div>
+			
+			<div id="right_top">
+                    
+            <form action="/post/" method="post">   
+                 {% csrf_token %}
+                 <input type="text" name="text">
+                 <input type="submit" value="POST">
+            </form>
+
+            <!-- old stuff:
+                <textarea></textarea> 
+				<div></div>
+				<button class="submitButton">
+				POST
+				</button>
+                -->
+			</div>
+            
+    
+    </div>
+		
+		<div id="content-container">
+			<div id="content">
+				<h2>
+					Page heading
+				</h2>
+                <! -- Beginning of Tarik's Edits -->
+                <p>
+                Blah Blah interesting words.  The current date is {{ current_date }}
+                </p>
+				<p>
+					Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+				</p>
+				<p>
+					Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+				</p>
+			</div>
+		
+		
+		</div>
+	</div>
+</body>
