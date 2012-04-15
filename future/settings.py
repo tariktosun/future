@@ -22,10 +22,6 @@ DATABASES = {
 }
 
 # Settings for facebook authentication with Django Social Auth
-AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.facebook.FacebookBackend',
-)
-
 FACEBOOK_APP_ID              = getenv('FUTURE_FB_KEY')
 FACEBOOK_API_SECRET          = getenv('FUTURE_FB_SECRET')
 
@@ -118,8 +114,9 @@ TEMPLATE_DIRS = (
     getenv('FUTURE_DIR') + 'future/templates',
 )
 
+# temporarily..? commenting out default auth, trying to roll own
 INSTALLED_APPS = (
-    'django.contrib.auth',
+#    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -127,7 +124,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'gunicorn',
     'future.futureapp',
-    'social_auth'
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
