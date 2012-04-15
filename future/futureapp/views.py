@@ -12,10 +12,8 @@ def renderHomepage(request):
    now = datetime.now()
    posts = UserPost.objects.all();
 
-   p = UserPost.objects.get(text="THETESTPOST")
-   c = RequestContext(request, {'current_date':now, 'title': p.title, 'text':
-           p.text, 'post_list':posts})
-   return render_to_response('future/testIteratorHome.html', c)
+   c = RequestContext(request, {'post_list':posts})
+   return render_to_response('home.html', c)
 
 
 # make a post.
