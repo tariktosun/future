@@ -34,7 +34,7 @@ def post(request):
     else:
         return HttpResponse('SOMETHING IS WRONG.')
 
-def authenticate(request):
+def fbauth(request):
    # The url for this page, to be passed as a param to facebook for redirection
    facebookredirect = settings.BASE_URI + 'fbauth/'
    facebookredirect = quote(facebookredirect, '')
