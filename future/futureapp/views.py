@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -32,19 +31,49 @@ def post(request):
         return HttpResponse('SOMETHING IS WRONG.')
 
 def authenticate(request):
+   # The url for this page, to be passed as a param to facebook for redirection
+   facebookredirect = urlencode(BASE_URI + 'auth/')
    
+   # if the incoming request is a redirect from facebook with a code
+   # that may be exchanged for an oauth token
+   if request.method == 'GET':
+      if request.GET['code'] and request.session['fb_csrf']:
+         # Check that the request has a valid csrf token that matches
+         # the one stored in the session
+         if request.session['fb_csrf'] == request.GET.get('state', ''):
+            
+            # Create a url to exchange the code received for an oauth token
+            oauthurl = 'https://graph.facebook.com/oauth/access_token?'
+            
+            # Add the fb app ID
+            oauthurl += 'client_id='
+            oauthurl += FACEBOOK_APP_ID
+            
+            # Add a redirect url, which should point back to this page
+            oauthurl += '&redirect_uri='
+            oauthurl += facebookredirect
+
+            # Add our app's secret, from developer.facebook.com
+            oauthurl += '&client_secret='
+            oauthurl += FACEBOOK_API_SECRET
+
+            oauthurl += '&code='
+            oauthurl += request.GET['code']
+            
+            gettoken = requests.get(oauthurl)
+
    # Create an initial facebook authentication redirect url, a la 
    # https://developers.facebook.com/docs/authentication/server-side/
    facebookurl = 'https://www.facebook.com/dialog/oauth?'
    
-   # Add the facebook app ID, stored in an environment variable
+   # Add the facebook app ID
    facebookurl += 'client_id='
-   facebookurl += getenv('FUTURE_FB_KEY')
+   facebookurl += FACEBOOK_APP_ID
    
    # Add a redirect url, which must be the same as one indicated in
    # the fb app settings
    facebookurl += '&redirect_uri='
-   facebookurl += urlencode('http://localhost:5000/facebookauth')
+   facebookurl += facebookredirect
    
    # don't think we need additional permissions for now, but if we do,
    # later can uncomment these lines. see 
@@ -54,6 +83,7 @@ def authenticate(request):
    
    # To protect against CSRF, add a key which is then checked later
    facebookurl += '&state='
-   csrf_key = generate_csrf()
-   facebookurl += csrf_key
+   fb_csrf = generate_csrf()
+   request.session['fb_csrf'] = fb_csrf
+   facebookurl += fb_csrf
 

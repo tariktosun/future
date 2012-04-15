@@ -21,9 +21,10 @@ DATABASES = {
     }
 }
 
-# Settings for facebook authentication with Django Social Auth
+# Settings for facebook authentication with our own Authentication
 FACEBOOK_APP_ID              = getenv('FUTURE_FB_KEY')
 FACEBOOK_API_SECRET          = getenv('FUTURE_FB_SECRET')
+BASE_URI                     = 'http://localhost:5000/'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
