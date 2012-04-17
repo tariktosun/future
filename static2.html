@@ -20,7 +20,7 @@
 		<div id="right_top">
 				
 				<form action="/post/" method="post">
-                 {% csrf_token %}
+                <!-- {% csrf_token %} -->
               		<textarea name="text"></textarea>
 					<div></div>
 					<button class="submitButton">
@@ -45,18 +45,32 @@
 			
 		</div>
 		
-		{% for post in get_feed_posts %}
+		<!--{% for post in get_feed_posts %}-->
 		<div class="content-container">
 				
 				<div class='post'>
-					<img src="{{post.picture}}" />
+					<img src="profpic.jpg" />
 					<div class="author">
-					{{post.author}}
+					<!--{post.author}}-->
+					Peter Zakin
 					</div>
-					{{post.message}} 
+					<!-- {{post.message}} -->
+					Hey It's Peter
 				</div>
 		</div>
-		{% endfor %}
+			<div class="content-container">
+				
+				<div class='post'>
+					<img src="profpic.jpg" />
+					<div class="author">
+					<!--{post.author}}-->
+					Peter Zakin
+					</div>
+					<!-- {{post.message}} -->
+					Hey It's Peter
+				</div>
+		</div>
+		<!--{% endfor %}-->
 		
 		
 			
