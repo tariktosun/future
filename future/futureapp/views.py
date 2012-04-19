@@ -6,19 +6,32 @@ from urllib import quote
 from models import *
 from os import getenv
 from django.conf import settings
-from string import letters,digits,join
+import string
 from random import choice
 import requests
+from facepy import GraphAPI
+from datetime import datetime, timedelta
 # Create your views here.
 
 # Render homepage with posts from DB:
 def renderHomepage(request):
-   now = datetime.now()
    posts = UserPost.objects.all();
 
    c = RequestContext(request, {'post_list':posts})
    return render_to_response('home.html', c)
 
+def netidauth(request):
+   if request.method == 'POST':
+      if netidapproved(request.POST.get('netid')):
+         pass # send email
+      else:
+         pass  # render response: sorry, not a valid netid
+
+   return render_to_response('enternetid.html', c)
+
+
+def netidapproved(netid):
+   return True
 
 # make a post.
 def post(request):
@@ -66,7 +79,25 @@ def fbauth(request):
             oauthurl += request.GET['code']
             
             gettoken = requests.get(oauthurl)
-            return HttpResponse(gettoken.text)
+            
+            # Body is of format token and expiry time, split into
+            # appropriate parts
+            tokenized = gettoken.text.split('&')
+            token = tokenized[0].split('=')[1]
+            expiry = int(tokenized[1].split('=')[1])
+            request.session['fb_token'] = token
+            request.session['fb_expiry'] = datetime.now() + timedelta(seconds = expiry)
+            
+            graph = GraphAPI(token)
+            visitor_fbid = int(graph.get('me')['id'])
+            user = User.objects.filter(fbid = visitor_fbid)
+            if user.count() == 0: # if fbid not in db
+               request.session['approved_fb'] = True
+               return redirect('/netidauth/')
+            else: # if fbid in db already
+               request.session['logged_in'] = True
+               request.session['uid'] = user[0].pk
+               return redirect('/home/')
       
       # Create an initial facebook authentication redirect url, a la 
       # https://developers.facebook.com/docs/authentication/server-side/
@@ -89,7 +120,7 @@ def fbauth(request):
       
       # To protect against CSRF, add a key which is then checked later
       facebookurl += '&state='
-      fb_csrf = "".join([choice(letters+digits) for x in range(1, 40)])
+      fb_csrf = "".join([choice(string.letters+string.digits) for x in range(1, 40)])
       request.session['fb_csrf'] = fb_csrf
       facebookurl += fb_csrf
       
