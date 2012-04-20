@@ -110,14 +110,14 @@ def fbauth(request):
                graph = GraphAPI(request.session['fb_token'])
                visitor_fbid = int(graph.get('me')['id'])
                #return HttpResponse(str(visitor_fbid))
-               this_user = User.objects.filter(fbid = visitor_fbid)[0]
-               this_user.picurl = graph.get('me/picture')
-               return redirect(this_user.picurl)
-               this_user.save()
-               if user.count() == 0: # if fbid not in db
+               this_user = User.objects.filter(fbid = visitor_fbid)
+               if this_user.count() == 0: # if fbid not in db
                   request.session['approved_fb'] = True
                   return redirect('/netidauth/')
                else: # if fbid in db already
+                  this_user = this_user[0]
+                  this_user.pic = 'https://graph.facebook.com/' + str(visitor_fbid) + '/picture?type=square'
+                  this_user.save()
                   request.session['logged_in'] = True
                   request.session['uid'] = this_user.pk
                   return renderHomepage(request)

@@ -21,7 +21,7 @@ class User(models.Model):
     authenticated = models.BooleanField("user authenticated?")
     authcode = models.CharField("authentication code", max_length=30)
     admin = models.CharField("administrator title", max_length=4, choices=ADMIN_TITLE_CHOICES)
-    picurl = models.CharField("facebook profile picture URL", max_length=120, blank=True)
+    pic = models.CharField("facebook profile picture URL", max_length=70,blank=True)
 
 class Tag(models.Model):
     text = models.CharField("tag text", max_length=15)
