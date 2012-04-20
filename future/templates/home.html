@@ -36,7 +36,8 @@
 		{% for post in post_list %}
 		<div class="content-container">
             <!-- as of now, anyone can delete -->
-            <form action="/delete/" method="delete">
+            <form action="/deletePost/" method="post">
+            {% csrf_token %}
                <button class="submitButton">
                delete
                </button>

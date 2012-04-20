@@ -51,7 +51,7 @@ def post(request):
 
 #delete a post:
 def deletePost(request):
-    if request.method == 'DELETEPOST':
+    if request.method == 'POST':
         #delete the post from the homepage
         return renderHomepage(request)
     else:
