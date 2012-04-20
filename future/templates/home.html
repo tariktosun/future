@@ -10,18 +10,25 @@
         <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
         <script>
         $(document).ready(function(){
-        $('textarea').click(function(){
-        $('textarea').css('height', '40px');
-        $('.submitButton').css("visibility", "visible");
-        $('#header').css("overflow", "auto");
-        $('textarea').css("color", "black");
-        $('textarea').attr("value", "");
+			$('textarea').click(function(){
+				$('textarea').css('height', '40px');
+				$('.submitButton').css("visibility", "visible");
+				$('#header').css("overflow", "auto");
+				$('textarea').css("color", "black");
+				$('textarea').attr("value", "");
+				
+			}); 
         
-        }); 
-        
+			$('.content-container').click(function(){
+				$(this > '.deleteButton').css("visibility", "visible");
+			
+			
+			});
         
         
         });
+        
+        
         
         </script>
         
@@ -82,10 +89,13 @@
             <!-- as of now, anyone can delete -->
             <form action="/deletePost/" method="post">
             {% csrf_token %}
-               <!--<button class="submitButton" style="visibility: hidden">
-               delete
-               </button>-->
-               <div class='post'>
+               <button class="deleteButton">
+               X
+               </button>
+               
+               <input type="hidden" name="post" value={{ post.pk }} />
+            
+            <div class='post'>
 		 <img src="{{post.picture}}" />
 		 <div class="author">
 		   Peter Zakin

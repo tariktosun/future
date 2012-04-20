@@ -19,6 +19,15 @@ textarea {
 
 }
 
+.deleteButton{
+	border: none;
+	font-size:12px;
+	float: right;
+	clear: both;
+	background: none;
+	#visibility: hidden;
+
+}
 
 
 .break{
