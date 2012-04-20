@@ -12,6 +12,7 @@
 
 <body>	
 	<div id="container">
+
 		<div id="top">
 			<img src="{{profpic}}" /> 
 			{{name}}
@@ -29,7 +30,6 @@
 
 		
 		<div id="header">
-		
 		<div id="right_top">
 				
 				<form action="/post/" method="post">
@@ -39,10 +39,7 @@
 					<button class="submitButton">
 					POST
 					</button>
-				
-                 
            		 </form>
-		
 			</div>
 			
 			<img src="/static/images/profpic.jpg" />
@@ -51,23 +48,24 @@
 				Peter Zakin 
 
 			</div>
-			
-			
-			
-				
-			
 		</div>
 		
 		{% for post in post_list %}
 		<div class="content-container">
-				
-				<div class='post'>
+            <!-- as of now, anyone can delete -->
+            <form action="/deletePost/" method="post">
+            {% csrf_token %}
+               <button class="submitButton">
+               delete
+               </button>
+               <div class='post'>
 					<img src="{{post.picture}}" />
 					<div class="author">
 					Peter Zakin
 					</div>
 					{{post.text}} 
 				</div>
+            </form>
 		</div>
 		{% endfor %}
 		
@@ -75,3 +73,4 @@
 			
 	</div>
 </body>
+</html>
