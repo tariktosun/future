@@ -39,8 +39,10 @@ def netidauth(request):
 def directory(request):
    if request.session.get('logged_in'):
        members = User.objects.all();
+       curUser = User.objects.filter(pk = request.session['uid'])
+       curUser = curUser[0]    #querydict
        c = RequestContext(request, {'member_list':members,
-                                'uid':request.session['uid']})
+                                'curUser':curUser})
        return render_to_response('directory.html', c)
    else:
        return redirect('/fbauth/')
