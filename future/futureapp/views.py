@@ -15,11 +15,14 @@ from datetime import datetime, timedelta
 
 # Render homepage with posts from DB:
 def renderHomepage(request):
-   posts = UserPost.objects.all();
-
-   c = RequestContext(request, {'post_list':posts})
-   return render_to_response('home.html', c)
-
+   # check that user is logged in:
+   if request.session.get('logged_in'):
+       posts = UserPost.objects.all();
+       c = RequestContext(request, {'post_list':posts,
+                                'uid':request.session['uid']})
+       return render_to_response('home.html', c)
+   else:
+       return redirect('/fbauth/')
 
 # Authenticate user's netid
 def netidauth(request):
@@ -47,12 +50,19 @@ def post(request):
         newPost.save()
         return renderHomepage(request) 
     else:
+        # we need to change this to a more general-purpose error.
+        # Control flow reaches here if the user tries to go to the posting url
+        # without actually making a post.
         return HttpResponse('Posting failed!')
 
 #delete a post:
 def deletePost(request):
     if request.method == 'POST':
-        #delete the post from the homepage
+        #delete the post from the database
+        id = request.POST['post']
+#        id = p.get(pk)
+        dbp = UserPost.objects.get(pk = id)
+        dbp.delete()
         return renderHomepage(request)
     else:
         return HttpResponse('Post deletion failed!')
