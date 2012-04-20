@@ -26,13 +26,13 @@ def renderHomepage(request):
 
 # Authenticate user's netid
 def netidauth(request):
-   if request.method == 'POST':
-      if netidapproved(request.POST.get('netid')):
-         pass # send email
-      else:
-         pass  # render response: sorry, not a valid netid
-
-   return render_to_response('enternetid.html', c)
+    if request.method == 'POST':
+        if netidapproved(request.POST.get('netid')):
+            pass # send email
+        else:
+            pass  # render response: sorry, not a valid netid
+    #return redirect('/home/')
+    return render_to_response('enternetid.html', c)
 
 
 def netidapproved(netid):
