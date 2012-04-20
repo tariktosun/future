@@ -34,6 +34,15 @@ def netidauth(request):
     #return redirect('/home/')
     return render_to_response('enternetid.html', c)
 
+def directory(request):
+   if request.session.get('logged_in'):
+       members = User.objects.all();
+       c = RequestContext(request, {'member_list':members,
+                                'uid':request.session['uid']})
+       return render_to_response('directory.html', c)
+   else:
+       return redirect('/fbauth/')
+   
 
 def netidapproved(netid):
    return True
