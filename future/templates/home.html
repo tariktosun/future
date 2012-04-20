@@ -97,7 +97,7 @@
                <input type="hidden" name="post" value={{ post.pk }} />
             
             <div class='post'>
-		 <img src="{{post.picture}}" />
+		 <img src={{post.author.picurl}} />
 		 <div class="author">
            {{ post.author.firstname }} {{ post.author.lastname }}
 		 </div>
