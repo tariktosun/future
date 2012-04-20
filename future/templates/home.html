@@ -55,11 +55,14 @@
             <!-- as of now, anyone can delete -->
             <form action="/deletePost/" method="post">
             {% csrf_token %}
+            <div style='display:none'><input type='hidden'
+                    name='post'
+                    value={{ post.pk }} /></div>
                <button class="submitButton">
                delete
                </button>
                <div class='post'>
-					<img src="{{post.picture}}" />
+					<img src={{ post.picture }} />
 					<div class="author">
 					Peter Zakin
 					</div>
