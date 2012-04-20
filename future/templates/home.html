@@ -51,7 +51,7 @@
       
       
       <img src="/static/images/profpic.jpg" /> 
-      <div class="topName"> Peter Zakin </div>
+      <div class="topName"> {{ curUser.firstname}} {{ curUser.lastname }}</div>
       </div>
     </div>
   
@@ -89,17 +89,18 @@
             <!-- as of now, anyone can delete -->
             <form action="/deletePost/" method="post">
             {% csrf_token %}
+            {% if post.author == curUser %}
                <button class="deleteButton">
                X
                </button>
-               
+             {% endif %}   
                <input type="hidden" name="post" value={{ post.pk }} />
             
             <div class='post'>
 		 <img src="{{post.picture}}" />
 		 <div class="author">
-		   Peter Zakin
-		   </div>
+           {{ post.author.firstname }} {{ post.author.lastname }}
+		 </div>
 		 {{post.text}} 
 		 </div>
             </form>

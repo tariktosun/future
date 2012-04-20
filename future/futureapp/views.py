@@ -18,8 +18,10 @@ def renderHomepage(request):
    # check that user is logged in:
    if request.session.get('logged_in'):
        posts = UserPost.objects.order_by('-time');
+       curUser = User.objects.filter(pk = request.session['uid'])
+       curUser = curUser[0]    #querydict
        c = RequestContext(request, {'post_list':posts,
-                                'uid':request.session['uid']})
+                                'curUser':curUser})
        return render_to_response('home.html', c)
    else:
        return redirect('/fbauth/')
@@ -50,9 +52,11 @@ def netidapproved(netid):
 # make a post.
 def post(request):
     if request.method == 'POST':
+        curAuthor = User.objects.filter(pk = request.session['uid'])
+        curAuthor = curAuthor[0]    #it's a querydict
         newPost = UserPost(title = 'foo', #title=request.POST['title'],
                      text = request.POST['text'],
-                     #author = request.session['userid'],
+                     author = curAuthor,
         #             tags = (),
         #             mentions = ()
                           )
@@ -67,12 +71,16 @@ def post(request):
 #delete a post:
 def deletePost(request):
     if request.method == 'POST':
-        #delete the post from the database
+        #check author
+        curUser = User.objects.filter(pk = request.session['uid'])
+        curUser = curUser[0]    #querydict
         id = request.POST['post']
-#        id = p.get(pk)
-        dbp = UserPost.objects.get(pk = id)
-        dbp.delete()
-        return renderHomepage(request)
+        p = UserPost.objects.get(pk = id)
+        if p.author == curUser:
+            p.delete()
+            return renderHomepage(request)
+        else:
+            return HttpResponse('You may not delete a post you do not own.')
     else:
         return HttpResponse('Post deletion failed!')
 
