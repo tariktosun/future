@@ -75,6 +75,33 @@ def fbauth(request):
    # if the incoming request is a redirect from facebook with a code
    # that may be exchanged for an oauth token
    if request.method == 'GET':
+      
+      # if already has an active facebook session
+      if request.session.get('fb_token', '') != '':
+         
+         # if the token is not expired, else fall through to acquire a
+         # new one
+         if request.session.get('fb_expiry', datetime.now()) > datetime.now():
+            
+            # if logged in (probably reached this page by accident)
+            if request.session.get('logged_in', False):
+               return renderHomepage(request)
+
+            # if not logged in, look through the database for the fbid in
+            # the session
+            else:
+               graph = GraphAPI(request.session['fb_token'])
+               visitor_fbid = int(graph.get('me')['id'])
+               user = User.objects.filter(fbid = visitor_fbid)
+               if user.count() == 0: # if fbid not in db
+                  request.session['approved_fb'] = True
+                  return redirect('/netidauth/')
+               else: # if fbid in db already
+                  request.session['logged_in'] = True
+                  request.session['uid'] = user[0].pk
+                  return renderHomepage(request)
+      
+      # if this is a response from facebook with a code to grab a csrf token
       if request.GET.get('code', '') != '' and request.session['fb_csrf']:
          # Check that the request has a valid csrf token that matches
          # the one stored in the session
@@ -90,11 +117,11 @@ def fbauth(request):
             # Add a redirect url, which should point back to this page
             oauthurl += '&redirect_uri='
             oauthurl += facebookredirect
-
+            
             # Add our app's secret, from developer.facebook.com
             oauthurl += '&client_secret='
             oauthurl += settings.FACEBOOK_API_SECRET
-
+            
             oauthurl += '&code='
             oauthurl += request.GET['code']
             
@@ -107,18 +134,9 @@ def fbauth(request):
             expiry = int(tokenized[1].split('=')[1])
             request.session['fb_token'] = token
             request.session['fb_expiry'] = datetime.now() + timedelta(seconds = expiry)
-            
-            graph = GraphAPI(token)
-            visitor_fbid = int(graph.get('me')['id'])
-            user = User.objects.filter(fbid = visitor_fbid)
-            if user.count() == 0: # if fbid not in db
-               request.session['approved_fb'] = True
-               return redirect('/netidauth/')
-            else: # if fbid in db already
-               request.session['logged_in'] = True
-               request.session['uid'] = user[0].pk
-               return redirect('/home/')
-      
+            #return HttpResponse('sup')
+            return redirect('/fbauth/')
+
       # Create an initial facebook authentication redirect url, a la 
       # https://developers.facebook.com/docs/authentication/server-side/
       facebookurl = 'https://www.facebook.com/dialog/oauth?'
@@ -145,6 +163,7 @@ def fbauth(request):
       facebookurl += fb_csrf
       
       return redirect(facebookurl)
-   
+
+   # this page should not be accessed through any method but GET
    else:
-      return HttpREsponse('something went wrawng')
+      return HttpResponse(status=405)
