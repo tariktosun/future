@@ -20,6 +20,8 @@ def renderHomepage(request):
    c = RequestContext(request, {'post_list':posts})
    return render_to_response('home.html', c)
 
+
+# Authenticate user's netid
 def netidauth(request):
    if request.method == 'POST':
       if netidapproved(request.POST.get('netid')):
@@ -43,9 +45,17 @@ def post(request):
         #             mentions = ()
                           )
         newPost.save()
-        return HttpResponse(newPost.text)
+        return renderHomepage(request) 
     else:
-        return HttpResponse('SOMETHING IS WRONG.')
+        return HttpResponse('Posting failed!')
+
+#delete a post:
+def deletePost(request):
+    if request.method == 'DELETEPOST':
+        #delete the post from the homepage
+        return renderHomepage(request)
+    else:
+        return HttpResponse('Post deletion failed!')
 
 def fbauth(request):
    # The url for this page, to be passed as a param to facebook for redirection
