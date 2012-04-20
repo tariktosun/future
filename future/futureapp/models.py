@@ -14,17 +14,17 @@ class User(models.Model):
     )
 
     netid = models.CharField(max_length=8, unique=True)
-    firstname = models.CharField("First Name", max_length=30)
-    lastname = models.CharField("Last Name", max_length=30)
-    year = models.IntegerField("Class Year", max_length=4, choices=CLASS_YEAR_CHOICES)
-    fbid = models.BigIntegerField("Facebook ID", unique=True)
-    authenticated = models.BooleanField("User Authenticated?")
-    authcode = models.CharField("Authentication Code", max_length=30)
-    admin = models.CharField("Administrator Title", max_length=4, choices=ADMIN_TITLE_CHOICES)
-
+    firstname = models.CharField("first name", max_length=30)
+    lastname = models.CharField("last name", max_length=30)
+    year = models.IntegerField("class year", max_length=4, choices=CLASS_YEAR_CHOICES)
+    fbid = models.BigIntegerField("facebook ID", unique=True)
+    authenticated = models.BooleanField("user authenticated?")
+    authcode = models.CharField("authentication code", max_length=30)
+    admin = models.CharField("administrator title", max_length=4, choices=ADMIN_TITLE_CHOICES)
+    pic = models.CharField("facebook profile picture URL", max_length=70,blank=True)
 
 class Tag(models.Model):
-    text = models.CharField("Tag text", max_length=15)
+    text = models.CharField("tag text", max_length=15)
 
 # post is a superclass for many kinds of things that are posted
 class Post(models.Model):
@@ -36,11 +36,11 @@ class Post(models.Model):
         
 # general purpose user post, with a title
 class UserPost(Post):
-    title = models.CharField("UserPost Title", max_length=80)
-    text = models.TextField("UserPost Text")
+    title = models.CharField("user post title", max_length=80)
+    text = models.TextField("user post text")
 
 # subordinate to other posts, no title
 class Comment(Post):
-    text = models.TextField("Comment Text")
-    parent = models.ForeignKey(Post, verbose_name="Parent Post", related_name="parent_post")
+    text = models.TextField("comment text")
+    parent = models.ForeignKey(Post, verbose_name="parent post", related_name="parent_post")
 
