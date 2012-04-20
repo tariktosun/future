@@ -8,56 +8,83 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<!-- script src="bootsrap-modal.js"></script> --> 
         <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
+        <script>
+        $(document).ready(function(){
+        	$('textarea').click(function(){
+        		$('textarea').css('height', '40px');
+        		$('.submitButton').css("visibility", "visible");
+        		$('#header').css("overflow", "auto");
+        		$('textarea').css("color", "black");
+        		$('textarea').attr("value", "");
+        		
+        	}); 
+        
+        
+        
+        });
+        
+        </script>
+        
+        
 </head>
 
 <body>	
+		
+		<div id="navigation">
+			<div id="top">
+			
+				<div class="smallItem">
+					Logout
+				</div>
+			
+				<div class="smallItem">
+				Directory
+				</div>
+		
+			
+		
+				<img src="/static/images/profpic.jpg" /> 
+				<div class="topName"> Peter Zakin </div>
+			</div>
+		</div>
+		
+		<div class="break">
+		
+		</div>
+
 	<div id="container">
-
-		<div id="top">
-			<img src="{{profpic}}" /> 
-			{{name}}
+		
 	
-		<div class="smallItem">
-		Directory
-		</div>
-
-		<div class="smallItem">
-			Logout
-		</div>
-	
-	</div>
 
 
 		
-		<div id="header">
-		<div id="right_top">
+	
+	
+		<div class="heading">
+			Feed
+		</div>
+		
+			<div id="header">
+	
 				
 				<form action="/post/" method="post">
                  {% csrf_token %}
-              		<textarea name="text"></textarea>
+              		<textarea name="text">Post new message</textarea>
 					<div></div>
 					<button class="submitButton">
 					POST
 					</button>
            		 </form>
 			</div>
-			
-			<img src="/static/images/profpic.jpg" />
-				
-			<div id="left_top">
-				Peter Zakin 
-
-			</div>
-		</div>
 		
 		{% for post in post_list %}
 		<div class="content-container">
             <!-- as of now, anyone can delete -->
             <form action="/deletePost/" method="post">
             {% csrf_token %}
-               <button class="submitButton">
+               <!--<button class="submitButton" style="visibility: hidden">
                delete
-               </button>
+               </button>-->
                <div class='post'>
 					<img src="{{post.picture}}" />
 					<div class="author">

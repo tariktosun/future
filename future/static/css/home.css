@@ -1,42 +1,85 @@
 body, html{
 	margin: 0 auto;
 	font-family: 'Helvetica Neue', Helvetica, Arial, default;
-		background: url('/static/images/linenbg.jpg');
+		#background: url('/static/images/linenbg.jpg');
 }
 
 textarea {
 
 	resize: none;
-	width: 350px;
-	height: 70px;
+	width: 410px;
+	height: 20px;
+	#float: left;
+	font-size:16px;
+	color: #ccc;
+	padding:10px;
+	margin: 0 auto;
+	display: inline;
+	overflow: auto;
 
 }
 
 
+
+.break{
+	height:80px;
+}
+
+#navigation{
+	background: black;
+	width:100%;
+	margin-bottom: 20px;
+	position:fixed;
+	overflow: none;
+}
+
 /*topnavbar*/
 #top{
-	background: black;
-	-moz-border-radius: 3px;
-	-webkit-border-radius:3px;
-	border: solid thin white;
+	#border: solid thin white;
 	color: white;
-	font-size:24px;
-	font-weight:600;
+	font-size:20px;
+	font-weight:400;
+	margin: 0 auto;
+	overflow: auto;
+	width: 900px;
+	margin-bottom: 2px;
 }
 
 #top img{
 	float: left;
-	max-width: 30px;
-	max-height: 30px;
+	max-width: 25px;
+	max-height: 25px;
 	padding:2px;
+	margin-left: 20px;
+	margin-top:4px;
+	margin-right:10px;
+	border: solid thin white;
+	-moz-border-radius: 1px;
+	-webkit-border-radius:1px;
+	margin-bottom:4px;
 	
 }
 
-.smallItem{
+.topName{
+	margin-top:10px;
+
+}
+
+.heading{
+	border-bottom: solid thin #ccc;
+	color: #424242;
+	font-size: 24px;
 	font-weight: 300;
-	font-size: 14px;
+	margin-bottom:10px;
+}
+
+
+.smallItem{
+	font-weight: 500;
+	font-size: 16px;
 	float: right;
-	margin-right: 4px;
+	margin-right: 20px;
+	margin-top:10px;
 }
 
 
@@ -45,24 +88,19 @@ textarea {
 #container
 {
 	margin: 0 auto;
-	width: 600px;
-	border: solid thin #ccc;
-		background: white;
+	width: 450px;
+	#border: solid thin #ccc;
+	background: white;
+	clear: both;
 }
 
-#navigation 
-{
-	height: 20px;
-	padding:4px;
-
-}
 
 #header
 {
-	min-height: 40px;
-	border-bottom: solid thin #ccc;
-	overflow: hidden;
-	
+	#border-bottom: solid thin #ccc;
+	border: solid thin #f2f2f2;
+	padding: 4px;
+	text-align: center;
 }
 
 
@@ -93,15 +131,15 @@ textarea {
 	margin-top:20px;
 }
 
-#navigation
-{
-	float: right;
-	background: black;
-}
 
 .content-container
 {
-	border-bottom: solid thin #ccc;
+	border: solid thin #ccc;
+	margin-top:20px;
+	box-shadow: 0 1px 1px rgba(34,25,25,0.4);
+	-moz-border-radius:1px;
+	-webkit-border-radius:1px;
+	
 }
 
 .content
@@ -144,6 +182,7 @@ textarea {
 	padding-bottom: 4px;
 	float: right;
 	text-align: center;
+	visibility: hidden;
 }
 
 
