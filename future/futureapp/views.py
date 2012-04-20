@@ -92,6 +92,7 @@ def fbauth(request):
             else:
                graph = GraphAPI(request.session['fb_token'])
                visitor_fbid = int(graph.get('me')['id'])
+               #return HttpResponse(str(visitor_fbid))
                user = User.objects.filter(fbid = visitor_fbid)
                if user.count() == 0: # if fbid not in db
                   request.session['approved_fb'] = True
