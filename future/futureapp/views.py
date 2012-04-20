@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 def renderHomepage(request):
    # check that user is logged in:
    if request.session.get('logged_in'):
-       posts = UserPost.objects.all();
+       posts = UserPost.objects.order_by('-time');
        c = RequestContext(request, {'post_list':posts,
                                 'uid':request.session['uid']})
        return render_to_response('home.html', c)
