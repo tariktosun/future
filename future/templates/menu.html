@@ -74,38 +74,41 @@
     <div id="header">
       
       
-      <form action="/post/" method="post">
+      <form action="/postMenu/" method="post">
                  {% csrf_token %}
 		 <textarea name="text">Post new message</textarea>
 		 <div></div>
 		 <button class="submitButton">
-		   POST
+		   POST NEW MENU
 		   </button>
 		  </form>
       </div>
     
-    {% for post in post_list %}
+    {% for menu in menu_list %}
     <div class="content-container">
-            <!-- as of now, anyone can delete -->
+            <!---
             <form action="/deletePost/" method="post">
             {% csrf_token %}
-            {% if post.author == curUser %}
+            {% if menu.author == curUser %}
                <button class="deleteButton">
                X
                </button>
              {% endif %}   
-               <input type="hidden" name="post" value={{ post.pk }} />
+             -->
+            <input type="hidden" name="postMenu" value={{ menu.pk }} />
             
-            <div class='post'>
-		 <img src={{post.author.pic}} />
-		 <div class="author">
-           {{ post.author.firstname }} {{ post.author.lastname }}
-		 </div>
-		 {{post.text}} 
+            <div class='menu'>
+		         <img src={{menu.author.pic}} />
+<!--
+         <div class="author">
+                  {{ post.author.firstname }} {{ post.author.lastname }}
+          </div>
+          -->
+		        {{menu.text}} 
 		 </div>
             </form>
-	    </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
     
     
     
