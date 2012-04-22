@@ -136,7 +136,10 @@ def deletePost(request):
         curUser = curUser[0]    #querydict
 
         id = request.POST['post']
-        p = UserPost.objects.get(pk = id)
+        p = UserPost.objects.filter(pk = id)
+        if p.count() == 0:      # if post does not exist... (catch double tap)
+            return renderHomepage(request)
+        p = p[0]    #p is queryset
         if p.author == curUser or curUser.admin == 'BAMF':
             p.delete()
             return renderHomepage(request)
