@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 def renderHomepage(request):
    # check that user is logged in:
    if request.session.get('logged_in'):
-       posts = UserPost.objects.order_by('-time');
+       posts = UserPost.objects.order_by('-time')
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
        c = RequestContext(request, {'post_list':posts,
@@ -41,16 +41,63 @@ def directory(request):
 # render the menu page:
 def renderMenu(request):
    if request.session.get('logged_in'):
+       # get curUser:
        members = User.objects.all();
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
-       c = RequestContext(request, {'member_list':members,
+       # get all menu posts:
+       menus = MenuPost.objects.order_by('-time')
+
+       c = RequestContext(request, {'menu_list':menus,
                                 'curUser':curUser})
        return render_to_response('menu.html', c)
    else:
        return redirect('/fbauth/')
- 
-# make a post.
+
+
+# ----      Menu Manipulation       ----#
+
+# make a new menu
+def postMenu(request):
+    if request.method == 'POST':
+        #get curuser
+        curAuthor = User.objects.filter(pk = request.session['uid'])
+        curAuthor = curAuthor[0]    #it's a querydict
+        # make new menu, save
+        newMenu = MenuPost(title = 'foo', #title=request.POST['title'],
+                     text = request.POST['text'],
+                     author = curAuthor,
+        #             tags = (),
+        #             mentions = ()
+                          )
+        newMenu.save()
+        return renderMenu(request) 
+    else:
+        # we need to change this to a more general-purpose error.
+        # Control flow reaches here if the user tries to go to the posting url
+        # without actually making a post.
+        return HttpResponse('Menu Posting failed!')
+
+#delete a menu:
+#def deleteMenu(request):
+#    if request.method == 'POST':
+#        #check author
+#        curUser = User.objects.filter(pk = request.session['uid'])
+#        curUser = curUser[0]    #querydict
+#        id = request.POST['post']
+#        p = UserPost.objects.get(pk = id)
+#        if p.author == curUser:
+#            p.delete()
+#            return renderHomepage(request)
+#        else:
+#            return HttpResponse('You may not delete a post you do not own.')
+#    else:
+#        return HttpResponse('Post deletion failed!')
+
+
+# ----      UserPost Manipulation       ----#
+
+# make a new UserPost.
 def post(request):
     if request.method == 'POST':
         curAuthor = User.objects.filter(pk = request.session['uid'])
@@ -69,7 +116,7 @@ def post(request):
         # without actually making a post.
         return HttpResponse('Posting failed!')
 
-#delete a post:
+#delete a UserPost:
 def deletePost(request):
     if request.method == 'POST':
         #check author
