@@ -39,6 +39,12 @@ class UserPost(Post):
     title = models.CharField("user post title", max_length=80)
     text = models.TextField("user post text")
 
+# A menu
+class Menu(Post):
+    title = models.CharField("user post title", max_length=80)
+    text = models.TextField("user post text")
+    # for now identical to UserPost.
+
 # subordinate to other posts, no title
 class Comment(Post):
     text = models.TextField("comment text")

@@ -15,6 +15,7 @@ urlpatterns = patterns('',
                        url(r'^fbauth/$',fbauth),
                        url(r'^netidauth/$',netidauth),
                        url(r'^directory/$',directory),
+                       url(r'^menu/$',renderMenu),
                        # Examples:
                            # url(r'^$', 'future.views.home', name='home'),
                        # url(r'^future/', include('future.foo.urls')),

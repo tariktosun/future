@@ -25,17 +25,7 @@ def renderHomepage(request):
        return render_to_response('home.html', c)
    else:
        return redirect('/fbauth/')
-
-# Authenticate user's netid
-def netidauth(request):
-    if request.method == 'POST':
-        if netidapproved(request.POST.get('netid')):
-            pass # send email
-        else:
-            pass  # render response: sorry, not a valid netid
-    #return redirect('/home/')
-    return render_to_response('enternetid.html', c)
-
+# renders the directory page
 def directory(request):
    if request.session.get('logged_in'):
        members = User.objects.all();
@@ -47,10 +37,18 @@ def directory(request):
    else:
        return redirect('/fbauth/')
    
-
-def netidapproved(netid):
-   return True
-
+# render the menu page:
+def renderMenu(request):
+   if request.session.get('logged_in'):
+       members = User.objects.all();
+       curUser = User.objects.filter(pk = request.session['uid'])
+       curUser = curUser[0]    #querydict
+       c = RequestContext(request, {'member_list':members,
+                                'curUser':curUser})
+       return render_to_response('menu.html', c)
+   else:
+       return redirect('/fbauth/')
+ 
 # make a post.
 def post(request):
     if request.method == 'POST':
@@ -86,6 +84,25 @@ def deletePost(request):
     else:
         return HttpResponse('Post deletion failed!')
 
+# ----      Authentication       ---- #
+
+# Authenticate user's netid
+def netidauth(request):
+    if request.method == 'POST':
+        if netidapproved(request.POST.get('netid')):
+            pass # send email
+        else:
+            pass  # render response: sorry, not a valid netid
+    #return redirect('/home/')
+    return render_to_response('enternetid.html', c)
+
+# check netid against whitelist.
+def netidapproved(netid):
+   return True
+
+
+
+# does facebook authentication.
 def fbauth(request):
    # The url for this page, to be passed as a param to facebook for redirection
    facebookredirect = settings.BASE_URI + 'fbauth/'
