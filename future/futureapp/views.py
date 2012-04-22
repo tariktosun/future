@@ -25,6 +25,7 @@ def renderHomepage(request):
        return render_to_response('home.html', c)
    else:
        return redirect('/fbauth/')
+   
 # renders the directory page
 def directory(request):
    if request.session.get('logged_in'):
@@ -87,20 +88,29 @@ def deletePost(request):
 # ----      Authentication       ---- #
 
 # Authenticate user's netid
-def netidauth(request):
-    if request.method == 'POST':
-        if netidapproved(request.POST.get('netid')):
-            pass # send email
-        else:
-            pass  # render response: sorry, not a valid netid
-    #return redirect('/home/')
-    return render_to_response('enternetid.html', c)
-
-# check netid against whitelist.
-def netidapproved(netid):
-   return True
-
-
+def signup(request):
+    
+   # this page should not be accessed by any method other than GET
+   if request.method != 'GET':
+       return HttpResponse(status=405)
+       
+   requestnetid = request.GET.get('netid', ''))
+   if requestnetid == '': # Http GET request has no netid parameter
+      return HttpResponse('not a valid signup request')
+       
+   signup_user = User.objects.filter(netid = requestnetid)
+   if signup_user.count() == 0: # netid not found in database
+      return HttpResponse('netid not approved for signup')
+        
+   signup_user = signup_user[0]
+   if signup_user.authenticated == True:
+      return HttpResponse('netid already authenticated')
+   
+   # provided code does not match code in database or parameter is empty
+   if request.GET.get('code', '') != signup_user.authcode:
+      return HttpResponse('Please check that signup link is correct, contains incorrect authentication code')
+   
+   return HttpResponse('OH YEAHHHHH!')
 
 # does facebook authentication.
 def fbauth(request):
