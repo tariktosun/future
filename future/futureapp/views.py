@@ -21,7 +21,7 @@ def renderHomepage(request):
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
        c = RequestContext(request, {'post_list':posts,
-                                'curUser':curUser})
+               'curUser':curUser,})
        return render_to_response('home.html', c)
    else:
        return redirect('/fbauth/')
@@ -46,11 +46,17 @@ def renderMenu(request):
        members = User.objects.all();
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
+       # determine post access:
+       a = curUser.admin
+       if(a == u'FC' or a == u'BAMF'):
+           postPerm = True;
+       else:
+           postPerm = False;
        # get all menu posts:
        menus = MenuPost.objects.order_by('-time')
 
        c = RequestContext(request, {'menu_list':menus,
-                                'curUser':curUser})
+               'curUser':curUser, 'postPerm':postPerm})
        return render_to_response('menu.html', c)
    else:
        return redirect('/fbauth/')
@@ -64,15 +70,19 @@ def postMenu(request):
         #get curuser
         curAuthor = User.objects.filter(pk = request.session['uid'])
         curAuthor = curAuthor[0]    #it's a querydict
-        # make new menu, save
-        newMenu = MenuPost(title = 'foo', #title=request.POST['title'],
-                     text = request.POST['text'],
-                     author = curAuthor,
-        #             tags = (),
-        #             mentions = ()
-                          )
-        newMenu.save()
-        return renderMenu(request) 
+        # check permissions
+        a = curAuthor.admin
+        if(a == u'FC' or a == u'BAMF'):
+            newMenu = MenuPost(title = 'foo', #title=request.POST['title'],
+                               text = request.POST['text'],
+                               author = curAuthor,
+                 #             tags = (),
+                 #             mentions = ()
+                                             )
+            newMenu.save()
+            return renderMenu(request) 
+        else:
+            return HttpResponse('You do not have permission to post menus.') 
     else:
         # we need to change this to a more general-purpose error.
         # Control flow reaches here if the user tries to go to the posting url
@@ -80,20 +90,22 @@ def postMenu(request):
         return HttpResponse('Menu Posting failed!')
 
 #delete a menu:
-#def deleteMenu(request):
-#    if request.method == 'POST':
-#        #check author
-#        curUser = User.objects.filter(pk = request.session['uid'])
-#        curUser = curUser[0]    #querydict
-#        id = request.POST['post']
-#        p = UserPost.objects.get(pk = id)
-#        if p.author == curUser:
-#            p.delete()
-#            return renderHomepage(request)
-#        else:
-#            return HttpResponse('You may not delete a post you do not own.')
-#    else:
-#        return HttpResponse('Post deletion failed!')
+def deleteMenu(request):
+    if request.method == 'POST':
+        #check author
+        curUser = User.objects.filter(pk = request.session['uid'])
+        curUser = curUser[0]    #querydict
+        # check permissions
+        a = curUser.admin
+        if(a == u'FC' or a == u'BAMF'):
+            id = request.POST['postMenu']
+            p = MenuPost.objects.get(pk = id)
+            p.delete()
+            return renderMenu(request)
+        else:
+            return HttpResponse('You do not have permission to delete menus.') 
+    else:
+        return HttpResponse('Menu deletion failed!')
 
 
 # ----      UserPost Manipulation       ----#
@@ -123,9 +135,13 @@ def deletePost(request):
         #check author
         curUser = User.objects.filter(pk = request.session['uid'])
         curUser = curUser[0]    #querydict
+
         id = request.POST['post']
-        p = UserPost.objects.get(pk = id)
-        if p.author == curUser:
+        p = UserPost.objects.filter(pk = id)
+        if p.count() == 0:      # if post does not exist... (catch double tap)
+            return renderHomepage(request)
+        p = p[0]    #p is queryset
+        if p.author == curUser or curUser.admin == 'BAMF':
             p.delete()
             return renderHomepage(request)
         else:
@@ -157,8 +173,18 @@ def signup(request):
    # provided code does not match code in database or parameter is empty
    if request.GET.get('code', '') != signup_user.authcode:
       return HttpResponse('Please check that signup link is correct, contains incorrect authentication code')
-   
-   return HttpResponse('OH YEAHHHHH!')
+
+
+   # make necessary changes in database
+   signup_user.authenticated = True
+   signup_user.save()
+  
+   c = RequestContext(request, {'curUser':signup_user})
+   return render_to_response('fbsignup.html', c)
+
+def logout(request):
+   request.session.flush()
+   return render_to_response('splash.html')
 
 # does facebook authentication.
 def fbauth(request):

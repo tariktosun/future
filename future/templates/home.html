@@ -89,7 +89,7 @@
             <!-- as of now, anyone can delete -->
             <form action="/deletePost/" method="post">
             {% csrf_token %}
-            {% if post.author == curUser %}
+            {% if post.author == curUser or curUser.admin == 'BAMF'%}
                <button class="deleteButton">
                X
                </button>
