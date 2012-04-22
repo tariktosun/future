@@ -172,8 +172,18 @@ def signup(request):
    # provided code does not match code in database or parameter is empty
    if request.GET.get('code', '') != signup_user.authcode:
       return HttpResponse('Please check that signup link is correct, contains incorrect authentication code')
-   
-   return HttpResponse('OH YEAHHHHH!')
+
+
+   # make necessary changes in database
+   signup_user.authenticated = True
+   signup_user.save()
+  
+   c = RequestContext(request, {'curUser':signup_user})
+   return render_to_response('fbsignup.html', c)
+
+def logout(request):
+   request.session.flush()
+   return render_to_response('splash.html')
 
 # does facebook authentication.
 def fbauth(request):
