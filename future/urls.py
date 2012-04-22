@@ -8,6 +8,7 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+                       url(r'^splash/$','django.views.generic.simple.direct_to_template', {'template': 'splash.html'}),
                        url(r'^post/$',post),
                        url(r'^deletePost/$',deletePost),
                        url(r'^home/$',renderHomepage),

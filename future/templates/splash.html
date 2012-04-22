@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <!-- script src="bootsrap-modal.js"></script> --> 
+        <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/splash.css" />
+        <script>
+        $(document).ready(function(){
+			$('textarea').click(function(){
+				$('textarea').css('height', '40px');
+				$('.submitButton').css("visibility", "visible");
+				$('#header').css("overflow", "auto");
+				$('textarea').css("color", "black");
+				$('textarea').attr("value", "");
+				
+			}); 
+        
+			$('.content-container').click(function(){
+				$(this > '.deleteButton').css("visibility", "visible");
+			
+			
+			});
+        
+        
+        });
+        
+        
+        
+        </script>
+        
+        
+</head>
+
+<body>
+  
+ <!-- <div id="navigation">
+    <div id="top">
+      
+      <div class="smallItem">
+	Logout
+	</div>
+      
+      <div class="smallItem">
+	Directory
+	</div>
+      
+      
+      
+      <img src= {{curUser.pic}} /> 
+      <div class="topName"> {{ curUser.firstname}} {{ curUser.lastname }}</div>
+      </div>
+    </div>-->
+
+  <div id="navigation">
+  	<div class="splashTop">
+  		Web F. Site
+  	
+  	</div>
+  </div>
+
+
+    
+    
+
+
+    
+    
+    
+    
+		<div class="facebookLogin">
+			<button class="fbLogin">
+				f | Login With Facebook Mothafuckah
+			</button>
+		</div>
+    
+    
+    
+    
+</body>
+</html>

@@ -37,6 +37,7 @@ def directory(request):
        return render_to_response('directory.html', c)
    else:
        return redirect('/fbauth/')
+
    
 # render the menu page:
 def renderMenu(request):
