@@ -141,7 +141,7 @@ def signup(request):
    if request.method != 'GET':
        return HttpResponse(status=405)
        
-   requestnetid = request.GET.get('netid', ''))
+   requestnetid = request.GET.get('netid', '')
    if requestnetid == '': # Http GET request has no netid parameter
       return HttpResponse('not a valid signup request')
        
