@@ -21,7 +21,7 @@ def renderHomepage(request):
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
        c = RequestContext(request, {'post_list':posts,
-                                'curUser':curUser})
+               'curUser':curUser,})
        return render_to_response('home.html', c)
    else:
        return redirect('/fbauth/')
@@ -134,9 +134,10 @@ def deletePost(request):
         #check author
         curUser = User.objects.filter(pk = request.session['uid'])
         curUser = curUser[0]    #querydict
+
         id = request.POST['post']
         p = UserPost.objects.get(pk = id)
-        if p.author == curUser:
+        if p.author == curUser or curUser.admin == 'BAMF':
             p.delete()
             return renderHomepage(request)
         else:
