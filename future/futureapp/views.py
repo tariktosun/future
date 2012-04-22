@@ -45,11 +45,17 @@ def renderMenu(request):
        members = User.objects.all();
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
+       # determine post access:
+       a = curUser.admin
+       if(a == u'FC' or a == u'BAMF'):
+           postPerm = True;
+       else:
+           postPerm = False;
        # get all menu posts:
        menus = MenuPost.objects.order_by('-time')
 
        c = RequestContext(request, {'menu_list':menus,
-                                'curUser':curUser})
+               'curUser':curUser, 'postPerm':postPerm})
        return render_to_response('menu.html', c)
    else:
        return redirect('/fbauth/')
@@ -63,15 +69,19 @@ def postMenu(request):
         #get curuser
         curAuthor = User.objects.filter(pk = request.session['uid'])
         curAuthor = curAuthor[0]    #it's a querydict
-        # make new menu, save
-        newMenu = MenuPost(title = 'foo', #title=request.POST['title'],
-                     text = request.POST['text'],
-                     author = curAuthor,
-        #             tags = (),
-        #             mentions = ()
-                          )
-        newMenu.save()
-        return renderMenu(request) 
+        # check permissions
+        a = curAuthor.admin
+        if(a == u'FC' or a == u'BAMF'):
+            newMenu = MenuPost(title = 'foo', #title=request.POST['title'],
+                               text = request.POST['text'],
+                               author = curAuthor,
+                 #             tags = (),
+                 #             mentions = ()
+                                             )
+            newMenu.save()
+            return renderMenu(request) 
+        else:
+            return HttpResponse('You do not have permission to post menus.') 
     else:
         # we need to change this to a more general-purpose error.
         # Control flow reaches here if the user tries to go to the posting url
@@ -79,20 +89,22 @@ def postMenu(request):
         return HttpResponse('Menu Posting failed!')
 
 #delete a menu:
-#def deleteMenu(request):
-#    if request.method == 'POST':
-#        #check author
-#        curUser = User.objects.filter(pk = request.session['uid'])
-#        curUser = curUser[0]    #querydict
-#        id = request.POST['post']
-#        p = UserPost.objects.get(pk = id)
-#        if p.author == curUser:
-#            p.delete()
-#            return renderHomepage(request)
-#        else:
-#            return HttpResponse('You may not delete a post you do not own.')
-#    else:
-#        return HttpResponse('Post deletion failed!')
+def deleteMenu(request):
+    if request.method == 'POST':
+        #check author
+        curUser = User.objects.filter(pk = request.session['uid'])
+        curUser = curUser[0]    #querydict
+        # check permissions
+        a = curUser.admin
+        if(a == u'FC' or a == u'BAMF'):
+            id = request.POST['postMenu']
+            p = MenuPost.objects.get(pk = id)
+            p.delete()
+            return renderMenu(request)
+        else:
+            return HttpResponse('You do not have permission to delete menus.') 
+    else:
+        return HttpResponse('Menu deletion failed!')
 
 
 # ----      UserPost Manipulation       ----#

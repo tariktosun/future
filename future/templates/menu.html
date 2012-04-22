@@ -61,40 +61,32 @@
 
   <div id="container">
     
-    
-
-
-    
-    
-    
     <div class="heading">
       Menu 
       </div>
     
+    {% if postPerm %}  
     <div id="header">
-      
-      
       <form action="/postMenu/" method="post">
                  {% csrf_token %}
-		 <textarea name="text">Post new message</textarea>
+		 <textarea name="text">Post New Menu</textarea>
 		 <div></div>
 		 <button class="submitButton">
 		   POST NEW MENU
 		   </button>
 		  </form>
-      </div>
+     </div>
+     {% endif %}
     
     {% for menu in menu_list %}
     <div class="content-container">
-            <!---
-            <form action="/deletePost/" method="post">
+            <form action="/deleteMenu/" method="post">
             {% csrf_token %}
-            {% if menu.author == curUser %}
+            {% if postPerm %}
                <button class="deleteButton">
                X
                </button>
-             {% endif %}   
-             -->
+            {% endif %}   
             <input type="hidden" name="postMenu" value={{ menu.pk }} />
             
             <div class='menu'>

@@ -16,6 +16,7 @@ urlpatterns = patterns('',
                        url(r'^directory/$',directory),
                        url(r'^menu/$',renderMenu),
                        url(r'^postMenu/$',postMenu),
+                       url(r'^deleteMenu/$',deleteMenu),
                        #url(r'^home/$', 'django.views.generic.simple.direct_to_template', {'template': 'future/static2.html'})
                        # Examples:
                            # url(r'^$', 'future.views.home', name='home'),
