@@ -31,8 +31,11 @@ textarea {
 	float: right;
 	clear: both;
 	background: none;
+        display: inline;
 	#visibility: hidden;
-
+        position: relative;
+        left:14px;
+        bottom:12px;
 }
 
 
@@ -85,6 +88,7 @@ textarea {
 	color: #424242;
 	font-size: 24px;
 	font-weight: 300;
+        clear:left;
 	margin-bottom:10px;
 }
 
@@ -116,6 +120,7 @@ textarea {
 	border: solid thin #f2f2f2;
 	padding: 4px;
 	text-align: center;
+        overflow: auto;
 }
 
 
@@ -197,31 +202,57 @@ textarea {
 	padding-bottom: 4px;
 	float: right;
 	text-align: center;
-	visibility: hidden;
+        display: none;
 }
 
 
 /*posts */
 .post{
 	max-width: 600px;
+        min-height: 52px;
 	color: #424242;
 	clear: both;
-	overflow: auto;
-	margin: 20px;
+	overflow: visible;
+	margin: 15px;
 }
 
 .post img{
 	border: solid thin white;
-	max-width: 80px;
-	max-height: 80px;
 	float: left;
-	margin-right: 20px;
-	margin-left: 10px;
+	margin-right: 10px;
+/*	margin-right: 20px;
+	margin-left: 10px;*/
 }
 
 .author{
 	font-weight: 600;
 	font-size: 18px;
 	//text-decoration: underline;
+}
 
+.posttext{
+        float: left;
+        width: 356px;
+        word-wrap: break-word;
+}
+
+.clear { 
+        clear: both;
+}
+
+.menu {
+        max-width: 600px;
+        color: #424242;
+        clear: both;
+        overflow: visible;
+        margin: 15px;
+}
+.netidform {
+	width: 396px;
+}
+.firstform {
+	width: 396px;
+}
+.lastform {
+	width: 396px;
 }

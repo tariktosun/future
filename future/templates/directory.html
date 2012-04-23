@@ -53,114 +53,43 @@
     
     
     <div class="heading">
-      Terrace Member Face F. Book
+      Sophomores
       </div>
-    
+
+    {% for user in sophomore_list %}
 	<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
+	      <img src= {{user.largepic}} /> 
 	      <div class="memberName">
-	      	Peter Zakin
+	      	{{user.firstname}} {{user.lastname}}
 	      </div>
 	</div>
-	
+        {% endfor %}
+
+    <div class="heading">
+      Juniors
+      </div>
+
+    {% for user in junior_list %}
 	<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
+	      <img src= {{user.largepic}} /> 
 	      <div class="memberName">
-	      	Peter Zakin
+	      	{{user.firstname}} {{user.lastname}}
 	      </div>
 	</div>
-	
+        {% endfor %}
+
+    <div class="heading">
+      Seniors
+      </div>
+
+    {% for user in senior_list %}
 	<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
+	      <img src= {{user.largepic}} /> 
 	      <div class="memberName">
-	      	Peter Zakin
+	      	{{user.firstname}} {{user.lastname}}
 	      </div>
 	</div>
-	
-	<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
-	      <div class="memberName">
-	      	Peter Zakin
-	      </div>
-	</div>
-	
-	<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
-	      <div class="memberName">
-	      	Peter Zakin
-	      </div>
-	</div>
-	
-		<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
-	      <div class="memberName">
-	      	Peter Zakin
-	      </div>
-	</div>
-	
-	<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
-	      <div class="memberName">
-	      	Peter Zakin
-	      </div>
-	</div>
-	
-	<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
-	      <div class="memberName">
-	      	Peter Zakin
-	      </div>
-	</div>
-	
-	<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
-	      <div class="memberName">
-	      	Peter Zakin
-	      </div>
-	</div>
-	
-	<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
-	      <div class="memberName">
-	      	Peter Zakin
-	      </div>
-	</div>
-	
-	<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
-	      <div class="memberName">
-	      	Peter Zakin
-	      </div>
-	</div>
-	
-		<div class="member">
-	      <img src="/static/images/profpic.jpg" /> 
-	      <div class="memberName">
-	      	Peter Zakin
-	      </div>
-	</div>
-    
-    {% for post in post_list %}
-    <div class="content-container">
-            <!-- as of now, anyone can delete -->
-            <form action="/deletePost/" method="post">
-            {% csrf_token %}
-               <button class="deleteButton">
-               X
-               </button>
-               
-               <input type="hidden" name="post" value={{ post.pk }} />
-            
-            <div class='post'>
-		 <img src="{{post.picture}}" />
-		 <div class="author">
-		   Peter Zakin
-		   </div>
-		 {{post.text}} 
-		 </div>
-            </form>
-	    </div>
-    {% endfor %}
+        {% endfor %}
     
     
     

@@ -10,15 +10,23 @@
         <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
         <script>
         $(document).ready(function(){
-			$('textarea').click(function(){
-				$('textarea').css('height', '40px');
-				$('.submitButton').css("visibility", "visible");
-				$('#header').css("overflow", "auto");
-				$('textarea').css("color", "black");
-				$('textarea').attr("value", "");
-				
-			}); 
         
+        $('textarea').focus(function(){
+        if (this.value == "Post new menu") {
+        $('textarea').css("height", "40px");
+        $('.submitButton').css("display", "inline");
+        $('textarea').css("color", "black");
+        $('textarea').attr("value", "");
+        }
+        });
+        $('textarea').blur(function(){
+        if (this.value == "") {
+        $('textarea').css("height", "20px");
+        $('.submitButton').css("display", "none");
+        $('textarea').css("color", "#ccc");
+        $('textarea').attr("value", "Post new menu");
+        }
+        });        
 			$('.content-container').click(function(){
 				$(this > '.deleteButton').css("visibility", "visible");
 			
@@ -69,7 +77,7 @@
     <div id="header">
       <form action="/postMenu/" method="post">
                  {% csrf_token %}
-		 <textarea name="text">Post New Menu</textarea>
+		 <textarea name="text">Post new menu</textarea>
 		 <div></div>
 		 <button class="submitButton">
 		   POST NEW MENU
@@ -80,6 +88,7 @@
     
     {% for menu in menu_list %}
     <div class="content-container">
+            <div class='menu'>
             <form action="/deleteMenu/" method="post">
             {% csrf_token %}
             {% if postPerm %}
@@ -89,14 +98,13 @@
             {% endif %}   
             <input type="hidden" name="postMenu" value={{ menu.pk }} />
             
-            <div class='menu'>
-		         <img src={{menu.author.pic}} />
+<!--		         <img src={{menu.author.pic}} /> -->
 <!--
          <div class="author">
                   {{ post.author.firstname }} {{ post.author.lastname }}
           </div>
           -->
-		        {{menu.text}} 
+		        {{menu.text|linebreaksbr}} 
 		 </div>
             </form>
   </div>

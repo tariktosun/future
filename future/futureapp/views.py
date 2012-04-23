@@ -11,7 +11,16 @@ from random import choice
 import requests
 from facepy import GraphAPI
 from datetime import datetime, timedelta
+import smtplib
+from email.utils import formatdate
 # Create your views here.
+
+# Drop page: either render splash or homepage
+def drop(request):
+   if request.session.get('logged_in'):
+      return renderHomepage(request)
+   else:
+      return render_to_response('splash.html')
 
 # Render homepage with posts from DB:
 def renderHomepage(request):
@@ -32,7 +41,14 @@ def directory(request):
        members = User.objects.all();
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
-       c = RequestContext(request, {'member_list':members,
+
+       sophomores = User.objects.filter(year='2014')
+       juniors = User.objects.filter(year='2013')
+       seniors = User.objects.filter(year='2012')
+       
+       c = RequestContext(request, {'sophmore_list':sophomores,
+                                    'junior_list':juniors,
+                                    'senior_list':seniors,
                                 'curUser':curUser})
        return render_to_response('directory.html', c)
    else:
@@ -175,21 +191,92 @@ def signup(request):
       return HttpResponse('Please check that signup link is correct, contains incorrect authentication code')
 
 
-   # make necessary changes in database
+   # make necessary changes in database and session
    signup_user.authenticated = True
    signup_user.save()
+   request.session['authuser'] = signup_user;
   
    c = RequestContext(request, {'curUser':signup_user})
-   return render_to_response('fbsignup.html', c)
+   return render_to_response('splash.html')
+   #TODO: make a welcome page for the newbies
+   #return render_to_response('fbsignup.html', c)
 
 def logout(request):
    request.session.flush()
    return render_to_response('splash.html')
 
+def createuser(request):
+   if request.method != 'POST':
+      return HttpResponse(status=405)
+   if not request.session.get('logged_in', False):
+      return redirect('/fbauth/')
+   curUser = User.objects.filter(pk = request.session['uid'])[0]
+   if curUser.admin != 'BAMF': #TODO: may need to make this officers eventually
+      return HttpResponse('Only administrators may create new users')
+   
+   if request.POST.get('admin', '') == 'BAMF':
+      return HttpResponse('Get real, son')
+
+   new_netid = request.POST.get('netid', '')
+   new_firstname = request.POST.get('firstname', '')
+   new_lastname = request.POST.get('lastname', '')
+   new_year = request.POST.get('year', '')
+   new_authcode = "".join([choice(string.letters+string.digits) for x in range(1, 40)])
+   new_admin = request.POST.get('admin', '')
+   
+#   try:
+   User.objects.create(
+      netid = new_netid,
+      firstname = new_firstname,
+      lastname = new_lastname,
+      year = new_year,
+      authenticated = False,
+      authcode = new_authcode,
+      admin = new_admin
+      )
+ #  except:
+ #    return HttpResponse('User could not be created')
+   link = settings.BASE_URI
+   link += 'signup?netid=' + new_netid
+   link += '&authcode=' + new_authcode
+   target_email = new_netid + '@princeton.edu'
+   subject = 'Web F. Site Registration'
+   message = 'Dear ' + new_firstname + ''',
+
+You have been selected to help create the future of our dear mother on the webbernets.
+
+Your mission, should you choose to accept it, is to visit the link below
+
+'''
+   message += link
+   mime = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (
+                            settings.EMAIL_HOST_USER,
+                            target_email,
+                            subject,
+                            formatdate(), message)
+   gmail = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
+   gmail.ehlo()
+   gmail.starttls()
+   gmail.ehlo()
+   gmail.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+   gmail.sendmail(settings.EMAIL_HOST_USER, target_email, mime)
+   gmail.close()
+   return newuser(request)
+
+def newuser(request):
+   if not request.session.get('logged_in', False):
+       return redirect('/fbauth/')
+   curUser = User.objects.filter(pk = request.session['uid'])[0]
+   if curUser.admin != 'BAMF': #TODO: may need to make this officers eventually
+      return HttpResponse('Only administrators may create new users')
+   c = RequestContext(request, {'curUser':curUser,})
+   return render_to_response('newuser.html', c)
+
+
 # does facebook authentication.
 def fbauth(request):
    # The url for this page, to be passed as a param to facebook for redirection
-   facebookredirect = settings.BASE_URI + 'fbauth/'
+   facebookredirect =  settings.BASE_URI+ 'fbauth/'
    facebookredirect = quote(facebookredirect, '')
    
    # if the incoming request is a redirect from facebook with a code
@@ -215,15 +302,22 @@ def fbauth(request):
                #return HttpResponse(str(visitor_fbid))
                this_user = User.objects.filter(fbid = visitor_fbid)
                if this_user.count() == 0: # if fbid not in db
-                  request.session['approved_fb'] = True
-                  return redirect('/netidauth/')
-               else: # if fbid in db already
-                  this_user = this_user[0]
-                  this_user.pic = 'https://graph.facebook.com/' + str(visitor_fbid) + '/picture?type=square'
-                  this_user.save()
-                  request.session['logged_in'] = True
-                  request.session['uid'] = this_user.pk
-                  return renderHomepage(request)
+                  # if user just signed up
+                  new_netid = request.session.get('authuser', '')
+                  if new_netid != '':
+                     new_user = User.objects.filter(netid=new_netid)
+                     new_user[0].fbid = visitor_fbid
+                     new_user[0].pic = 'https://graph.facebook.com/' + str(visitor_fbid) + '/picture?type=square'
+                     new_user[0].largepic = 'https://graph.facebook.com/' + str(visitor_fbid) + '/picture?type=large'
+                     new_user[0].save()
+                     this_user = new_user
+                  else:
+                     return HttpResponse('You are not authorized to use this site')
+               # TODO: make a welcome page and rejection page  
+               this_user = this_user[0]
+               request.session['logged_in'] = True
+               request.session['uid'] = this_user.pk
+               return renderHomepage(request)
       
       # if this is a response from facebook with a code to grab a csrf token
       if request.GET.get('code', '') != '' and request.session['fb_csrf']:

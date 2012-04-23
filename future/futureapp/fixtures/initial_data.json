@@ -10,35 +10,25 @@
       "fbid": "1236870289",
       "authenticated": "True",
       "authcode": "hello, world!",
-      "admin": "BAMF"
+      "admin": "BAMF",
+      "pic": "https://graph.facebook.com/1236870289/picture?type=square",
+      "largepic": "https://graph.facebook.com/1236870289/picture?type=large"
     }
   },
   {
     "model": "futureapp.User",
     "pk": 2,
     "fields": {
-      "netid": "ttosun",
-      "firstname": "Tarik",
-      "lastname": "Tosun",
-      "year": "2012",
-      "fbid": "1090920191",
-      "authenticated": "True",
-      "authcode": "hello, world!",
-      "admin": "BAMF"
-    }
-  },
-  {
-    "model": "futureapp.User",
-    "pk": 3,
-    "fields": {
       "netid": "pzakin",
       "firstname": "Peter",
       "lastname": "Zakin",
-      "year": "2013",
+      "year": "2012",
       "fbid": "1380180326",
       "authenticated": "True",
       "authcode": "hello, world!",
-      "admin": "BAMF"
+      "admin": "BAMF",
+      "pic": "https://graph.facebook.com/1380180326/picture?type=square",
+      "largepic": "https://graph.facebook.com/1380180326/picture?type=large"
     }
   }
 ]

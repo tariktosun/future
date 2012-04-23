@@ -26,6 +26,13 @@ FACEBOOK_APP_ID              = getenv('FUTURE_FB_KEY')
 FACEBOOK_API_SECRET          = getenv('FUTURE_FB_SECRET')
 BASE_URI                     = 'http://localhost:5000/'
 
+# Setup outgoing email settings
+EMAIL_USER_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'webfsite@gmail.com'
+EMAIL_HOST_PASSWORD = getenv('FUTURE_EMAIL_PASS')
+EMAIL_PORT = 587
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.

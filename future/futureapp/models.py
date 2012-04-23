@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 class User(models.Model):
     CLASS_YEAR_CHOICES = ( 
@@ -17,11 +18,12 @@ class User(models.Model):
     firstname = models.CharField("first name", max_length=30)
     lastname = models.CharField("last name", max_length=30)
     year = models.IntegerField("class year", max_length=4, choices=CLASS_YEAR_CHOICES)
-    fbid = models.BigIntegerField("facebook ID", unique=True)
+    fbid = models.BigIntegerField("facebook ID",unique=True,null=True)
     authenticated = models.BooleanField("user authenticated?")
     authcode = models.CharField("authentication code", max_length=30)
     admin = models.CharField("administrator title", max_length=4, choices=ADMIN_TITLE_CHOICES)
     pic = models.CharField("facebook profile picture URL", max_length=70,blank=True)
+    largepic = models.CharField("large facebook profile picture URL", max_length=70,blank=True)
 
 class Tag(models.Model):
     text = models.CharField("tag text", max_length=15)
