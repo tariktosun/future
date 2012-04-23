@@ -187,7 +187,7 @@ def signup(request):
       return HttpResponse('netid already authenticated')
    
    # provided code does not match code in database or parameter is empty
-   if request.GET.get('code', '') != signup_user.authcode:
+   if request.GET.get('authcode', '') != signup_user.authcode:
       return HttpResponse('Please check that signup link is correct, contains incorrect authentication code')
 
 
@@ -303,18 +303,18 @@ def fbauth(request):
                this_user = User.objects.filter(fbid = visitor_fbid)
                if this_user.count() == 0: # if fbid not in db
                   # if user just signed up
-                  new_netid = request.session.get('authuser', '')
-                  if new_netid != '':
-                     new_user = User.objects.filter(netid=new_netid)
-                     new_user[0].fbid = visitor_fbid
-                     new_user[0].pic = 'https://graph.facebook.com/' + str(visitor_fbid) + '/picture?type=square'
-                     new_user[0].largepic = 'https://graph.facebook.com/' + str(visitor_fbid) + '/picture?type=large'
-                     new_user[0].save()
+                  new_user = request.session.get('authuser', '')
+                  if new_user != '':
+                     new_user.fbid = visitor_fbid
+                     new_user.pic = 'https://graph.facebook.com/' + str(visitor_fbid) + '/picture?type=square'
+                     new_user.largepic = 'https://graph.facebook.com/' + str(visitor_fbid) + '/picture?type=large'
+                     new_user.save()
                      this_user = new_user
                   else:
                      return HttpResponse('You are not authorized to use this site')
                # TODO: make a welcome page and rejection page  
-               this_user = this_user[0]
+               else:
+                  this_user = this_user[0]
                request.session['logged_in'] = True
                request.session['uid'] = this_user.pk
                return renderHomepage(request)

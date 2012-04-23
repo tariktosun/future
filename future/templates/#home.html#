@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <!-- script src="bootsrap-modal.js"></script> --> 
+        <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
+        <script>
+        $(document).ready(function(){
+ 
+        $('textarea').focus(function(){
+        if (this.value == "Post new message") {
+        $('textarea').css("height", "40px");
+        $('.submitButton').css("display", "inline");
+        $('textarea').css("color", "black");
+        $('textarea').attr("value", "");
+        }
+        });
+        $('textarea').blur(function(){
+        if (this.value == "") {
+        $('textarea').css("height", "20px");
+        $('.submitButton').css("display", "none");
+        $('textarea').css("color", "#ccc");
+        $('textarea').attr("value", "Post new message");
+        }
+        });
+
+                        $('.default-value').each(function() {
+                                var default_value = this.value;
+                                $(this).focus(function() {
+                                         if(this.value == default_value) {
+                                                 this.value = '';
+                                         }
+                                });
+                                $(this).blur(function() {
+                                         if(this.value == '') {
+                                                 this.value = default_value;
+                                         }
+                                });
+                        }); 
+			$('.content-container').click(function(){
+				$(this > '.deleteButton').css("visibility", "visible");
+			
+			
+			});
+        
+        
+        });
+        
+        
+        
+        </script>
+        
+        
+</head>
+
+<body>
+  
+ <!-- <div id="navigation">
+    <div id="top">
+      
+      <div class="smallItem">
+	Logout
+	</div>
+      
+      <div class="smallItem">
+	Directory
+	</div>
+      
+      
+      
+      <img src= {{curUser.pic}} /> 
+      <div class="topName"> {{ curUser.firstname}} {{ curUser.lastname }}</div>
+      </div>
+    </div>-->
+  {% include 'nav.html' %}
+  <div class="break">
+    
+    </div>
+
+  <div id="container">
+    
+    
+
+
+    
+    
+    
+    <div class="heading">
+      Feed
+      </div>
+    
+    <div id="header">
+      
+      
+      <form action="/post/" method="post">
+                 {% csrf_token %}
+		 <textarea name="text">Post new message</textarea>
+		 <button class="submitButton">
+		   POST
+		   </button>
+		  </form>
+      </div>
+    
+    {% for post in post_list %}
+    <div class="content-container">
+      <div class='post'>
+        <form action="/deletePost/" method="post">
+          {% csrf_token %}
+          {% if post.author == curUser or curUser.admin == 'BAMF'%}
+          <button class="deleteButton">
+            X
+          </button>
+          {% endif %}   
+          <input type="hidden" name="post" value={{ post.pk }} />
+	  <img src={{post.author.pic}} />
+	  <div class="author">
+            {{ post.author.firstname }} {{ post.author.lastname }}
+	  </div>
+          <div class="posttext">
+	    {{post.text|linebreaksbr}} 
+	  </div>
+          <div class="clear">
+          </div>
+      </div>
+      </form>
+    </div>
+    {% endfor %}
+    
+    
+    
+    </div>
+</body>
+</html>

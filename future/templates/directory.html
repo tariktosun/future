@@ -57,12 +57,14 @@
       </div>
 
     {% for user in sophomore_list %}
+    {% if user.authenticated %}
 	<div class="member">
 	      <img src= {{user.largepic}} /> 
 	      <div class="memberName">
 	      	{{user.firstname}} {{user.lastname}}
 	      </div>
 	</div>
+        {% endif %}        
         {% endfor %}
 
     <div class="heading">
@@ -70,12 +72,14 @@
       </div>
 
     {% for user in junior_list %}
+    {% if user.authenticated %}
 	<div class="member">
 	      <img src= {{user.largepic}} /> 
 	      <div class="memberName">
 	      	{{user.firstname}} {{user.lastname}}
 	      </div>
 	</div>
+        {% endif %}        
         {% endfor %}
 
     <div class="heading">
@@ -83,12 +87,14 @@
       </div>
 
     {% for user in senior_list %}
+    {% if user.authenticated %}
 	<div class="member">
 	      <img src= {{user.largepic}} /> 
 	      <div class="memberName">
 	      	{{user.firstname}} {{user.lastname}}
 	      </div>
 	</div>
+        {% endif %}        
         {% endfor %}
     
     
