@@ -25,7 +25,7 @@ DATABASES = {
 FACEBOOK_APP_ID              = getenv('FUTURE_FB_KEY')
 FACEBOOK_API_SECRET          = getenv('FUTURE_FB_SECRET')
 if getenv('FUTURE_ENVIRONMENT') == 'production':
-    BASE_URI = 'http://simple-meadow-5360.herokuapp.com/'
+    BASE_URI = 'http://webfsite.herokuapp.com/'
 else:
     BASE_URI                     = 'http://localhost:5000/'
 
