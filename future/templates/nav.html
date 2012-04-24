@@ -4,13 +4,17 @@
       <div class="smallItem">
 		<a href="/logout/">	Logout </a>
 	</div>
-      
+     {% if curUser.admin == 'BAMF' %} 
+	   <div class="smallItem">
+		<a href="/newuser/">	New User </a>
+	</div>
+           {% endif %}
       <div class="smallItem">
 		<a href="/directory/">	Directory </a>
 	</div>
 	
 	<div class="smallItem">
-		<a href="/menu/">	Menu </a>
+		<a href="/menu/">	Food </a>
 	</div>
 	   <div class="smallItem">
 		<a href="/home/">	Home </a>
