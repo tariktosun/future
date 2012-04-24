@@ -20,7 +20,7 @@ class User(models.Model):
     year = models.IntegerField("class year", max_length=4, choices=CLASS_YEAR_CHOICES)
     fbid = models.BigIntegerField("facebook ID",unique=True,null=True)
     authenticated = models.BooleanField("user authenticated?")
-    authcode = models.CharField("authentication code", max_length=30)
+    authcode = models.CharField("authentication code", max_length=40)
     admin = models.CharField("administrator title", max_length=4, choices=ADMIN_TITLE_CHOICES)
     pic = models.CharField("facebook profile picture URL", max_length=70,blank=True)
     largepic = models.CharField("large facebook profile picture URL", max_length=70,blank=True)
