@@ -24,7 +24,10 @@ DATABASES = {
 # Settings for facebook authentication with our own Authentication
 FACEBOOK_APP_ID              = getenv('FUTURE_FB_KEY')
 FACEBOOK_API_SECRET          = getenv('FUTURE_FB_SECRET')
-BASE_URI                     = 'http://localhost:5000/'
+if getenv('FUTURE_ENVIRONMENT') == production:
+    BASE_URI = 'http://simple-meadow-5360.herokuapp.com/'
+else:
+    BASE_URI                     = 'http://localhost:5000/'
 
 # Setup outgoing email settings
 EMAIL_USER_TLS = True
