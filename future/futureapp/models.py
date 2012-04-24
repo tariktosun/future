@@ -15,8 +15,8 @@ class User(models.Model):
     )
 
     netid = models.CharField(max_length=8, unique=True)
-    firstname = models.CharField("first name", max_length=30)
-    lastname = models.CharField("last name", max_length=30)
+    firstname = models.CharField("first name", max_length=31)
+    lastname = models.CharField("last name", max_length=32)
     year = models.IntegerField("class year", max_length=4, choices=CLASS_YEAR_CHOICES)
     fbid = models.BigIntegerField("facebook ID",unique=True,null=True)
     authenticated = models.BooleanField("user authenticated?")
