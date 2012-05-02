@@ -5,36 +5,39 @@
   <title>Title</title>
   
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <!-- script src="bootsrap-modal.js"></script> --> 
+ <script src="http://code.jquery.com/jquery-latest.js"></script>
+ <!-- script src="bootsrap-modal.js"></script> --> 
         <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
         <script>
         $(document).ready(function(){
- 
-        $('textarea').focus(function(){
-        if (this.value == "Post new message") {
-        $('textarea').css("height", "40px");
-        $('.submitButton').css("display", "inline");
-        $('textarea').css("color", "black");
-        $('textarea').attr("value", "");
-        }
-        });
-        $('textarea').blur(function(){
-        if (this.value == "") {
-        $('textarea').css("height", "20px");
-        $('.submitButton').css("display", "none");
-        $('textarea').css("color", "#ccc");
-        $('textarea').attr("value", "Post new message");
-        }
-        });
-
-			$('.content-container').click(function(){
-				$(this > '.deleteButton').css("visibility", "visible");
-			
-			
+		
+			$('textarea').focus(function(){
+				if (this.value == "Post new message") {
+					$('textarea').css("height", "40px");
+					$('.submitButton').css("display", "inline");
+					$('textarea').css("color", "black");
+					$('textarea').attr("value", "");
+				}
 			});
-        
-        
+			
+			$('textarea').blur(function(){
+			   if (this.value == "") {
+					$('textarea').css("height", "20px");
+					$('.submitButton').css("display", "none");
+					$('textarea').css("color", "#ccc");
+					$('textarea').attr("value", "Post new message");
+				}
+			});
+		
+			$('.content-container').click(function(event){
+				var $target = $(event.target);
+				if($target.is(".action")){
+					$('.commentBox', this).css("display", "block");
+				}
+			});
+			
+	
+			
         });
         
         
@@ -110,8 +113,32 @@
           <div class="posttext">
 	    {{post.text|linebreaksbr}} 
 	  </div>
-          <div class="clear">
-          </div>
+        
+        <div class="postActions">
+        	
+        		<span class="action">
+        		Comment
+        	</span>
+        </div>
+        
+        
+        
+        <div class="commentBox">
+        	<textarea class="commentPrompt"> </textarea>
+        	
+        {% for comment in comment_list %}
+        	<div class="comment">
+        		<div class="commentAuthor">
+        			{{ comment.author }}
+        		</div>
+        		<div class="commentText">
+        			{{ comment.text }}
+        		</div>
+        	</div>
+        {% endfor %}
+        
+        </div>
+        
       </div>
       </form>
     </div>

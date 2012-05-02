@@ -121,6 +121,7 @@ textarea {
 	padding: 4px;
 	text-align: center;
         overflow: auto;
+        margin-bottom:10px;
 }
 
 
@@ -154,11 +155,9 @@ textarea {
 
 .content-container
 {
-	border: solid thin #ccc;
-	margin-top:20px;
-	box-shadow: 0 1px 1px rgba(34,25,25,0.4);
-	-moz-border-radius:1px;
-	-webkit-border-radius:1px;
+	border: solid thin #f2f2f2;
+	margin-top:2px;
+	#box-shadow: 0 1px 1px rgba(34,25,25,0.4);
 	
 }
 
@@ -231,9 +230,10 @@ textarea {
 }
 
 .posttext{
-        float: left;
+      float: left;
         width: 356px;
         word-wrap: break-word;
+        margin-bottom:10px;
 }
 
 .clear { 
@@ -255,4 +255,59 @@ textarea {
 }
 .lastform {
 	width: 396px;
+}
+
+.postActions{
+	font-size:12px;
+	color: #6D8BC9;
+	margin-top:20px;
+	clear:both;
+	margin-bottom:10px;
+	overflow:auto;
+}
+
+.action{
+	margin-left: 10px;
+	float:right;
+	cursor: pointer;
+}
+
+
+.commentBox{
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border: solid thin #ccc;
+	clear: both;
+	padding-bottom:10px;
+	display: none;
+}
+
+.commentPrompt{
+	width:380px;
+	height:18px;
+	font-size:12px;
+	padding:5px;
+	display:block;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.comment{
+	margin-left:14px;
+	margin-right:14px;
+	font-size:14px;
+	border-bottom: solid thick #f2f2f2;
+	background: #f2f2f2;
+	margin-top:2px;
+}
+
+.commentAuthor{
+	font-weight:500;
+	font-weight:14px;
+	color: #424242;
+	margin-left:10px;
+}
+
+.commentText{
+	margin-left:10px;
+	font-size:12px;
 }
