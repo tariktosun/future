@@ -144,6 +144,26 @@ def post(request):
         # Control flow reaches here if the user tries to go to the posting url
         # without actually making a post.
         return HttpResponse('Posting failed!')
+# make a new UserPost.
+def postComment(request):
+    if request.method == 'POST': 
+        curAuthor = User.objects.filter(pk = request.session['uid'])
+        curAuthor = curAuthor[0]    #it's a querydict
+
+        newComment = UserComment(#title=request.POST['title'],
+                     text = request.POST['commenttext'],
+                     author = curAuthor,
+                     parent = request.POST['parentPost'], 
+        #             tags = (),
+        #             mentions = ()
+                          )
+        newComment.save()
+        return renderHomepage(request) 
+    else:
+        # we need to change this to a more general-purpose error.
+        # Control flow reaches here if the user tries to go to the posting url
+        # without actually making a post.
+        return HttpResponse('Commenting failed!')
 
 #delete a UserPost:
 def deletePost(request):
