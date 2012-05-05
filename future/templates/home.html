@@ -100,7 +100,7 @@
       <div class='post'>
         <form action="/deletePost/" method="post">
           {% csrf_token %}
-          {% if post.author == curUser or curUser.admin == 'BAMF'%}
+          {% if post.author == curUser or curUser.admin == 'BAMF' %}
           <button class="deleteButton">
             X
           </button>
@@ -113,6 +113,14 @@
           <div class="posttext">
 	    {{post.text|linebreaksbr}} 
 	  </div>
+          {% if post.hasvideo %}
+          <iframe class="youtube-player" type="text/html" width="400"
+          height="300" src="http://www.youtube.com/embed/{{post.youtubeid}}"
+          frameborder="0">
+          </iframe>
+          {% endif %}
+          <div class="clear">
+          </div>
         
         <div class="postActions">
         	
@@ -138,7 +146,6 @@
         {% endfor %}
         
         </div>
-        
       </div>
       </form>
     </div>

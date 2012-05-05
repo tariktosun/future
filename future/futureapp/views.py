@@ -5,6 +5,7 @@ from django.template import RequestContext
 from urllib import quote
 from models import *
 from os import getenv
+import re
 from django.conf import settings
 import string
 from random import choice
@@ -132,12 +133,21 @@ def post(request):
     if request.method == 'POST':
         curAuthor = User.objects.filter(pk = request.session['uid'])
         curAuthor = curAuthor[0]    #it's a querydict
+        posttext = request.POST.get('text', '')
+        if posttext == '':
+           return HttpReseponse('You must enter text.')
         newPost = UserPost(title = 'foo', #title=request.POST['title'],
-                     text = request.POST['text'],
+                     text = posttext,
                      author = curAuthor,
+                     hasvideo = False,
         #             tags = (),
         #             mentions = ()
                           )
+        hasyoutubeurl = re.compile(r"[?&]v=[\w-]{11}")
+        vididlist = hasyoutubeurl.findall(posttext)
+        if len(vididlist) > 0:
+           newPost.youtubeid = vididlist[0][3:]
+           newPost.hasvideo = True
         newPost.save()
         return renderHomepage(request) 
     else:
