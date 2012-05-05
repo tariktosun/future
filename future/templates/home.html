@@ -10,8 +10,9 @@
         <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
         <script>
         $(document).ready(function(){
+        	var currentComment = false;
 		
-			$('textarea').focus(function(){
+			$('.postPrompt').focus(function(){
 				if (this.value == "Post new message") {
 					$('textarea').css("height", "40px");
 					$('.submitButton').css("display", "inline");
@@ -20,21 +21,52 @@
 				}
 			});
 			
-			$('textarea').blur(function(){
+			/*$('textarea').blur(function(){
 			   if (this.value == "") {
 					$('textarea').css("height", "20px");
 					$('.submitButton').css("display", "none");
 					$('textarea').css("color", "#ccc");
 					$('textarea').attr("value", "Post new message");
 				}
-			});
+			});*/
+		
+			
+		
 		
 			$('.content-container').click(function(event){
-				var $target = $(event.target);
-				if($target.is(".action")){
+				var target = event.target;
+				/*if(currentComment!=false && currentContainer != this){
+					currentComment.css("display", "none");
+				
+				} */
+				
+				currentContainer = this;
+				currentComment = $('.commentBox', this);
+				
+				if($(target).is(".action")){
 					$('.commentBox', this).css("display", "block");
 				}
+				
+				
+			
 			});
+			
+			/*$('.content-container').hover(function(){
+				$(this).css("background", "#f2f2f2");
+			
+			}, function(){
+				$(this).css("background", "none");
+			
+			}); */
+			
+		
+			$('form').keypress(function(e){
+				if (e.which == 13){
+					e.preventDefault();
+					this.submit();
+				}
+			
+			}); 
 			
 	
 			
@@ -88,7 +120,7 @@
       
       <form action="/post/" method="post">
                  {% csrf_token %}
-		 <textarea name="text">Post new message</textarea>
+		 <textarea name="text" class="postPrompt">Post new message</textarea>
 		 <button class="submitButton">
 		   POST
 		   </button>
@@ -106,9 +138,11 @@
           </button>
           {% endif %}   
           <input type="hidden" name="post" value={{ post.pk }} />
+          
+           </form>
 	  <img src={{post.author.pic}} />
 	  <div class="author">
-            {{ post.author.firstname }} {{ post.author.lastname }}
+            {{ post.author.firstname }} {{ post.author.lastname }} 
 	  </div>
           <div class="posttext">
 	    {{post.text|linebreaksbr}} 
@@ -124,15 +158,21 @@
         
         
         <div class="commentBox">
-        	<textarea class="commentPrompt"> </textarea>
+        
+            <form action="/postComment/" method="post">
+          {% csrf_token %}
+			<input type="hidden" name="parentPost" value={{ post.pk }} />
+        	<textarea class="commentPrompt" name="commenttext"> </textarea>
+        
+        	</form>
         	
         {% for comment in comment_list %}
         	<div class="comment">
         		<div class="commentAuthor">
-        			{{ comment.author }}
+        			{{ comment.author.firstname }} {{ comment.author.lastname }}
         		</div>
         		<div class="commentText">
-        			{{ comment.text }}
+        			{{ comment.text }} parent: {{ comment.parent.text }}
         		</div>
         	</div>
         {% endfor %}
@@ -140,7 +180,7 @@
         </div>
         
       </div>
-      </form>
+     
     </div>
     {% endfor %}
     

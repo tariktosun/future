@@ -54,7 +54,7 @@ textarea {
 /*topnavbar*/
 #top{
 	#border: solid thin white;
-	color: white;
+	color: #f2f2f2;
 	font-size:20px;
 	font-weight:400;
 	margin: 0 auto;
@@ -158,7 +158,7 @@ textarea {
 	border: solid thin #f2f2f2;
 	margin-top:2px;
 	#box-shadow: 0 1px 1px rgba(34,25,25,0.4);
-	
+	background:#fafafa;	
 }
 
 .content
@@ -189,7 +189,7 @@ textarea {
 }
 
 .submitButton{
-	background: #e9e9e9;
+	background: #fafafa;
 	font-size:16px;
 	border:solid thin #ccc;
 	cursor:pointer;
@@ -201,7 +201,8 @@ textarea {
 	padding-bottom: 4px;
 	float: right;
 	text-align: center;
-        display: none;
+    display: none;
+    margin-right:4px;
 }
 
 
@@ -280,6 +281,7 @@ textarea {
 	clear: both;
 	padding-bottom:10px;
 	display: none;
+	background: #f2f2f2;
 }
 
 .commentPrompt{
@@ -290,6 +292,7 @@ textarea {
 	display:block;
 	margin-top:10px;
 	margin-bottom:10px;
+	color: #424242;
 }
 .comment{
 	margin-left:14px;
