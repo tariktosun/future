@@ -40,7 +40,8 @@ class Post(models.Model):
 class UserPost(Post):
     title = models.CharField("user post title", max_length=80)
     text = models.TextField("user post text")
-
+    hasvideo = models.BooleanField("Contains a youtube URL")
+    youtubeid = models.CharField("Youtube Video Id", max_length=12, blank=True)
 # A menu
 class MenuPost(Post):
     title = models.CharField("user post title", max_length=80)
