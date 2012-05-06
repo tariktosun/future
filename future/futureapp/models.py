@@ -51,5 +51,5 @@ class MenuPost(Post):
 # subordinate to other posts, no title
 class Comment(Post):
     text = models.TextField("comment text")
-    parent = models.ForeignKey(UserPost, verbose_name="parent post", related_name="parent_post")
+    parent = models.ForeignKey(UserPost)
     
