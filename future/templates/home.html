@@ -131,7 +131,7 @@
         <div class="postActions">
         	
         		<span class="action">
-        		Comment
+        		{% if post.comment_set.all %} {{post.comment_set.count}} Comments {% else %} Comment {% endif %}
         	</span>
         </div>
         
