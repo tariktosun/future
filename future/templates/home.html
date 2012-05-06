@@ -103,19 +103,13 @@
         
         
         
-        <div class="commentBox">
+        <div class="commentBox" {% if post.comment_set.all %} style="display:block" {% endif %}>
         
-            <form action="/postComment/" method="post">
-          {% csrf_token %}
-			<input type="hidden" name="parentPost" value={{ post.pk }} />
-        	<textarea class="commentPrompt" name="commenttext"> </textarea>
-        
-        	</form>
-        	
-        {% for comment in post.comment_set.all %}
+              {% for comment in post.comment_set.all %}
         	<div class="comment">
+        		<img src="{{comment.author.pic}}" />
         		<div class="commentAuthor">
-        			{{ comment.comment.author.firstname }} {{ comment.author.lastname }}
+        			{{ comment.author.firstname }} {{ comment.author.lastname }}
         		</div>
         		<div class="commentText">
         			{{ comment.text }} 
@@ -123,6 +117,14 @@
         	</div>
         {% endfor %}
         
+            <form action="/postComment/" method="post">
+          {% csrf_token %}
+			<input type="hidden" name="parentPost" value={{ post.pk }} />
+        	<textarea class="commentPrompt" name="commenttext">Write a comment...</textarea>
+        
+        	</form>
+        	
+  
         </div>
       </div>
      

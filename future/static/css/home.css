@@ -156,7 +156,7 @@ textarea {
 .content-container
 {
 	border: solid thin #f2f2f2;
-	margin-top:2px;
+	margin-top:10px;
 	#box-shadow: 0 1px 1px rgba(34,25,25,0.4);
 	background:#fafafa;	
 }
@@ -282,6 +282,7 @@ textarea {
 	padding-bottom:10px;
 	display: none;
 	background: #f2f2f2;
+	padding-top:5px;
 }
 
 .commentPrompt{
@@ -293,6 +294,7 @@ textarea {
 	margin-top:10px;
 	margin-bottom:10px;
 	color: #424242;
+	margin-left:15px;
 }
 .comment{
 	margin-left:14px;
@@ -301,6 +303,7 @@ textarea {
 	border-bottom: solid thick #f2f2f2;
 	background: #f2f2f2;
 	margin-top:2px;
+	clear:both;
 }
 
 .commentAuthor{
@@ -313,4 +316,9 @@ textarea {
 .commentText{
 	margin-left:10px;
 	font-size:12px;
+}
+
+.comment img{
+	float:left;
+	width:30px;
 }

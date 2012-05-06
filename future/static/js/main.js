@@ -3,10 +3,19 @@ $(document).ready(function(){
 
 	$('.postPrompt').focus(function(){
 		if (this.value == "Post new message") {
-			$('textarea').css("height", "40px");
-			$('.submitButton').css("display", "inline");
-			$('textarea').css("color", "black");
-			$('textarea').attr("value", "");
+			$(this).css("height", "40px");
+			$('.submitButton', this).css("display", "inline");
+			$(this).css("color", "black");
+			$(this).attr("value", "");
+		}
+	});
+	
+	$('.commentPrompt').focus(function(){
+		if (this.value == "Write a comment...") {
+			$(this).css("height", "40px");
+			$('.submitButton', this).css("display", "inline");
+			$(this).css("color", "black");
+			$(this).attr("value", "");
 		}
 	});
 	
