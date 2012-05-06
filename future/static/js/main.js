@@ -103,13 +103,32 @@ insertAtCaret: function(myValue){
 		}
 	}); 
 	
-	$('textarea').keypress(function(e){
+	/*$('textarea').keypress(function(e){
 		if (e.which == 35){
 			e.preventDefault();
 			$(this).css("color", "#ccc");
 			$(this).insertAtCaret("#");
 			
 		}	
+	}); */
+	
+	$('.posttext').each(function(){
+	
+		function hashTagFilter(post){
+			
+			function linkify(match){
+				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>"
+			}
+		
+			//get the posthash
+			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
+			return post.replace(/[#]+([-_a-zA-Z0-9]+)/gi, linkify);
+		
+		}
+
+		var val = $(this).html();
+		val = hashTagFilter(val);
+		$(this).html(val);	
 	});
 
 	
