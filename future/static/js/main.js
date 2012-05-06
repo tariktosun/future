@@ -121,6 +121,25 @@ insertAtCaret: function(myValue){
 		val = hashTagFilter(val);
 		$(this).html(val);	
 	});
+	
+	$('aside').each(function(){
+	
+		function hashTagFilter(post){
+			
+			function linkify(match){
+				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>"
+			}
+		
+			//get the posthash
+			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
+			return post.replace(/[#]+([-_a-zA-Z0-9]+)/gi, linkify);
+		
+		}
+
+		var val = $(this).html();
+		val = hashTagFilter(val);
+		$(this).html(val);	
+	});
 
 	
 });
