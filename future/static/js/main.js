@@ -103,15 +103,6 @@ insertAtCaret: function(myValue){
 		}
 	}); 
 	
-	/*$('textarea').keypress(function(e){
-		if (e.which == 35){
-			e.preventDefault();
-			$(this).css("color", "#ccc");
-			$(this).insertAtCaret("#");
-			
-		}	
-	}); */
-	
 	$('.posttext').each(function(){
 	
 		function hashTagFilter(post){

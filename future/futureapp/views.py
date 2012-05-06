@@ -14,6 +14,8 @@ from facepy import GraphAPI
 from datetime import datetime, timedelta
 import smtplib
 from email.utils import formatdate
+from django.db.utils import IntegrityError
+from django.contrib.contenttypes.models import ContentType
 # Create your views here.
 
 # Drop page: either render splash or homepage
@@ -30,12 +32,37 @@ def renderHomepage(request):
        posts = UserPost.objects.order_by('-time')
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
-       comments = Comment.objects.all()
        c = RequestContext(request, {'post_list':posts,
-               'curUser':curUser, 'comments':comments,})
+               'curUser':curUser,})
        return render_to_response('home.html', c)
    else:
        return redirect('/fbauth/')
+
+# Renders the homepage, hashtag filtered.  Works very much the same way as
+# renderHomepage.
+def renderHashfiltered(request,hashtag):
+# -----
+   # Note: Hashtagging was implemented while referring to code from
+   # https://github.com/semente/django-hashtags
+# -----
+
+# check that user is logged in:
+   if request.session.get('logged_in'):
+       try:
+          T = Tag.objects.get(text=hashtag)
+       except:
+          return HttpResponse("Hashtag %s does not exist." % hashtag)
+       posts = UserPost.objects.filter(Tags = T)
+       posts = posts.order_by('-time')
+       curUser = User.objects.filter(pk = request.session['uid'])
+       curUser = curUser[0]    #querydict
+       comments = Comment.objects.all()
+       c = RequestContext(request, {'post_list':posts,
+               'curUser':curUser,})
+       return render_to_response('home.html', c)
+   else:
+       return redirect('/fbauth/')
+
    
 # renders the directory page
 def directory(request):
@@ -51,7 +78,9 @@ def directory(request):
        c = RequestContext(request, {'sophmore_list':sophomores,
                                     'junior_list':juniors,
                                     'senior_list':seniors,
-                                'curUser':curUser})
+                                    'curUser':curUser,
+                                    'fbappid':settings.FACEBOOK_APP_ID,
+                                    })
        return render_to_response('directory.html', c)
    else:
        return redirect('/fbauth/')
@@ -143,18 +172,41 @@ def post(request):
         #             tags = (),
         #             mentions = ()
                           )
+        # video embedding:
         hasyoutubeurl = re.compile(r"[?&]v=[\w-]{11}")
         vididlist = hasyoutubeurl.findall(posttext)
         if len(vididlist) > 0:
            newPost.youtubeid = vididlist[0][3:]
            newPost.hasvideo = True
+        
         newPost.save()
+        link_tags(posttext, newPost)
         return renderHomepage(request) 
     else:
         # we need to change this to a more general-purpose error.
         # Control flow reaches here if the user tries to go to the posting url
         # without actually making a post.
         return HttpResponse('Posting failed!')
+
+# link hashtags to a UserPost:
+def link_tags(text, post):
+# ----
+   # This code was influenced heavily by code from
+   # https://github.com/semente/django-hashtags
+# ----
+    # search for hashtags:
+    hashRe= re.compile(r'[#]+([-_a-zA-Z0-9]+)')
+#    hashRe = re.compile(r"^#.* $") # hash then characters then space.
+    hash_list = []
+    for h in hashRe.findall(text):
+       hashtag, created = Tag.objects.get_or_create(text=h)
+       if created:
+          hashtag.save()
+       try:
+          post.Tags.add(hashtag)
+       except IntegrityError:
+          continue
+
 # make a new UserPost.
 def postComment(request):
     if request.method == 'POST': 

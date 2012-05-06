@@ -7,6 +7,13 @@ from django.conf import settings
 # from django.contrib import admin
 # admin.autodiscover()
 
+hashtagged_url = url(
+                regex  = '^(?P<hashtag>[-\w]+)/$',
+                view = renderHashfiltered,
+                name = 'hashtagged_url'
+                )
+
+
 urlpatterns = patterns('',
                        url(r'^$',drop),
                        url(r'^post/$',post),
@@ -22,6 +29,8 @@ urlpatterns = patterns('',
                        url(r'^deleteMenu/$',deleteMenu),
                        url(r'^logout/$',logout),
                        url(r'^postComment/$',postComment),
+                       hashtagged_url,
+
                        #url(r'^home/$', 'django.views.generic.simple.direct_to_template', {'template': 'future/static2.html'})
                        # Examples:
                            # url(r'^$', 'future.views.home', name='home'),
