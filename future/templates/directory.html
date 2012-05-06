@@ -63,6 +63,7 @@
 	      <div class="memberName">
 	      	{{user.firstname}} {{user.lastname}}
 	      </div>
+	   
 	</div>
         {% endif %}        
         {% endfor %}
@@ -89,10 +90,18 @@
     {% for user in senior_list %}
     {% if user.authenticated %}
 	<div class="member">
+	      
 	      <img src= {{user.largepic}} /> 
+	       
+	      <div class="addFriend">
+	      	Add Friend
+	      </div>
+	      
+	      
 	      <div class="memberName">
 	      	{{user.firstname}} {{user.lastname}}
 	      </div>
+
 	</div>
         {% endif %}        
         {% endfor %}
