@@ -19,6 +19,19 @@ $(document).ready(function(){
 		}
 	});
 	
+	$('.commentPrompt').blur(function(){
+		if (this.value == ""){
+			$(this).css("color", "#ccc");
+			$(this).attr("value", "Write a comment...");
+		}
+	});
+	
+	$('.postPrompt').blur(function(){
+		if (this.value == ""){
+			$(this).css("color", "#ccc");
+			$(this).attr("value", "Post new message");
+		}
+	});
 	/*$('textarea').blur(function(){
 	   if (this.value == "") {
 			$('textarea').css("height", "20px");
