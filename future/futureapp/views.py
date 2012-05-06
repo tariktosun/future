@@ -30,9 +30,9 @@ def renderHomepage(request):
        posts = UserPost.objects.order_by('-time')
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
-       comments = UserComment.objects.all()
+       comments = Comment.objects.all()
        c = RequestContext(request, {'post_list':posts,
-               'curUser':curUser, 'comment_list':comments})
+               'curUser':curUser, 'comments':comments,})
        return render_to_response('home.html', c)
    else:
        return redirect('/fbauth/')
@@ -164,7 +164,7 @@ def postComment(request):
 #        parentPost = parentPost[0]
         parentPost = request.POST['parentPost']
         parentPost = UserPost.objects.get(id=parentPost)
-        newComment = UserComment(#title=request.POST['title'],
+        newComment = Comment(#title=request.POST['title'],
                      text = request.POST['commenttext'],
                      author = curAuthor,
                      parent = parentPost, 
