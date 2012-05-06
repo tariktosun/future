@@ -201,7 +201,7 @@ def link_tags(text, post):
        if created:
           hashtag.save()
        try:
-          UserPost(content_object=post, Tags=hashtag).save()
+          post.Tags.add(hashtag)
        except IntegrityError:
           continue
 

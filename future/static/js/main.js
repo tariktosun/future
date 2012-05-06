@@ -102,7 +102,8 @@ insertAtCaret: function(myValue){
 			this.submit();
 		}
 	}); 
-	
+
+/*
 	$('textarea').keypress(function(e){
 		if (e.which == 35){
 			e.preventDefault();
@@ -111,6 +112,6 @@ insertAtCaret: function(myValue){
 			
 		}	
 	});
-
+*/
 	
 });
