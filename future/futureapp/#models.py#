@@ -24,6 +24,8 @@ class User(models.Model):
     admin = models.CharField("administrator title", max_length=4, choices=ADMIN_TITLE_CHOICES)
     pic = models.CharField("facebook profile picture URL", max_length=70,blank=True)
     largepic = models.CharField("large facebook profile picture URL", max_length=70,blank=True)
+    
+    isFriend = false
 
 class Tag(models.Model):
     text = models.CharField("tag text", max_length=15)
@@ -33,6 +35,7 @@ class Post(models.Model):
     
     author = models.ForeignKey(User)     #               verbose_name="Post Author")
     time = models.DateTimeField(auto_now_add=True)
+    Tags = models.ManyToManyField(Tag)
 #    tags = models.ManyToManyField(Tag) 
 #    mentions = models.ManyToManyField(User)# , related_name="users_mentioned") 
         
@@ -51,5 +54,5 @@ class MenuPost(Post):
 # subordinate to other posts, no title
 class Comment(Post):
     text = models.TextField("comment text")
-    parent = models.ForeignKey(Post, verbose_name="parent post", related_name="parent_post")
+    parent = models.ForeignKey(UserPost)
     
