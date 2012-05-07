@@ -335,9 +335,10 @@ article{
 	width:30px;
 }
 
-.hashtag{
+.hashtag a{
 	color: #0084B4;
 }
+ 
  
 aside .hashtag{
 	margin-left:2px;
