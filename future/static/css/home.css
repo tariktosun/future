@@ -145,11 +145,12 @@ textarea {
 #header
 {
 	#border-bottom: solid thin #ccc;
-	border: solid thin #f2f2f2;
+	#border: solid thin #f2f2f2;
 	padding: 4px;
 	text-align: center;
-        overflow: auto;
-        margin-bottom:10px;
+    overflow: auto;
+    margin-bottom:10px;
+    border-bottom: solid thin #fafafa;
 }
 
 
@@ -331,6 +332,11 @@ article{
 	color: #ccc;
 	margin-left:15px;
 }
+
+.postPrompt{
+	width:95%;
+
+}
 .comment{
 	margin-left:14px;
 	margin-right:14px;
@@ -370,6 +376,17 @@ article{
  
 aside .hashtag{
 	margin-left:2px;
-
 }
 
+.checkboxWork{
+	text-align:left;
+	margin-top:5px;
+	color: #424242;
+	float:right;
+}
+
+.announceText{
+	font-size:14px;
+	margin-left:5px;
+	font-weight:500;
+}
