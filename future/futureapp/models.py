@@ -24,7 +24,10 @@ class User(models.Model):
     admin = models.CharField("administrator title", max_length=4, choices=ADMIN_TITLE_CHOICES)
     pic = models.CharField("facebook profile picture URL", max_length=70,blank=True)
     largepic = models.CharField("large facebook profile picture URL", max_length=70,blank=True)
-
+    friends = models.ManyToManyField("self")
+    isfriend = False
+    
+    
 class Tag(models.Model):
     text = models.CharField("tag text", max_length=15)
 
