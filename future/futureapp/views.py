@@ -30,9 +30,10 @@ def renderHomepage(request):
    # check that user is logged in:
    if request.session.get('logged_in'):
        posts = UserPost.objects.order_by('-time')
+       hashtags = Tag.objects.all()
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
-       c = RequestContext(request, {'post_list':posts,
+       c = RequestContext(request, {'post_list':posts,'tags_list':hashtags,
                'curUser':curUser,})
        return render_to_response('home.html', c)
    else:
