@@ -44,33 +44,12 @@
 		hash f. tags
 		</article>
 		
+		{% for tag in tags_list %}
 		<div class="hashtag">
-			#peter
+			<a href="/{{ tag.text }}/">{{ tag.text }} </a>
 		</div>
+		{% endfor %}
 	
-		<div class="hashtag">
-			#peter
-		</div>
-		
-			<div class="hashtag">
-			#peter
-		</div>
-		
-			<div class="hashtag">
-			#peter
-		</div>
-			<div class="hashtag">
-			#peter
-		</div>
-			<div class="hashtag">
-			#peter
-		</div>
-			<div class="hashtag">
-			#peter
-		</div>
-			<div class="hashtag">
-			#peter
-		</div>
 	</aside>
   <div id="container">
 
