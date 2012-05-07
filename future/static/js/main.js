@@ -108,7 +108,7 @@ insertAtCaret: function(myValue){
 		function hashTagFilter(post){
 			
 			function linkify(match){
-				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>"
+				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>";
 			}
 		
 			//get the posthash
@@ -127,7 +127,7 @@ insertAtCaret: function(myValue){
 		function hashTagFilter(post){
 			
 			function linkify(match){
-				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>"
+				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>";
 			}
 		
 			//get the posthash
@@ -138,6 +138,25 @@ insertAtCaret: function(myValue){
 
 		var val = $(this).html();
 		val = hashTagFilter(val);
+		$(this).html(val);	
+	});
+	
+	$('.content-container').each(function(){
+	
+		function atFilter(post){
+			
+			function linkify(match){
+				return "<a href=/user/" + match.substring(1) + "/ class='atMention'>" + match + "</a>";
+			}
+		
+			//get the posthash
+			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
+			return post.replace(/[@]+([-_a-zA-Z0-9]+)/gi, linkify);
+		
+		}
+
+		var val = $(this).html();
+		val = atFilter(val);
 		$(this).html(val);	
 	});
 

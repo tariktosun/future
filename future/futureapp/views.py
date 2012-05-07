@@ -51,7 +51,7 @@ def renderProfile(request, name):
       name = re.split('-', name)
       name = name[0]
       try:
-         profileUser = User.objects.filter(firstname = name)
+         profileUser = User.objects.filter(firstname__iexact = name)
          profileUser = profileUser[0]
       except:
          return HttpResponse("User %s does not exist." % name)
@@ -272,8 +272,9 @@ def link_tags_mentions(text, post):
     for m in mentRe.findall(text):
        try:
           u = User.objects.filter(firstname = m)
-          u = u[0]
-          post.mentions.add(u)
+          if u.count() > 0:
+             u = u[0]
+             post.mentions.add(u)
        except IntegrityError:
           continue
 

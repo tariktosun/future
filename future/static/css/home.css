@@ -1,7 +1,7 @@
 body, html{
 	margin: 0 auto;
 	font-family: 'Helvetica Neue', Helvetica, Arial, default;
-		#background: url('/static/images/linenbg.jpg');
+	#	background: url('/static/images/paper.jpg');
 }
 
 a {
@@ -130,7 +130,7 @@ textarea {
 #container
 {
 	
-	width: 450px;
+	width: 550px;
 	#border: solid thin #ccc;
 	margin-left:20px;
 }
@@ -322,7 +322,7 @@ article{
 }
 
 .commentPrompt{
-	width:380px;
+	width:90%;
 	height:18px;
 	font-size:12px;
 	padding:5px;
@@ -389,4 +389,9 @@ aside .hashtag{
 	font-size:14px;
 	margin-left:5px;
 	font-weight:500;
+}
+
+.atMention{
+	color: #0084B4;
+
 }

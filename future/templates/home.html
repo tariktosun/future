@@ -130,9 +130,9 @@
         
               {% for comment in post.comment_set.all %}
         	<div class="comment">
-        		<img src="{{comment.author.pic}}" />
+        		<a href="/user/{{ comment.author.firstname }}-{{ comment.author.lastname }}"> <img src="{{comment.author.pic}}" /> </a>
         		<div class="commentAuthor">
-        			{{ comment.author.firstname }} {{ comment.author.lastname }}
+        			<a href="/user/{{ comment.author.firstname }}-{{ comment.author.lastname }}"> {{ comment.author.firstname }} {{ comment.author.lastname }} </a>
         		</div>
         		<div class="commentText">
         			{{ comment.text }} 
