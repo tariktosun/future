@@ -4,50 +4,11 @@
   <meta charset="UTF-8">
   <title>Title</title>
   
-
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <!-- script src="bootsrap-modal.js"></script> --> 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/directory.css" />
-        <script>        
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : {{ fbappid }},
-      status     : true, 
-      cookie     : true,
-      xfbml      : true
-    });
-
-    // Additional initialization code here
-    FB.ui(
-    { 
-        method: 'friends.add', 
-        id: 1063170263 
-        }, 
-        function(param){
-        
-        console.log(param);
-        
-        // If they cancel params will show: 
-        //    {action:false, ...}
-        // and if they send the friend request it'll have:
-        //    {action:true, ...}
-        // and if they closed the pop-up window then:
-        //    param is undefined
-        }
-   );
-   };
-  // Load the SDK Asynchronously
-  (function(d){
-     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement('script'); js.id = id; js.async = true;
-     js.src = "//connect.facebook.net/en_US/all.js";
-     ref.parentNode.insertBefore(js, ref);
-   }(document));
-        
-        
-        </script>
+        <script src="/static/js/directory.js"></script>
         
         
 </head>
@@ -64,7 +25,9 @@
 <div id="main">
   <div id="container">
     
-    
+<div id="data" display="none">
+<input type="hidden" value="{{fbappid}}" />
+</div>    
 
 
     
@@ -111,8 +74,9 @@
 	      
 	      <img src= {{user.largepic}} /> 
 	       
-	      <div class="addFriend" onclick="friendrequest()">
+	      <div class="addFriend">
 	      	Add Friend
+                <input type="hidden" value="{{user.fbid}}" />
 	      </div>
 	      
 	      
