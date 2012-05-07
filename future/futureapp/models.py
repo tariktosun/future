@@ -42,6 +42,7 @@ class UserPost(Post):
     text = models.TextField("user post text")
     hasvideo = models.BooleanField("Contains a youtube URL")
     youtubeid = models.CharField("Youtube Video Id", max_length=12, blank=True)
+    announce = models.BooleanField("True if post is announcement.")
 # A menu
 class MenuPost(Post):
     title = models.CharField("user post title", max_length=80)

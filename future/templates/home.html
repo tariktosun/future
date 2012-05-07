@@ -71,9 +71,12 @@
 		 <textarea name="text" class="postPrompt">Post new message</textarea>
 		 <button class="submitButton">
 		   POST
-		   </button>
+		  </button>
+      {% if curUser.admin = 'BAMF' or curUser.admin == 'OF'%}
+      <input type="checkbox" name="is_announcement" value="True"/>Post as Announcement 
+      {% endif %}
 		  </form>
-      </div>
+    </div>
    
             
     

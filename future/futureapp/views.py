@@ -87,6 +87,21 @@ def directory(request):
    else:
        return redirect('/fbauth/')
 
+# show all announcements
+def renderAnnouncements(request):
+   # check that user is logged in:
+  if request.session.get('logged_in'):
+      posts = UserPost.objects.filter(announce=True)
+      posts = posts.order_by('-time')
+      hashtags = Tag.objects.all()
+      curUser = User.objects.filter(pk = request.session['uid'])
+      curUser = curUser[0]    #querydict
+      c = RequestContext(request, {'post_list':posts,'tags_list':hashtags,
+              'curUser':curUser,})
+      return render_to_response('home.html', c)
+  else:
+      return redirect('/fbauth/')
+
 # render the menu page:
 def renderMenu(request):
    if request.session.get('logged_in'):
@@ -180,6 +195,11 @@ def post(request):
            newPost.youtubeid = vididlist[0][3:]
            newPost.hasvideo = True
         
+        # announcements
+        is_announcement = request.POST.get('is_announcement','')
+        if(is_announcement):
+           newPost.announce=True
+
         newPost.save()
         link_tags_mentions(posttext, newPost)
         return renderHomepage(request) 
