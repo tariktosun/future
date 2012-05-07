@@ -7,6 +7,10 @@ from django.conf import settings
 # from django.contrib import admin
 # admin.autodiscover()
 
+# ----
+  # this function influenced by:
+  # https://github.com/semente/django-hashtags
+#-----
 hashtagged_url = url(
                 regex  = '^(?P<hashtag>[-\w]+)/$',
                 view = renderHashfiltered,
@@ -25,6 +29,7 @@ urlpatterns = patterns('',
                        url(r'^directory/$',directory),
                        url(r'^menu/$',renderMenu),
                        url(r'^postMenu/$',postMenu),
+                       url(r'^announcements/$',renderAnnouncements),
                        url(r'^deleteMenu/$',deleteMenu),
                        url(r'^logout/$',logout),
                        url(r'^postComment/$',postComment),

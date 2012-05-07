@@ -34,8 +34,7 @@ class Post(models.Model):
     author = models.ForeignKey(User)     #               verbose_name="Post Author")
     time = models.DateTimeField(auto_now_add=True)
     Tags = models.ManyToManyField(Tag)
-#    tags = models.ManyToManyField(Tag) 
-#    mentions = models.ManyToManyField(User)# , related_name="users_mentioned") 
+    mentions = models.ManyToManyField(User, related_name="mentioned_posts") 
         
 # general purpose user post, with a title
 class UserPost(Post):
@@ -43,6 +42,7 @@ class UserPost(Post):
     text = models.TextField("user post text")
     hasvideo = models.BooleanField("Contains a youtube URL")
     youtubeid = models.CharField("Youtube Video Id", max_length=12, blank=True)
+    announce = models.BooleanField("True if post is announcement.")
 # A menu
 class MenuPost(Post):
     title = models.CharField("user post title", max_length=80)
