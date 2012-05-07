@@ -86,7 +86,6 @@ def directory(request):
    else:
        return redirect('/fbauth/')
 
-   
 # render the menu page:
 def renderMenu(request):
    if request.session.get('logged_in'):
@@ -108,7 +107,6 @@ def renderMenu(request):
        return render_to_response('menu.html', c)
    else:
        return redirect('/fbauth/')
-
 
 # ----      Menu Manipulation       ----#
 
@@ -136,6 +134,7 @@ def postMenu(request):
         # Control flow reaches here if the user tries to go to the posting url
         # without actually making a post.
         return HttpResponse('Menu Posting failed!')
+
 
 #delete a menu:
 def deleteMenu(request):
@@ -181,7 +180,7 @@ def post(request):
            newPost.hasvideo = True
         
         newPost.save()
-        link_tags(posttext, newPost)
+        link_tags_mentions(posttext, newPost)
         return renderHomepage(request) 
     else:
         # we need to change this to a more general-purpose error.
@@ -190,15 +189,14 @@ def post(request):
         return HttpResponse('Posting failed!')
 
 # link hashtags to a UserPost:
-def link_tags(text, post):
+def link_tags_mentions(text, post):
 # ----
    # This code was influenced heavily by code from
    # https://github.com/semente/django-hashtags
 # ----
     # search for hashtags:
     hashRe= re.compile(r'[#]+([-_a-zA-Z0-9]+)')
-#    hashRe = re.compile(r"^#.* $") # hash then characters then space.
-    hash_list = []
+    mentRe= re.compile(r'[@]+([-_a-zA-Z0-9]+)')
     for h in hashRe.findall(text):
        hashtag, created = Tag.objects.get_or_create(text=h)
        if created:
@@ -207,8 +205,15 @@ def link_tags(text, post):
           post.Tags.add(hashtag)
        except IntegrityError:
           continue
+    for m in mentRe.findall(text):
+       try:
+          u = User.objects.filter(firstname = m)
+          u = u[0]
+          post.mentions.add(u)
+       except IntegrityError:
+          continue
 
-# make a new UserPost.
+# make a new Comment.
 def postComment(request):
     if request.method == 'POST': 
         curAuthor = User.objects.filter(pk = request.session['uid'])

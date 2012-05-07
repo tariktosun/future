@@ -34,8 +34,7 @@ class Post(models.Model):
     author = models.ForeignKey(User)     #               verbose_name="Post Author")
     time = models.DateTimeField(auto_now_add=True)
     Tags = models.ManyToManyField(Tag)
-#    tags = models.ManyToManyField(Tag) 
-#    mentions = models.ManyToManyField(User)# , related_name="users_mentioned") 
+    mentions = models.ManyToManyField(User, related_name="mentioned_posts") 
         
 # general purpose user post, with a title
 class UserPost(Post):
