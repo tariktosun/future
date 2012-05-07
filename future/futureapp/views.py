@@ -16,6 +16,7 @@ import smtplib
 from email.utils import formatdate
 from django.db.utils import IntegrityError
 from django.contrib.contenttypes.models import ContentType
+from itertools import chain
 # Create your views here.
 
 # Drop page: either render splash or homepage
@@ -88,7 +89,7 @@ def renderHashfiltered(request,hashtag):
        return render_to_response('home.html', c)
    else:
        return redirect('/fbauth/')
-
+   
    
 # renders the directory page
 def directory(request):
@@ -97,13 +98,31 @@ def directory(request):
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
 
-       sophomores = User.objects.filter(year='2014')
-       juniors = User.objects.filter(year='2013')
-       seniors = User.objects.filter(year='2012')
+       sophomores = members.filter(year='2014')
+       notfriends = sophomores.exclude(friends__pk=curUser.pk)
+       friends = sophomores.filter(friends__pk=curUser.pk)
+       for friend in friends:
+          friend.isfriend = True
+       sophomores = list(chain(friends, notfriends))
+       
+       juniors = members.filter(year='2013')
+       notfriends = juniors.exclude(friends__pk=curUser.pk)
+       friends = juniors.filter(friends__pk=curUser.pk)
+       for friend in friends:
+          friend.isfriend = True
+       juniors = list(chain(friends, notfriends))
+
+       seniors = members.filter(year='2012')
+       notfriends = seniors.exclude(friends__pk=curUser.pk)
+       friends = seniors.filter(friends__pk=curUser.pk)
+       for friend in friends:
+          friend.isfriend = True
+       seniors = list(chain(friends, notfriends))
+       
        
        c = RequestContext(request, {'sophmore_list':sophomores,
                                     'junior_list':juniors,
-                                    'senior_list':seniors,
+                                    'senior_list':friends,
                                     'curUser':curUser,
                                     'fbappid':settings.FACEBOOK_APP_ID,
                                     })
@@ -454,6 +473,31 @@ def fbauth(request):
                   this_user = this_user[0]
                request.session['logged_in'] = True
                request.session['uid'] = this_user.pk
+               
+
+               # update the user's list of friends
+               this_user.friends.add(this_user)
+               friendsets = graph.get('me/friends?fields=installed', page=True)
+               for friendset in friendsets:
+                  
+                  # friendset includes both data (returned data) and
+                  # paging (iterator urls)
+                  friendset = friendset['data']
+                  
+                  # for each friend returned
+                  for friend in friendset:
+
+                     # if they have approved the webfsite app
+                     if friend.get('installed', False):
+                        friend_user = User.objects.filter(fbid = friend['id'])
+                        
+                        # and can be found in the database
+                        if friend_user.count() == 1:
+                           friend_user = friend_user[0]
+                           
+                           # add them as a friend (doesn't matter if
+                           # done twice)
+                           this_user.friends.add(friend_user)
                return renderHomepage(request)
       
       # if this is a response from facebook with a code to grab a csrf token
