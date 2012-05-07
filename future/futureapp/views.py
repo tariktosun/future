@@ -39,6 +39,28 @@ def renderHomepage(request):
    else:
        return redirect('/fbauth/')
 
+
+# Render homepage with posts from DB:
+def renderProfile(request, name):
+   # check that user is logged in:
+   if request.session.get('logged_in'):
+      curUser = User.objects.filter(pk = request.session['uid'])
+      curUser = curUser[0]    #querydict
+       
+      name = re.split('-', name)
+      name = name[0]
+      try:
+         profileUser = User.objects.filter(firstname = name)
+         profileUser = profileUser[0]
+      except:
+         return HttpResponse("User %s does not exist." % name)
+      authoredPosts = UserPost.objects.filter(author=profileUser.pk).order_by('-time')
+      c = RequestContext(request, {'post_list':authoredPosts,
+                                   'curUser':curUser,})
+      return render_to_response('profile.html', c)
+   else:
+      return redirect('/fbauth/')
+
 # Renders the homepage, hashtag filtered.  Works very much the same way as
 # renderHomepage.
 def renderHashfiltered(request,hashtag):
@@ -58,8 +80,11 @@ def renderHashfiltered(request,hashtag):
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
        comments = Comment.objects.all()
+       hashTagView = True
+       hashtags = Tag.objects.all()
+      
        c = RequestContext(request, {'post_list':posts,
-               'curUser':curUser,})
+               'curUser':curUser, 'tag_view': hashTagView, 'hash': hashtag, 'tags_list':hashtags,})
        return render_to_response('home.html', c)
    else:
        return redirect('/fbauth/')

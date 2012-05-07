@@ -13,7 +13,6 @@ hashtagged_url = url(
                 name = 'hashtagged_url'
                 )
 
-
 urlpatterns = patterns('',
                        url(r'^$',drop),
                        url(r'^post/$',post),
@@ -29,6 +28,7 @@ urlpatterns = patterns('',
                        url(r'^deleteMenu/$',deleteMenu),
                        url(r'^logout/$',logout),
                        url(r'^postComment/$',postComment),
+                       url(r'^user/(\w+-\w+)/$', renderProfile),
                        hashtagged_url,
 
                        #url(r'^home/$', 'django.views.generic.simple.direct_to_template', {'template': 'future/static2.html'})
