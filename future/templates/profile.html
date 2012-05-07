@@ -40,52 +40,46 @@
 
 <div id="main">
 	<aside class="right">
-		<article>
-		hash f. tags
-		</article>
 		
-		{% for tag in tags_list %}
-		<div class="hashtag">
-			<a href="/{{ tag.text }}/">#{{ tag.text }} </a>
-		</div>
-		{% endfor %}
-	
 	</aside>
-	
   <div id="container">
 
     
 
+	<div class="profileBox">
+		<img src="/static/images/profpic.jpg" />
+		
+		<div class="profileName">
+			Peter Zakin
+		</div>
+	
+	</div>
 
 
     
     
- 
+    <!--
     <div class="heading">
-     {% if tag_view %} #{{hash}} {% else %} Feed {% endif %}
+      Feed
       </div>
+    -->
     
-    
-        {% if not tag_view %}
+    <!-- 
     <div id="header">
       
-  
+      
      <form action="/post/" method="post">
                  {% csrf_token %}
 		 <textarea name="text" class="postPrompt">Post new message</textarea>
 		 <button class="submitButton">
 		   POST
-		  </button>
-      {% if curUser.admin = 'BAMF' or curUser.admin == 'OF'%}
-      <input type="checkbox" name="is_announcement" value="True"/>Post as Announcement 
-      {% endif %}
+		   </button>
 		  </form>
-
-		
       </div>
-   {% endif %}
+   
+            -->
     
-       
+    
     {% for post in post_list %}
     <div class="content-container">
       <div class='post'>
@@ -99,9 +93,9 @@
           <input type="hidden" name="post" value={{ post.pk }} />
           
            </form>
-	  <a href="/user/{{ post.author.firstname }}-{{ post.author.lastname }}"> <img src={{post.author.pic}} /></a>
+	  <img src={{post.author.pic}} />
 	  <div class="author">
-            <a href="/user/{{ post.author.firstname }}-{{ post.author.lastname }}">{{ post.author.firstname }} {{ post.author.lastname }} </a>
+            {{ post.author.firstname }} {{ post.author.lastname }} 
 	  </div>
           <div class="posttext">
 	    {{post.text|linebreaksbr}} 
