@@ -185,7 +185,7 @@ aside
 
 article{
 	background:#fafafa;
-	border-top:solid 2px #ccc;
+	border-top:solid 1px #e9e9e9;
 	padding:4px;
 	font-weight:500;
 	margin-bottom:10px;
@@ -336,5 +336,10 @@ article{
 }
 
 .hashtag{
-	color: #ccc;
+	color: #0084B4;
+}
+ 
+aside .hashtag{
+	margin-left:2px;
+
 }
