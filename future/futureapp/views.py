@@ -353,16 +353,18 @@ def search(request):
     if request.session.get('logged_in'):
         searchTerm = request.POST.get('query')
         if searchTerm != None: 
-           allPosts = UserPost.objects.all()
-           containing = UserPost.objects.filter(text__contains=searchTerm)
+          # allPosts = UserPost.objects.all()
+          # containing = UserPost.objects.filter(text__contains=searchTerm)
           # containing = list(containing)
 
            #find all with comments containing search term
           # for p in allPosts:
           #    if p.comment_set.filter(text__contains=searchTerm) != []:
            #      containing.append(p)
-         
-           containing = containing.order_by('-time')
+           
+           containing = UserPost.objects.filter(Q(text__contains = searchTerm) | Q(comment__text__contains = searchTerm)).distinct()
+
+           #containing = containing.order_by('-time')
            curUser = User.objects.filter(pk = request.session['uid'])
            curUser = curUser[0]    #querydict
            c = RequestContext(request,
