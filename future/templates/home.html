@@ -70,12 +70,13 @@
     <div class="heading">
     {% if tag_view %} #{{hash}}
     {% else %} {% if announcements_view %} Announcements
+    {% else %} {% if search_view %} search: {{searchTerm}}
     {% else %} Feed
-    {% endif %} {% endif %} 
+    {% endif %} {% endif %} {% endif %}
     </div>
     
     
-    {% if not tag_view and not announcements_view %}
+    {% if not tag_view and not announcements_view and not search_view%}
     <div id="header">
       
   
