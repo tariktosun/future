@@ -49,7 +49,20 @@
 			<a href="/{{ tag.text }}/">#{{ tag.text }} </a>
 		</div>
 		{% endfor %}
-	
+		
+		<div id="searchWrapper">
+		<div class="search">
+		
+		</div>
+		<form action="/search/" method="post">
+		 {% csrf_token %}
+		<textarea class="searchBox" name="query">Search</textarea>
+		 <button class="submitButton">
+		   POST
+		  </button>
+		</form>
+		</div>
+		
 	</aside>
 	
   <div id="container">

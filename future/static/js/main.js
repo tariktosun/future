@@ -92,6 +92,9 @@ insertAtCaret: function(myValue){
 		}
 	}); 
 	
+	
+
+	
 	$('.posttext').each(function(){
 	
 		function hashTagFilter(post){
@@ -111,7 +114,7 @@ insertAtCaret: function(myValue){
 		$(this).html(val);	
 	});
 	
-	$('aside').each(function(){
+	$('.hashtag').each(function(){
 	
 		function hashTagFilter(post){
 			
@@ -148,6 +151,22 @@ insertAtCaret: function(myValue){
 		val = atFilter(val);
 		$(this).html(val);	
 	}); 
+	
+	
+	$('.searchBox').focus(function(){
+		if (this.value == "Search") {
+			$('.submitButton', this).css("display", "inline");
+			$(this).css("color", "black");
+			$(this).attr("value", "");
+		}
+	});
+	
+	$('.searchBox').blur(function(){
+		if (this.value == ""){
+			$(this).css("color", "#ccc");
+			$(this).attr("value", "Search");
+		}
+	});
 
 	
 });
