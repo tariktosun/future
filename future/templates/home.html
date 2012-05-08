@@ -98,7 +98,7 @@
     
        
     {% for post in post_list %}
-    <div class="content-container">
+    <div class="content-container {%if post.announce %} announcement {%endif%}">
       <div class='post'>
         <form action="/deletePost/" method="post">
           {% csrf_token %}

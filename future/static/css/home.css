@@ -422,3 +422,14 @@ aside .hashtag{
 	color: #0084B4;
 
 }
+
+.commentBox .deleteButton{
+	margin-top:10px;
+
+}
+
+.announcement{
+	background: #fafafa;
+	border:solid thick #0084B4;
+	width:100%;
+}
