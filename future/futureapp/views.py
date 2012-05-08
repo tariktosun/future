@@ -140,7 +140,7 @@ def renderAnnouncements(request):
       curUser = User.objects.filter(pk = request.session['uid'])
       curUser = curUser[0]    #querydict
       c = RequestContext(request, {'post_list':posts,'tags_list':hashtags,
-              'curUser':curUser,})
+              'curUser':curUser,'announcements_view': True})
       return render_to_response('home.html', c)
   else:
       return redirect('/fbauth/')
@@ -185,7 +185,8 @@ def postMenu(request):
                  #             mentions = ()
                                              )
             newMenu.save()
-            return renderMenu(request) 
+#            return renderMenu(request) 
+            return redirect('/menu/')
         else:
             return HttpResponse('You do not have permission to post menus.') 
     else:
@@ -207,7 +208,8 @@ def deleteMenu(request):
             id = request.POST['postMenu']
             p = MenuPost.objects.get(pk = id)
             p.delete()
-            return renderMenu(request)
+#            return renderMenu(request)
+            return redirect('/menu')
         else:
             return HttpResponse('You do not have permission to delete menus.') 
     else:
@@ -245,7 +247,8 @@ def post(request):
 
         newPost.save()
         link_tags_mentions(posttext, newPost)
-        return renderHomepage(request) 
+#        return renderHomepage(request) 
+        return redirect('/home/')
     else:
         # we need to change this to a more general-purpose error.
         # Control flow reaches here if the user tries to go to the posting url
@@ -295,12 +298,34 @@ def postComment(request):
         #             mentions = ()
                           )
         newComment.save()
-        return renderHomepage(request) 
+#        return renderHomepage(request) 
+        return redirect('/home/')
     else:
         # we need to change this to a more general-purpose error.
         # Control flow reaches here if the user tries to go to the posting url
         # without actually making a post.
         return HttpResponse('Commenting failed!')
+
+# delete a comment
+def deleteComment(request):
+    if request.method == 'POST':
+       #check author
+       curUser = User.objects.filter(pk = request.session['uid'])
+       curUser = curUser[0]    #querydict
+
+       id = request.POST['comment']
+       c = Comment.objects.filter(pk = id)
+       if c.count() == 0:      # if comment does not exist... (catch double tap)
+            return redirect('/home/') 
+       c = c[0]    #c is queryset
+       if c.author == curUser or curUser.admin == 'BAMF':
+           c.delete()
+           return redirect('/home/')
+       else:
+           return HttpResponse('You may not delete a comment you do not own.')
+    else:
+       return HttpResponse('Comment deletion failed!')
+
 
 #delete a UserPost:
 def deletePost(request):
@@ -316,7 +341,7 @@ def deletePost(request):
         p = p[0]    #p is queryset
         if p.author == curUser or curUser.admin == 'BAMF':
             p.delete()
-            return renderHomepage(request)
+            return redirect('/home/')
         else:
             return HttpResponse('You may not delete a post you do not own.')
     else:
