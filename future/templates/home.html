@@ -64,22 +64,18 @@
 		</div>
 		
 	</aside>
-	
-  <div id="container">
 
-    
-
-
-
-    
-    
  
+  <div id="container">
     <div class="heading">
-     {% if tag_view %} #{{hash}} {% else %} Feed {% endif %}
-      </div>
+    {% if tag_view %} #{{hash}}
+    {% else %} {% if announcements_view %} Announcements
+    {% else %} Feed
+    {% endif %} {% endif %} 
+    </div>
     
     
-        {% if not tag_view %}
+    {% if not tag_view and not announcements_view %}
     <div id="header">
       
   
@@ -143,6 +139,16 @@
         
               {% for comment in post.comment_set.all %}
         	<div class="comment">
+            <form action="/deleteComment/" method="post">
+              {% csrf_token %}
+              {% if comment.author == curUser or curUser.admin == 'BAMF' %}
+              <button class="deleteButton">
+               X
+               </button>
+              {% endif %}   
+              <input type="hidden" name="comment" value={{ comment.pk }} />
+           </form>
+
         		<a href="/user/{{ comment.author.firstname }}-{{ comment.author.lastname }}"> <img src="{{comment.author.pic}}" /> </a>
         		<div class="commentAuthor">
         			<a href="/user/{{ comment.author.firstname }}-{{ comment.author.lastname }}"> {{ comment.author.firstname }} {{ comment.author.lastname }} </a>
