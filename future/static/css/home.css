@@ -48,6 +48,7 @@ textarea {
 	margin-bottom: 20px;
 	position:fixed;
 	overflow: none;
+	z-index:999;
 }
 
 /*topnavbar*/

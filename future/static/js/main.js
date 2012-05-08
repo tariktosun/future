@@ -29,17 +29,6 @@ insertAtCaret: function(myValue){
 });
 	*/
 	
-	var currentComment = false;
-
-	$('.postPrompt').focus(function(){
-		if (this.value == "Post new message") {
-			$(this).css("height", "40px");
-			$('.submitButton', this).css("display", "inline");
-			$(this).css("color", "black");
-			$(this).attr("value", "");
-		}
-	});
-	
 	$('.commentPrompt').focus(function(){
 		if (this.value == "Write a comment...") {
 			$(this).css("height", "40px");
@@ -55,28 +44,28 @@ insertAtCaret: function(myValue){
 			$(this).attr("value", "Write a comment...");
 		}
 	});
+
+	$('.postPrompt').focus(function(){
+		if (this.value == "Post new message") {
+			$(this).css("height", "40px");
+			$('.submitButton', this).css("display", "inline");
+			$(this).css("color", "black");
+			$(this).attr("value", "");
+		}
+	});
 	
+
+
 	$('.postPrompt').blur(function(){
 		if (this.value == ""){
 			$(this).css("color", "#ccc");
 			$(this).attr("value", "Post new message");
 		}
 	});
-	/*$('textarea').blur(function(){
-	   if (this.value == "") {
-			$('textarea').css("height", "20px");
-			$('.submitButton').css("display", "none");
-			$('textarea').css("color", "#ccc");
-			$('textarea').attr("value", "Post new message");
-		}
-	});*/
+
 
 	$('.content-container').click(function(event){
 		var target = event.target;
-		/*if(currentComment!=false && currentContainer != this){
-			currentComment.css("display", "none");
-		
-		} */
 		
 		currentContainer = this;
 		currentComment = $('.commentBox', this);
@@ -141,7 +130,7 @@ insertAtCaret: function(myValue){
 		$(this).html(val);	
 	});
 	
-	$('.content-container').each(function(){
+	$('.posttext').each(function(){
 	
 		function atFilter(post){
 			
@@ -158,7 +147,7 @@ insertAtCaret: function(myValue){
 		var val = $(this).html();
 		val = atFilter(val);
 		$(this).html(val);	
-	});
+	}); 
 
 	
 });

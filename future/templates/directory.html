@@ -40,17 +40,19 @@
     {% for user in sophomore_list %}
     {% if user.authenticated %}
 	<div class="member">
-	      <img src= {{user.largepic}} /> 
+	      
+	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
 	       {% if not user.isfriend %}
 	      <div class="addFriend">
 	      	Add Friend
                 <input type="hidden" value="{{user.fbid}}" />
 	      </div>
 	      {% endif %}
+	      
 	      <div class="memberName">
-	      	{{user.firstname}} {{user.lastname}}
+	      	<a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
 	      </div>
-	   
+
 	</div>
         {% endif %}        
         {% endfor %}
@@ -61,17 +63,20 @@
 
     {% for user in junior_list %}
     {% if user.authenticated %}
-	<div class="member">
-	      <img src= {{user.largepic}} /> 
+<div class="member">
+	      
+	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
 	       {% if not user.isfriend %}
 	      <div class="addFriend">
 	      	Add Friend
                 <input type="hidden" value="{{user.fbid}}" />
 	      </div>
 	      {% endif %}
+	      
 	      <div class="memberName">
-	      	{{user.firstname}} {{user.lastname}}
+	      	<a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
 	      </div>
+
 	</div>
         {% endif %}        
         {% endfor %}
@@ -84,7 +89,7 @@
     {% if user.authenticated %}
 	<div class="member">
 	      
-	      <img src= {{user.largepic}} /> 
+	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
 	       {% if not user.isfriend %}
 	      <div class="addFriend">
 	      	Add Friend
@@ -93,7 +98,7 @@
 	      {% endif %}
 	      
 	      <div class="memberName">
-	      	{{user.firstname}} {{user.lastname}}
+	      	<a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
 	      </div>
 
 	</div>

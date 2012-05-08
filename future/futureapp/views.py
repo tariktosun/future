@@ -57,7 +57,7 @@ def renderProfile(request, name):
          return HttpResponse("User %s does not exist." % name)
       authoredPosts = UserPost.objects.filter(author=profileUser.pk).order_by('-time')
       c = RequestContext(request, {'post_list':authoredPosts,
-                                   'curUser':curUser,})
+                                   'curUser':curUser, 'profile': profileUser,})
       return render_to_response('profile.html', c)
    else:
       return redirect('/fbauth/')
