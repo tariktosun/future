@@ -17,6 +17,7 @@ from email.utils import formatdate
 from django.db.utils import IntegrityError
 from django.contrib.contenttypes.models import ContentType
 from itertools import chain
+from django.db.models import Q
 # Create your views here.
 
 # Drop page: either render splash or homepage
@@ -81,7 +82,7 @@ def renderHashfiltered(request,hashtag):
        hashtags = Tag.objects.all()
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
-       comments = Comment.objects.all()
+    #   comments = Comment.objects.all()
        hashTagView = True
        hashtags = Tag.objects.all()
        c = RequestContext(request, {'post_list':posts,
@@ -346,6 +347,35 @@ def deletePost(request):
             return HttpResponse('You may not delete a post you do not own.')
     else:
         return HttpResponse('Post deletion failed!')
+
+# ----        Searching          ---- #
+def search(request):
+    if request.session.get('logged_in'):
+        searchTerm = request.POST.get('query')
+        if searchTerm != None: 
+           allPosts = UserPost.objects.all()
+           containing = UserPost.objects.filter(text__contains=searchTerm)
+          # containing = list(containing)
+
+           #find all with comments containing search term
+          # for p in allPosts:
+          #    if p.comment_set.filter(text__contains=searchTerm) != []:
+           #      containing.append(p)
+         
+           containing = containing.order_by('-time')
+           curUser = User.objects.filter(pk = request.session['uid'])
+           curUser = curUser[0]    #querydict
+           c = RequestContext(request,
+                   {'post_list':containing,
+                   'curUser':curUser,
+                   'search_view':True,
+                   'searchTerm':searchTerm,})
+           return render_to_response('home.html', c)
+        else:
+           return redirect('/home/')
+    else:
+        return redirect('/fbauth/')
+
 
 # ----      Authentication       ---- #
 

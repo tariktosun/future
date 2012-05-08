@@ -35,6 +35,7 @@ urlpatterns = patterns('',
                        url(r'^postComment/$',postComment),
                        url(r'^deleteComment/$',deleteComment),
                        url(r'^user/(\w+-\w+)/$', renderProfile),
+                       url(r'^search/$', search),
                        hashtagged_url,
 
                        #url(r'^home/$', 'django.views.generic.simple.direct_to_template', {'template': 'future/static2.html'})
