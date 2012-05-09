@@ -162,7 +162,7 @@ insertAtCaret: function(myValue){
 		
 			//get the posthash
 			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
-			return post.replace(/[@]+([-_a-zA-Z0-9]+)/gi, linkify);
+			return post.replace(/[@]([a-zA-Z]+)[-]([a-zA-Z]+)/gi, linkify);
 		
 		}
 
@@ -181,7 +181,7 @@ insertAtCaret: function(myValue){
 		
 			//get the posthash
 			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
-			return post.replace(/[@]+([-_a-zA-Z0-9]+)/gi, linkify);
+			return post.replace(/[@]([a-zA-Z]+)[-]([a-zA-Z]+)/gi, linkify);
 		
 		}
 
