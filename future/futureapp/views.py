@@ -263,6 +263,10 @@ def link_tags_mentions(text, post):
    # https://github.com/semente/django-hashtags
 # ----
     # search for hashtags:
+
+    if isinstance(post,Comment):  # Associate with parent post.
+       post = post.parent
+
     hashRe= re.compile(r'[#]+([-_a-zA-Z0-9]+)')
     mentRe= re.compile(r'[@]+([-_a-zA-Z0-9]+)')
     for h in hashRe.findall(text):
@@ -299,6 +303,7 @@ def postComment(request):
         #             mentions = ()
                           )
         newComment.save()
+        link_tags_mentions(newComment.text,newComment)
 #        return renderHomepage(request) 
         return redirect('/home/')
     else:
