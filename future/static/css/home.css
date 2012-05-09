@@ -433,3 +433,9 @@ aside .hashtag{
 	border:solid thick #0084B4;
 	width:100%;
 }
+
+.menuDate{
+   border-bottom: solid thin white;
+   background:#0084b4;
+   color:#fafafa;
+}
