@@ -86,11 +86,7 @@
      {% endif %}
     
     {% for menu in menu_list %}
-
     <div class="content-container announcement">
-        <div class="menuDate">
-               {{ menu.time }}
-        </div>
             <div class='menu'>
             <form action="/deleteMenu/" method="post">
             {% csrf_token %}
