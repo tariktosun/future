@@ -8,21 +8,25 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <!-- script src="bootsrap-modal.js"></script> --> 
         <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
-        <script>
+    
+       <script>
         $(document).ready(function(){
+        	$('form').keypress(function(e){
+		if (e.which == 13){
+			e.preventDefault();
+			this.submit();
+		}
+	}); 
         
         $('textarea').focus(function(){
         if (this.value == "Post new menu") {
         $('textarea').css("height", "40px");
-        $('.submitButton').css("display", "inline");
         $('textarea').css("color", "black");
         $('textarea').attr("value", "");
         }
         });
         $('textarea').blur(function(){
         if (this.value == "") {
-        $('textarea').css("height", "20px");
-        $('.submitButton').css("display", "none");
         $('textarea').css("color", "#ccc");
         $('textarea').attr("value", "Post new menu");
         }
@@ -88,7 +92,7 @@
      {% endif %}
     
     {% for menu in menu_list %}
-    <div class="content-container">
+    <div class="content-container announcement">
             <div class='menu'>
             <form action="/deleteMenu/" method="post">
             {% csrf_token %}

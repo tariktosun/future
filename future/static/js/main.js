@@ -114,6 +114,25 @@ insertAtCaret: function(myValue){
 		$(this).html(val);	
 	});
 	
+	$('.comment').each(function(){
+	
+		function hashTagFilter(post){
+			
+			function linkify(match){
+				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>";
+			}
+		
+			//get the posthash
+			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
+			return post.replace(/[#]+([-_a-zA-Z0-9]+)/gi, linkify);
+		
+		}
+
+		var val = $(this).html();
+		val = hashTagFilter(val);
+		$(this).html(val);	
+	});
+	
 	$('.hashtag').each(function(){
 	
 		function hashTagFilter(post){
@@ -152,6 +171,26 @@ insertAtCaret: function(myValue){
 		$(this).html(val);	
 	}); 
 	
+	$('.comment').each(function(){
+	
+		function atFilter(post){
+			
+			function linkify(match){
+				return "<a href=/user/" + match.substring(1) + "/ class='atMention'>" + match + "</a>";
+			}
+		
+			//get the posthash
+			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
+			return post.replace(/[@]+([-_a-zA-Z0-9]+)/gi, linkify);
+		
+		}
+
+		var val = $(this).html();
+		val = atFilter(val);
+		$(this).html(val);	
+	}); 
+	
+	
 	
 	$('.searchBox').focus(function(){
 		if (this.value == "Search") {
@@ -168,5 +207,24 @@ insertAtCaret: function(myValue){
 		}
 	});
 
+	/*$('.content-container').each(function(){
+	
+		function hashTagFilter(post){
+			
+			function linkify(match){
+				return "<a href=/" + match + "/ class='hashtag'>" + match + "</a>";
+			}
+		
+			//get the posthash
+			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
+			return post.replace(/^(((ht|f){1}(tp:[/][/]){1})|((www.){1}))[-a-zA-Z0-9@:%_\+.~#?&//=]+$/gi, linkify);
+		
+		}
+
+		var val = $(this).html();
+		val = hashTagFilter(val);
+		$(this).html(val);	
+	});
+	*/
 	
 });
