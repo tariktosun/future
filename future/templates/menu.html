@@ -11,15 +11,9 @@
     
        <script>
         $(document).ready(function(){
-        	$('form').keypress(function(e){
-		if (e.which == 13){
-			e.preventDefault();
-			this.submit();
-		}
-	}); 
-        
         $('textarea').focus(function(){
         if (this.value == "Post new menu") {
+        $('.submitButton').css("display", "block");
         $('textarea').css("height", "40px");
         $('textarea').css("color", "black");
         $('textarea').attr("value", "");
