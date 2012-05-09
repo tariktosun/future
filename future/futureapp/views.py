@@ -125,7 +125,7 @@ def directory(request):
        
        c = RequestContext(request, {'sophmore_list':sophomores,
                                     'junior_list':juniors,
-                                    'senior_list':friends,
+                                    'senior_list':seniors,
                                     'curUser':curUser,
                                     'fbappid':settings.FACEBOOK_APP_ID,
                                     })
