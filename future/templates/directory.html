@@ -38,7 +38,7 @@
       </div>
 
     {% for user in sophomore_list %}
-    {% if user.authenticated and user.fbid != '' %}
+    {% if not user.fbid == None %}
 	<div class="member">
 	      
 	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
@@ -87,7 +87,7 @@
       </div>
 
     {% for user in senior_list %}
-    {% if user.authenticated and user.fbid != '' %}
+    {% if not user.fbid == None %}
 	<div class="member">
 	      
 	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
