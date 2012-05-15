@@ -15,24 +15,7 @@
 </head>
 
 <body>
-  
- <!-- <div id="navigation">
-    <div id="top">
-      
-      <div class="smallItem">
-	Logout
-	</div>
-      
-      <div class="smallItem">
-	Directory
-	</div>
-      
-      
-      
-      <img src= {{curUser.pic}} /> 
-      <div class="topName"> {{ curUser.firstname}} {{ curUser.lastname }}</div>
-      </div>
-    </div>-->
+
   {% include 'nav.html' %}
   <div class="break">
     
@@ -119,8 +102,8 @@
 	    {{post.text|linebreaksbr}} 
 	  </div>
           {% if post.hasvideo %}
-          <iframe class="youtube-player" type="text/html" width="100%"
-          height="300" src="http://www.youtube.com/embed/{{post.youtubeid}}"
+          <iframe class="postVideo" type="text/html"
+          src="http://www.youtube.com/embed/{{post.youtubeid}}"
           frameborder="0">
           </iframe>
           {% endif %}
@@ -157,6 +140,12 @@
         		<div class="commentText">
         			{{ comment.text }} 
         		</div>
+          {% if comment.hasvideo %}
+          <iframe class="commentVideo" type="text/html"
+          src="http://www.youtube.com/embed/{{comment.youtubeid}}"
+          frameborder="0">
+          </iframe>
+          {% endif %}
         	</div>
         {% endfor %}
         
