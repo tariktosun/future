@@ -30,6 +30,7 @@ class User(models.Model):
     
 class Tag(models.Model):
     text = models.CharField("tag text", max_length=24)
+    time = models.DateTimeField(auto_now_add=True)
 
 # post is a superclass for many kinds of things that are posted
 class Post(models.Model):

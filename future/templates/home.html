@@ -27,7 +27,7 @@
 	  hash f. tags
 	</article>
 	
-	{% for tag in tags_list %}
+	{% for tag in tags_list|slice:"15" %}
 	<div class="hashtag">
 	  <a href="/{{ tag.text }}/">#{{ tag.text }} </a>
 	</div>
@@ -91,7 +91,7 @@
         {% endif %}
         
         
-        {% for post in post_list %}
+        {% for post in post_list|slice:"100" %}
         <div class="content-container {%if post.announce %} announcement {%endif%}">
           <div class='post'>
             <form action="/deletePost/" method="post">

@@ -32,7 +32,7 @@ def renderHomepage(request):
    # check that user is logged in:
    if request.session.get('logged_in'):
        posts = UserPost.objects.order_by('-time')
-       hashtags = Tag.objects.all()
+       hashtags = Tag.objects.order_by('-time')
        curUser = User.objects.filter(pk = request.session['uid'])
        curUser = curUser[0]    #querydict
        c = RequestContext(request, {'post_list':posts,'tags_list':hashtags,
@@ -390,7 +390,7 @@ def search(request):
           #    if p.comment_set.filter(text__contains=searchTerm) != []:
            #      containing.append(p)
            
-           containing = UserPost.objects.filter(Q(text__contains = searchTerm) | Q(comment__text__contains = searchTerm)).distinct()
+           containing = UserPost.objects.filter(Q(text__iregex= searchTerm) | Q(comment__text__iregex= searchTerm)).distinct()
 
            #containing = containing.order_by('-time')
            curUser = User.objects.filter(pk = request.session['uid'])
