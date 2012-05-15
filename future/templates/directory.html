@@ -29,15 +29,15 @@
           <input type="hidden" value="{{fbappid}}" />
         </div>    
 
+        {% regroup members by year as year_list %}
 
-        
-        
-        
+        {% for year in year_list %}
+
         <div class="heading">
-          Sophomores
+          {{ year.grouper }}
         </div>
 
-        {% for user in sophomore_list %}
+        {% for user in year.list %}
         {% if not user.fbid == None %}
 	<div class="member">
 	  
@@ -56,58 +56,7 @@
 	</div>
         {% endif %}        
         {% endfor %}
-
-        <div class="heading">
-          Juniors
-        </div>
-
-        {% for user in junior_list %}
-        {% if not user.fbid == None %}
-
-        <div class="member">
-	  
-	  <a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
-	  {% if not user.isfriend %}
-	  <div class="addFriend">
-	    Add Friend
-            <input type="hidden" value="{{user.fbid}}" />
-	  </div>
-	  {% endif %}
-	  
-	  <div class="memberName">
-	    <a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
-	  </div>
-
-	</div>
-        {% endif %}        
         {% endfor %}
-
-        <div class="heading">
-          Seniors
-        </div>
-
-        {% for user in senior_list %}
-        {% if not user.fbid == None %}
-	<div class="member">
-	  
-	  <a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
-	  {% if not user.isfriend %}
-	  <div class="addFriend">
-	    Add Friend
-            <input type="hidden" value="{{user.fbid}}" />
-	  </div>
-	  {% endif %}
-	  
-	  <div class="memberName">
-	    <a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
-	  </div>
-
-	</div>
-        {% endif %}        
-        {% endfor %}
-        
-        
-        
       </div>
     </div>
   </body>

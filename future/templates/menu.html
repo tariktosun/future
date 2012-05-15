@@ -54,7 +54,7 @@
           Menu 
         </div>
         
-        {% if postPerm %}  
+        {% if curUser.admin = 'BAMF' or curUser.admin == 'FC' %}
         <div id="header">
           <form action="/postMenu/" method="post">
             {% csrf_token %}
@@ -77,18 +77,16 @@
                 X
               </button>
               {% endif %}   
-              <input type="hidden" name="postMenu" value={{ menu.pk }} />
-              
+              <input type="hidden" name="postMenu" value={{ menu.pk }} />              
 	      {{menu.text|linebreaksbr}} 
 	  </div>
           </form>
         </div>
         {% endfor %}
         
-        
-        
       </div>
     </div>
+    
     {% endautoescape %}    
   </body>
 </html>

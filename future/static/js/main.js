@@ -1,33 +1,4 @@
 $(document).ready(function(){
-
-/*	jQuery.fn.extend({
-insertAtCaret: function(myValue){
-  return this.each(function(i) {
-    if (document.selection) {
-      //For browsers like Internet Explorer
-      this.focus();
-      sel = document.selection.createRange();
-      sel.text = myValue;
-      this.focus();
-    }
-    else if (this.selectionStart || this.selectionStart == '0') {
-      //For browsers like Firefox and Webkit based
-      var startPos = this.selectionStart;
-      var endPos = this.selectionEnd;
-      var scrollTop = this.scrollTop;
-      this.value = this.value.substring(0, startPos)+myValue+this.value.substring(endPos,this.value.length);
-      this.focus();
-      this.selectionStart = startPos + myValue.length;
-      this.selectionEnd = startPos + myValue.length;
-      this.scrollTop = scrollTop;
-    } else {
-      this.value += myValue;
-      this.focus();
-    }
-  })
-}
-});
-	*/
 	
 	$('.commentPrompt').focus(function(){
 		if (this.value == "Write a comment...") {
@@ -75,15 +46,7 @@ insertAtCaret: function(myValue){
 		}
 
 	});
-	
-	/*$('.content-container').hover(function(){
-		$(this).css("background", "#f2f2f2");
-	
-	}, function(){
-		$(this).css("background", "none");
-	
-	}); */
-	
+		
 
 	$('form').keypress(function(e){
 		if (e.which == 13){
@@ -102,9 +65,6 @@ insertAtCaret: function(myValue){
 			function linkify(match){
 				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>";
 			}
-		
-			//get the posthash
-			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
 			return post.replace(/#([-_a-zA-Z0-9]{1,24})/gi, linkify); 
 		}
 
@@ -121,8 +81,6 @@ insertAtCaret: function(myValue){
 				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>";
 			}
 		
-			//get the posthash
-			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
 			return post.replace(/#([-_a-zA-Z0-9]{1,24})/gi, linkify);
 		
 		}
@@ -140,8 +98,6 @@ insertAtCaret: function(myValue){
 				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>";
 			}
 		
-			//get the posthash
-			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
 			return post.replace(/[#]+([-_a-zA-Z0-9]+)/gi, linkify);
 		
 		}
@@ -159,8 +115,6 @@ insertAtCaret: function(myValue){
 				return "<a href=/user/" + match.substring(1) + "/ class='atMention'>" + match + "</a>";
 			}
 		
-			//get the posthash
-			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
 			return post.replace(/[@]([a-zA-Z]+)[-]([a-zA-Z]+)/gi, linkify);
 		
 		}
@@ -178,9 +132,7 @@ insertAtCaret: function(myValue){
 				return "<a href=/user/" + match.substring(1) + "/ class='atMention'>" + match + "</a>";
 			}
 		
-			//get the posthash
-			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
-			return post.replace(/[@]([a-zA-Z]+)[-]([a-zA-Z]+)/gi, linkify);
+			return post.replace(/[@]([A-Z][a-z]+)[-]([A-Z][a-z]+)/gi, linkify);
 		
 		}
 
@@ -205,25 +157,5 @@ insertAtCaret: function(myValue){
 			$(this).attr("value", "Search");
 		}
 	});
-
-	/*$('.content-container').each(function(){
-	
-		function hashTagFilter(post){
-			
-			function linkify(match){
-				return "<a href=/" + match + "/ class='hashtag'>" + match + "</a>";
-			}
-		
-			//get the posthash
-			//var reg = /[#]+([-_a-zA-Z0-9]+)/;
-			return post.replace(/^(((ht|f){1}(tp:[/][/]){1})|((www.){1}))[-a-zA-Z0-9@:%_\+.~#?&//=]+$/gi, linkify);
-		
-		}
-
-		var val = $(this).html();
-		val = hashTagFilter(val);
-		$(this).html(val);	
-	});
-	*/
 	
 });
