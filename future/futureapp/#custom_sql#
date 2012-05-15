@@ -1,5 +1,0 @@
-def search_query():
-    from django.db import connection, transaction
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM futurea
