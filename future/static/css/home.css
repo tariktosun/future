@@ -47,11 +47,12 @@ textarea.searchBox{
     margin-top:30px;
     margin-left:10px;
 }
+/* contains search box on right column, relative for the absolutely positioned search icon */
 .searchWrapper{
     position:relative;
 }
 
-
+/* button used for form submission */
 .submitButton{
     background: #fafafa;
     font-size:16px;
@@ -66,6 +67,8 @@ textarea.searchBox{
     display: none;
     margin-right:4px;
 }
+
+/* input details for new user form */
 .netidform {
     width: 396px;
 }
@@ -78,6 +81,7 @@ textarea.searchBox{
     width: 396px;
 }
 
+/* container for post actions, e.g. "comment" */
 .postActions{
     font-size:12px;
     color: #6D8BC9;
@@ -87,12 +91,14 @@ textarea.searchBox{
     overflow:auto;
 }
 
+/* class for each post action */
 .action{
     margin-left: 10px;
     float:right;
     cursor: pointer;
 }
 
+/* container for comment functionality. note that default display is none */
 .commentBox{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -104,6 +110,7 @@ textarea.searchBox{
     padding-top:5px;
 }
 
+/* additional styling for the comment input */
 .commentPrompt{
     width:90%;
     height:18px;
@@ -116,9 +123,12 @@ textarea.searchBox{
     margin-left:15px;
 }
 
+/*additional styling for the post input */
 .postPrompt{
     width:95%;
 }
+
+/* container for "post as announcement" checkbox */
 .checkboxWork{
     text-align:left;
     margin-top:5px;
@@ -126,11 +136,12 @@ textarea.searchBox{
     float:right;
 }
 
+/*commment delete button */
 .commentBox .deleteButton{
     margin-top:10px;
 }
 
-
+/* x to delete a post or comment */
 .deleteButton{
     border: none;
     font-size:12px;
@@ -143,11 +154,12 @@ textarea.searchBox{
     bottom:12px;
 }
 
-
+/* hacky fix to bring content-container beneath fixed nav bar */
 .break{
     height:80px;
 }
 
+/*top nav bar */
 #navigation{
     background: black;
     width:100%;
@@ -157,7 +169,7 @@ textarea.searchBox{
     z-index:999;
 }
 
-/*topnavbar*/
+/*topnavbar with items centered*/
 #top{
     color: #f2f2f2;
     font-size:20px;
@@ -168,10 +180,19 @@ textarea.searchBox{
     margin-bottom: 2px;
 }
 
+.smallItem{
+    font-weight: 500;
+    font-size: 16px;
+    float: right;
+    margin-right: 20px;
+    margin-top:10px;
+}
+
 #top a{
     color: #f2f2f2;
 }
 
+/* user profile pic on navbar*/
 #top img{
     float: left;
     max-width: 25px;
@@ -186,10 +207,12 @@ textarea.searchBox{
     margin-bottom:4px;    
 }
 
+/* logged in user name */
 .topName{
     margin-top:6px;
 }
 
+/* page header, e.g. feed, announcements etc... */
 .heading{
     border-bottom: solid thin #ccc;
     color: #424242;
@@ -199,6 +222,7 @@ textarea.searchBox{
     margin-bottom:10px;
 }
 
+/*profile page styling*/
 .profileBox{
     background: white;
     box-shadow: -1px 3px 8px #e9e9e9;
@@ -221,23 +245,9 @@ textarea.searchBox{
 }
 
 
-.smallItem{
-    font-weight: 500;
-    font-size: 16px;
-    float: right;
-    margin-right: 20px;
-    margin-top:10px;
-}
-
-
 /************/
 
-#container
-{    
-    width: 550px;
-    margin-left:20px;
-}
-
+/* holds all main content on the page other than the nav bar */
 #main{
     background: white;
     clear: both;
@@ -245,6 +255,15 @@ textarea.searchBox{
     width:900px;
 }
 
+/* holds left column of main, nests feed for example */
+#container
+{    
+    width: 550px;
+    margin-left:20px;
+}
+
+
+/* container for textarea */
 #header
 {
     padding: 4px;
@@ -252,16 +271,6 @@ textarea.searchBox{
     overflow: auto;
     margin-bottom:10px;
     border-bottom: solid thin #fafafa;
-}
-
-
-#left_top{
-    font-size: 24px;
-    color: #89A39A;
-    font-weight: 600;
-    margin-top:14px;
-    margin-left:10px;
-    clear: left;
 }
 
 #header img{
@@ -272,15 +281,7 @@ textarea.searchBox{
     padding: 4px;
 }
 
-
-
-#right_top{
-    float: right;
-    margin-right: 30px;
-    margin-top:20px;
-}
-
-
+/*each post is contained within a content-container*/
 .content-container
 {
     border: solid thin #f2f2f2;
@@ -290,39 +291,8 @@ textarea.searchBox{
     display:inline-block;
 }
 
-.content
-{
-    width: 560px;
-    display: inline;
-    background: yellow;
-}
-
-
-aside
-{
-    float: right;
-    width: 240px;
-    padding: 20px 0;
-}
-
-article{
-    background:#fafafa;
-    border-top:solid 1px #e9e9e9;
-    padding:4px;
-    font-weight:500;
-    margin-bottom:10px;
-}
-
-#footer
-{
-    clear: both;
-    background: #ccc;
-    text-align: right;
-    padding: 20px;
-    height: 1%;
-}
-
 /*posts */
+/*post container */
 .post{
     max-width: 600px;
     min-height: 52px;
@@ -350,10 +320,31 @@ article{
     margin-bottom:10px;
 }
 
+
+/*holds right side content on pages*/
+aside
+{
+    float: right;
+    width: 240px;
+    padding: 20px 0;
+}
+
+/*used to hold hash tags header */
+article{
+    background:#fafafa;
+    border-top:solid 1px #e9e9e9;
+    padding:4px;
+    font-weight:500;
+    margin-bottom:10px;
+}
+
+
+/* clear fix*/
 .clear { 
     clear: both;
 }
 
+/* menu posts have special format */
 .menu {
     max-width: 600px;
     color: #424242;
@@ -362,7 +353,7 @@ article{
     margin: 15px;
 }
 
-
+/* comment styling*/
 .comment{
     margin-left:14px;
     margin-right:14px;
@@ -392,6 +383,7 @@ article{
     width:30px;
 }
 
+/*hashtag styling */
 .hashtag a{
     color: #0084B4;
 }
@@ -400,29 +392,31 @@ article{
     color: #0084B4;
 }
 
-
+/*special case when on the right column */
 aside .hashtag{
     margin-left:2px;
 }
 
-
-.announceText{
-    font-size:14px;
-    margin-left:5px;
-    font-weight:500;
-}
-
+/*applies similar blue to user-mentions */
 .atMention{
     color: #0084B4;
 }
 
-
+/*announcements have a thick blue border */
 .announcement{
     background: #fafafa;
     border:solid thick #0084B4;
     width:100%;
 }
 
+/*styling of announcement text */
+.announceText{
+    font-size:14px;
+    margin-left:5px;
+    font-weight:500;
+}
+
+/* youtube embeds */
 .postVideo{
     width:100%;
     height:300px;
