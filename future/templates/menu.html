@@ -1,94 +1,94 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
-<head>
-  <meta charset="UTF-8">
-  <title>Web F. Site</title>
-  
-
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
+  <head>
+    <meta charset="UTF-8">
+    <title>Web F. Site</title>
     
-       <script>
-        $(document).ready(function(){
-        $('textarea').focus(function(){
-        if (this.value == "Post new menu") {
-        $('.submitButton').css("display", "block");
-        $('textarea').css("height", "40px");
-        $('textarea').css("color", "black");
-        $('textarea').attr("value", "");
-        }
-        });
-        $('textarea').blur(function(){
-        if (this.value == "") {
-        $('textarea').css("color", "#ccc");
-        $('textarea').attr("value", "Post new menu");
-        }
-        });        
-			$('.content-container').click(function(){
-				$(this > '.deleteButton').css("visibility", "visible");
-			
-			
-			});
-        
-        
-        });
-        
-        
-        
-        </script>
-        
-        
-</head>
 
-<body>
-  {% autoescape on %}
-  {% include 'nav.html' %}
-  <div class="break">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
     
+    <script>
+      $(document).ready(function(){
+      $('textarea').focus(function(){
+      if (this.value == "Post new menu") {
+      $('.submitButton').css("display", "block");
+      $('textarea').css("height", "40px");
+      $('textarea').css("color", "black");
+      $('textarea').attr("value", "");
+      }
+      });
+      $('textarea').blur(function(){
+      if (this.value == "") {
+      $('textarea').css("color", "#ccc");
+      $('textarea').attr("value", "Post new menu");
+      }
+      });        
+      $('.content-container').click(function(){
+      $(this > '.deleteButton').css("visibility", "visible");
+      
+      
+      });
+      
+      
+      });
+      
+      
+      
+    </script>
+    
+    
+  </head>
+
+  <body>
+    {% autoescape on %}
+    {% include 'nav.html' %}
+    <div class="break">
+      
     </div>
-	<div id="main">
+    <div id="main">
 
-  <div id="container">
-    
-    <div class="heading">
-      Menu 
-      </div>
-    
-    {% if postPerm %}  
-    <div id="header">
-      <form action="/postMenu/" method="post">
-                 {% csrf_token %}
-		 <textarea name="text">Post new menu</textarea>
-		 <div></div>
-		 <button class="submitButton">
-		   POST NEW MENU
-		   </button>
-		  </form>
-     </div>
-     {% endif %}
-    
-    {% for menu in menu_list %}
-    <div class="content-container announcement">
-            <div class='menu'>
-            <form action="/deleteMenu/" method="post">
+      <div id="container">
+        
+        <div class="heading">
+          Menu 
+        </div>
+        
+        {% if postPerm %}  
+        <div id="header">
+          <form action="/postMenu/" method="post">
             {% csrf_token %}
-            {% if postPerm %}
-               <button class="deleteButton">
-               X
-               </button>
-            {% endif %}   
-            <input type="hidden" name="postMenu" value={{ menu.pk }} />
-            
-		        {{menu.text|linebreaksbr}} 
-		 </div>
-            </form>
-  </div>
-  {% endfor %}
-    
-    
-    
-    </div>
+	    <textarea name="text">Post new menu</textarea>
+	    <div></div>
+	    <button class="submitButton">
+	      POST NEW MENU
+	    </button>
+	  </form>
+        </div>
+        {% endif %}
+        
+        {% for menu in menu_list %}
+        <div class="content-container announcement">
+          <div class='menu'>
+            <form action="/deleteMenu/" method="post">
+              {% csrf_token %}
+              {% if postPerm %}
+              <button class="deleteButton">
+                X
+              </button>
+              {% endif %}   
+              <input type="hidden" name="postMenu" value={{ menu.pk }} />
+              
+	      {{menu.text|linebreaksbr}} 
+	  </div>
+          </form>
+        </div>
+        {% endfor %}
+        
+        
+        
+      </div>
     </div>
     {% endautoescape %}    
-</body>
+  </body>
 </html>

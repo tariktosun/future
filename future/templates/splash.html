@@ -1,70 +1,26 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
-<head>
-  <meta charset="UTF-8">
-  <title>Web F. Site</title>
-  
+  <head>
+    <meta charset="UTF-8">
+    <title>Web F. Site</title>
+    
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <!-- script src="bootsrap-modal.js"></script> --> 
-        <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
-        <link rel="stylesheet" type="text/css" href="/static/css/splash.css" />
-        <script>
-        $(document).ready(function(){
-			$('textarea').click(function(){
-				$('textarea').css('height', '40px');
-				$('.submitButton').css("visibility", "visible");
-				$('#header').css("overflow", "auto");
-				$('textarea').css("color", "black");
-				$('textarea').attr("value", "");
-				
-			}); 
-        
-			$('.content-container').click(function(){
-				$(this > '.deleteButton').css("visibility", "visible");
-			
-			
-			});
-        
-        	$('button').click(function(){
-        		window.location = '/home/';
-        	
-        	}); 
-        });
-        
-        
-        
-        </script>
-        
-        
-</head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/splash.css" />
+    
+    
+  </head>
 
-<body>
-  
- <!-- <div id="navigation">
-    <div id="top">
-      
-      <div class="smallItem">
-	Logout
-	</div>
-      
-      <div class="smallItem">
-	Directory
-	</div>
-      
-      
-      
-      <img src= {{curUser.pic}} /> 
-      <div class="topName"> {{ curUser.firstname}} {{ curUser.lastname }}</div>
-      </div>
-    </div>-->
+  <body>
+    
 
-  <div id="navigation">
-  	<div class="splashTop">
-  		Web F. Site
+    <div id="navigation">
+      <div class="splashTop">
+  	Web F. Site
   	
-  	</div>
-  </div>
+      </div>
+    </div>
 
 
     
@@ -75,16 +31,16 @@
     
     
     
-		<div class="facebookLogin">
-			<button class="fbLogin">
-                          <a href="/home/">                          
-				f | Login with Facebook
-				</a>
-			</button>
-		</div>
+    <div class="facebookLogin">
+      <button class="fbLogin">
+        <a href="/home/">                          
+	  f | Login with Facebook
+	</a>
+      </button>
+    </div>
     
     
     
     
-</body>
+  </body>
 </html>

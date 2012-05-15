@@ -1,114 +1,114 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
-<head>
-  <meta charset="UTF-8">
-  <title>Web F. Site</title>
-  
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="http://connect.facebook.net/en_US/all.js"></script>
-        <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
-        <link rel="stylesheet" type="text/css" href="/static/css/directory.css" />
-        <script src="/static/js/directory.js"></script>
+  <head>
+    <meta charset="UTF-8">
+    <title>Web F. Site</title>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/directory.css" />
+    <script src="/static/js/directory.js"></script>
+    
+    
+  </head>
+
+  <body>
+    <div id="fb-root"></div>
+    
+    {% include 'nav.html' %}
+    
+    <div class="break">
+      
+    </div>
+
+    <div id="main">
+      <div id="container">
+        
+        <div id="data" display="none">
+          <input type="hidden" value="{{fbappid}}" />
+        </div>    
+
+
         
         
-</head>
+        
+        <div class="heading">
+          Sophomores
+        </div>
 
-<body>
-        <div id="fb-root"></div>
-  
-   {% include 'nav.html' %}
-  
-  <div class="break">
-    
-    </div>
-
-<div id="main">
-  <div id="container">
-    
-<div id="data" display="none">
-<input type="hidden" value="{{fbappid}}" />
-</div>    
-
-
-    
-    
-    
-    <div class="heading">
-      Sophomores
-      </div>
-
-    {% for user in sophomore_list %}
-    {% if not user.fbid == None %}
+        {% for user in sophomore_list %}
+        {% if not user.fbid == None %}
 	<div class="member">
-	      
-	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
-	       {% if not user.isfriend %}
-	      <div class="addFriend">
-	      	Add Friend
-                <input type="hidden" value="{{user.fbid}}" />
-	      </div>
-	      {% endif %}
-	      
-	      <div class="memberName">
-	      	<a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
-	      </div>
+	  
+	  <a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
+	  {% if not user.isfriend %}
+	  <div class="addFriend">
+	    Add Friend
+            <input type="hidden" value="{{user.fbid}}" />
+	  </div>
+	  {% endif %}
+	  
+	  <div class="memberName">
+	    <a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
+	  </div>
 
 	</div>
         {% endif %}        
         {% endfor %}
 
-    <div class="heading">
-      Juniors
-      </div>
+        <div class="heading">
+          Juniors
+        </div>
 
-    {% for user in junior_list %}
-    {% if not user.fbid == None %}
+        {% for user in junior_list %}
+        {% if not user.fbid == None %}
 
-<div class="member">
-	      
-	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
-	       {% if not user.isfriend %}
-	      <div class="addFriend">
-	      	Add Friend
-                <input type="hidden" value="{{user.fbid}}" />
-	      </div>
-	      {% endif %}
-	      
-	      <div class="memberName">
-	      	<a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
-	      </div>
+        <div class="member">
+	  
+	  <a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
+	  {% if not user.isfriend %}
+	  <div class="addFriend">
+	    Add Friend
+            <input type="hidden" value="{{user.fbid}}" />
+	  </div>
+	  {% endif %}
+	  
+	  <div class="memberName">
+	    <a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
+	  </div>
 
 	</div>
         {% endif %}        
         {% endfor %}
 
-    <div class="heading">
-      Seniors
-      </div>
+        <div class="heading">
+          Seniors
+        </div>
 
-    {% for user in senior_list %}
-    {% if not user.fbid == None %}
+        {% for user in senior_list %}
+        {% if not user.fbid == None %}
 	<div class="member">
-	      
-	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
-	       {% if not user.isfriend %}
-	      <div class="addFriend">
-	      	Add Friend
-                <input type="hidden" value="{{user.fbid}}" />
-	      </div>
-	      {% endif %}
-	      
-	      <div class="memberName">
-	      	<a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
-	      </div>
+	  
+	  <a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
+	  {% if not user.isfriend %}
+	  <div class="addFriend">
+	    Add Friend
+            <input type="hidden" value="{{user.fbid}}" />
+	  </div>
+	  {% endif %}
+	  
+	  <div class="memberName">
+	    <a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
+	  </div>
 
 	</div>
         {% endif %}        
         {% endfor %}
-    
-    
-    
+        
+        
+        
+      </div>
     </div>
-    </div>
-</body>
+  </body>
 </html>
