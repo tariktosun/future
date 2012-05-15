@@ -3,5 +3,4 @@
 # Usage:
 #   bash prettydb.sh [ugly] > [pretty]
 
-
 sed 's/{\"pk/\n\n{\"pk/g' $1

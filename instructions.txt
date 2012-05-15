@@ -9,7 +9,6 @@ Instructions for setting up:
 	(don't start the virtual enviroment yet)
 3) Install foreman
 	3a) install rvm with your package manager.
-		(ask us if you don't know how)
 	3b) reload your shell
 		source ~/.bashrc
 	3c) Install foreman
@@ -31,5 +30,8 @@ Instructions for setting up:
 	(go to localhost:5000 in browser to see site.)
 
 That's it!  Everything is set up in your virtual environment.  Whenever you want
-to work in the environment again, just do
-'source ~/.virtualenvs/future/bin/activate' and everything will be there.
+to work in the environment again, just do:
+
+'source ~/.virtualenvs/future/bin/activate'
+
+and everything will be there.
