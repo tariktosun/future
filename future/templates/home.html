@@ -109,7 +109,7 @@
               <a href="/user/{{ post.author.firstname }}-{{ post.author.lastname }}">{{ post.author.firstname }} {{ post.author.lastname }} </a>
 	    </div>
             <div class="posttext">
-	      {{post.text|urlizetrunc:25}} 
+	      {{post.text|urlize}} 
 	    </div>
             {% if post.hasvideo %}
             <iframe class="postVideo" type="text/html"
@@ -148,7 +148,7 @@
         	  <a href="/user/{{ comment.author.firstname }}-{{ comment.author.lastname }}"> {{ comment.author.firstname }} {{ comment.author.lastname }} </a>
         	</div>
         	<div class="commentText">
-        	  {{ comment.text|urlizetrunc:25 }} 
+        	  {{ comment.text|urlize }} 
         	</div>
                 {% if comment.hasvideo %}
                 <iframe class="commentVideo" type="text/html"

@@ -47,11 +47,11 @@ class UserPost(Post):
     title = models.CharField("user post title", max_length=80)
     text = models.TextField("user post text")
     announce = models.BooleanField("True if post is announcement.")
+    
 # A menu
 class MenuPost(Post):
     title = models.CharField("user post title", max_length=80)
     text = models.TextField("user post text")
-    # for now identical to UserPost.
 
 # subordinate to other posts, no title
 class Comment(Post):
