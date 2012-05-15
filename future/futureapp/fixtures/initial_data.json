@@ -46,5 +46,21 @@
       "pic": "https://graph.facebook.com/1380180326/picture?type=square",
       "largepic": "https://graph.facebook.com/1380180326/picture?type=large"
     }
+  },
+  {
+    "model": "futureapp.User",
+    "pk": 4,
+    "fields": {
+      "netid": "tester",
+      "firstname": "Jon",
+      "lastname": "Doe",
+      "year": "2012",
+      "fbid": "100003869949054",
+      "authenticated": "True",
+      "authcode": "hello, world!",
+      "admin": "BAMF",
+      "pic": "https://graph.facebook.com/100003869949054/picture?type=square",
+      "largepic": "https://graph.facebook.com/100003869949054/picture?type=large"
+    }
   }
 ]
