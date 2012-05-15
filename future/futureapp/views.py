@@ -266,10 +266,11 @@ def link_tags_mentions(text, post):
 # ----
     # search for hashtags:
 
-    if isinstance(post,Comment):  # Associate with parent post.
-       post = post.parent
+#    if isinstance(post,Comment):  # Associate with parent post.
+#       post = post.parent
 
-    hashRe= re.compile(r'[#]+([-_a-zA-Z0-9]+)')
+#   hashRe= re.compile(r'[#]+([-_a-zA-Z0-9]+)')
+    hashRe= re.compile(r'#([-_a-zA-Z0-9]{1,24})')
     mentRe= re.compile(r'[@]+([-_a-zA-Z0-9]+)')
     for h in hashRe.findall(text):
        hashtag, created = Tag.objects.get_or_create(text=h)
@@ -277,8 +278,11 @@ def link_tags_mentions(text, post):
           hashtag.save()
        try:
           post.Tags.add(hashtag)
+          if isinstance(post,Comment):  #add to parent as well
+             post.parent.Tags.add(hashtag)
        except IntegrityError:
           continue
+    #mentions
     for m in mentRe.findall(text):
        try:
           u = User.objects.filter(firstname = m)
@@ -287,6 +291,13 @@ def link_tags_mentions(text, post):
              post.mentions.add(u)
        except IntegrityError:
           continue
+
+# Iterates through the set of tags passed in, deleting them if they are not
+# associated with any post.
+def deleteIfUnused(tags):
+   for tag in tags:
+     if tag.post_set.all().count() == 1:
+        tag.delete()
 
 # make a new Comment.
 def postComment(request):
@@ -327,6 +338,10 @@ def deleteComment(request):
             return redirect('/home/') 
        c = c[0]    #c is queryset
        if c.author == curUser or curUser.admin == 'BAMF':
+           #hand tags:
+           for tag in c.Tags.all():
+             if tag.post_set.all().count() == 2:  #this plus parent
+               tag.delete()
            c.delete()
            return redirect('/home/')
        else:
@@ -348,6 +363,10 @@ def deletePost(request):
             return renderHomepage(request)
         p = p[0]    #p is queryset
         if p.author == curUser or curUser.admin == 'BAMF':
+            #handle tags
+            for tag in p.Tags.all():
+               if tag.post_set.all().count() == 1:
+                  tag.delete()
             p.delete()
             return redirect('/home/')
         else:
