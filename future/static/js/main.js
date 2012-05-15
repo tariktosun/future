@@ -1,161 +1,131 @@
 $(document).ready(function(){
-	
-	$('.commentPrompt').focus(function(){
-		if (this.value == "Write a comment...") {
-			$(this).css("height", "40px");
-			$('.submitButton', this).css("display", "inline");
-			$(this).css("color", "black");
-			$(this).attr("value", "");
-		}
-	});
-	
-	$('.commentPrompt').blur(function(){
-		if (this.value == ""){
-			$(this).css("color", "#ccc");
-			$(this).attr("value", "Write a comment...");
-		}
-	});
-
-	$('.postPrompt').focus(function(){
-		if (this.value == "Post new message") {
-			$(this).css("height", "40px");
-			$('.submitButton', this).css("display", "inline");
-			$(this).css("color", "black");
-			$(this).attr("value", "");
-		}
-	});
-	
 
 
-	$('.postPrompt').blur(function(){
-		if (this.value == ""){
-			$(this).css("color", "#ccc");
-			$(this).attr("value", "Post new message");
-		}
-	});
+    //  USER INTERACTION WITH PROMPTS
+    
+    //  On post prompt focus
+    $('.postPrompt').focus(function(){
+        
+        //  If the prompt still has the default value
+	if (this.value == "Post new message") {
+	    $(this).css("height", "40px");
+	    $('.submitButton', this).css("display", "inline");
+	    $(this).css("color", "black");
+	    $(this).attr("value", "");
+	}
+    });    
+    
+    //  On post prompt deselect
+    $('.postPrompt').blur(function(){
+
+        //  If the user did not enter text
+	if (this.value == ""){
+	    $(this).css("color", "#ccc");
+	    $(this).attr("value", "Post new message");
+	}
+    });
+    
+    //  On comment prompt focus
+    $('.commentPrompt').focus(function(){
+	if (this.value == "Write a comment...") {
+	    $(this).css("height", "40px");
+	    $('.submitButton', this).css("display", "inline");
+	    $(this).css("color", "black");
+	    $(this).attr("value", "");
+	}
+    });
+
+    //  On comment prompt deselect
+    $('.commentPrompt').blur(function(){
+	if (this.value == ""){
+	    $(this).css("color", "#ccc");
+	    $(this).attr("value", "Write a comment...");
+	}
+    });
+
+    //  On search prompt focus
+    $('.searchBox').focus(function(){
+	if (this.value == "Search") {
+	    $('.submitButton', this).css("display", "inline");
+	    $(this).css("color", "black");
+	    $(this).attr("value", "");
+	}
+    });
+    
+    //  On search prompt deselect
+    $('.searchBox').blur(function(){
+	if (this.value == ""){
+	    $(this).css("color", "#ccc");
+	    $(this).attr("value", "Search");
+	}
+    });
 
 
-	$('.content-container').click(function(event){
-		var target = event.target;
-		
-		currentContainer = this;
-		currentComment = $('.commentBox', this);
-		
-		if($(target).is(".action")){
-			$('.commentBox', this).css("display", "block");
-		}
+    //  OTHER USER INTERACTIONS
 
-	});
-		
+    
+    //  When user clicks on a post
+    $('.content-container').click(function(event){
+        
+        //  Display the comment prompt associated with the post
+        var target = event.target;
+	currentContainer = this;
+	currentComment = $('.commentBox', this);
+	if($(target).is(".action")){
+	    $('.commentBox', this).css("display", "block");
+	}
 
-	$('form').keypress(function(e){
-		if (e.which == 13){
-			e.preventDefault();
-			this.submit();
-		}
-	}); 
-	
-	
+    });
+    
+    //  When the user presses return inside any form, submit the form
+    $('form').keypress(function(e){
+	if (e.which == 13){
+	    e.preventDefault();
+	    this.submit();
+	}
+    }); 
+    
+    
+    //  DYNAMIC RENDERING OF HASHTAG LINKS
+    
 
+    //  For each instance of a class containing hashtags
+    $('.posttext, .comment, .hashtag').each(function(){
 	
-	$('.posttext').each(function(){
-	
-		function hashTagFilter(post){
-			
-			function linkify(match){
-				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>";
-			}
-			return post.replace(/#([-_a-zA-Z0-9]{1,24})/gi, linkify); 
-		}
+        //  Function to find hashtags and add links to them
+	function hashTagFilter(post){    
+	    function linkify(match){
+		return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>";
+	    }
+	    return post.replace(/#([-_a-zA-Z0-9]{1,24})/gi, linkify); 
+	}
 
-		var val = $(this).html();
-		val = hashTagFilter(val);
-		$(this).html(val);	
-	});
-	
-	$('.comment').each(function(){
-	
-		function hashTagFilter(post){
-			
-			function linkify(match){
-				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>";
-			}
-		
-			return post.replace(/#([-_a-zA-Z0-9]{1,24})/gi, linkify);
-		
-		}
+        //  Replace the current value of the class instance with the same value
+        //  and a link
+	var val = $(this).html();
+	val = hashTagFilter(val);
+	$(this).html(val);	
+    });
+    
+    
+    //  DYNAMIC RENDERING OF AT MENTION LINKS
+    
 
-		var val = $(this).html();
-		val = hashTagFilter(val);
-		$(this).html(val);	
-	});
+    //  For each instance of a class containing at mentions
+    $('.posttext, .comment').each(function(){
 	
-	$('.hashtag').each(function(){
-	
-		function hashTagFilter(post){
-			
-			function linkify(match){
-				return "<a href=/" + match.substring(1) + "/ class='hashtag'>" + match + "</a>";
-			}
-		
-			return post.replace(/[#]+([-_a-zA-Z0-9]+)/gi, linkify);
-		
-		}
+        //  Function to find at mentions and add links to them
+	function atFilter(post){
+	    function linkify(match){
+		return "<a href=/user/" + match.substring(1) + "/ class='atMention'>" + match + "</a>";
+	    }
+	    return post.replace(/[@]([a-zA-Z]+)[-]([a-zA-Z]+)/gi, linkify);
+	}
 
-		var val = $(this).html();
-		val = hashTagFilter(val);
-		$(this).html(val);	
-	});
-	
-	$('.posttext').each(function(){
-	
-		function atFilter(post){
-			
-			function linkify(match){
-				return "<a href=/user/" + match.substring(1) + "/ class='atMention'>" + match + "</a>";
-			}
-		
-			return post.replace(/[@]([a-zA-Z]+)[-]([a-zA-Z]+)/gi, linkify);
-		
-		}
-
-		var val = $(this).html();
-		val = atFilter(val);
-		$(this).html(val);	
-	}); 
-	
-	$('.comment').each(function(){
-	
-		function atFilter(post){
-			
-			function linkify(match){
-				return "<a href=/user/" + match.substring(1) + "/ class='atMention'>" + match + "</a>";
-			}
-		
-			return post.replace(/[@]([A-Z][a-z]+)[-]([A-Z][a-z]+)/gi, linkify);
-		
-		}
-
-		var val = $(this).html();
-		val = atFilter(val);
-		$(this).html(val);	
-	}); 
-	
-	
-	
-	$('.searchBox').focus(function(){
-		if (this.value == "Search") {
-			$('.submitButton', this).css("display", "inline");
-			$(this).css("color", "black");
-			$(this).attr("value", "");
-		}
-	});
-	
-	$('.searchBox').blur(function(){
-		if (this.value == ""){
-			$(this).css("color", "#ccc");
-			$(this).attr("value", "Search");
-		}
-	});
-	
+        //  Replace the current value of the class instance with the
+        //  same value and a link
+	var val = $(this).html();
+	val = atFilter(val);
+	$(this).html(val);	
+    }); 
 });

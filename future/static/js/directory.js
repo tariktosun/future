@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    
+    //  When the user clicks the addFriend button
     $('.addFriend').click(function(){
         
         //  Pull the data necessary to make the request from HTML
@@ -26,16 +28,12 @@ $(document).ready(function(){
 
             // Based on the how the user responded:
             function(param){
+                //  If they sent the request
                 if (param.action)
                 {
                     $(clickedbutton).text("Request Sent");
                     $(clickedbutton).delay(1000).fadeOut('slow')
-                }
-                
-                // If they cancel params will show: 
-                //    {action:false, ...}
-                // and if they closed the pop-up window then:
-                //    param is undefined
+                }                
             }
         );
     });

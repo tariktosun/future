@@ -1,18 +1,18 @@
 from django.conf.urls.defaults import patterns, include, url
-from django.http import HttpResponse
 from futureapp.views import * 
 from django.conf import settings
 
-# ----
+# Dynamically match hashtags to urls that do not match any other rules
+# and pass them to the hash filtered function
 # this function influenced by:
 # https://github.com/semente/django-hashtags
-#-----
 hashtagged_url = url(
     regex  = '^(?P<hashtag>[-\w]+)/$',
     view = renderHashfiltered,
     name = 'hashtagged_url'
     )
 
+# Main URL patterns, see futureapp.views for more details
 urlpatterns = patterns('',
                        url(r'^$',drop),
                        url(r'^post/$',post),
@@ -35,6 +35,7 @@ urlpatterns = patterns('',
                        hashtagged_url,
                        )
 
+# URL patterns for static files (images, css, javascript)
 urlpatterns += patterns('',
                         (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
                         )
