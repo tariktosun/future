@@ -8,18 +8,16 @@
     <script src="http://connect.facebook.net/en_US/all.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/directory.css" />
-    <script src="/static/js/directory.js"></script>
-    
-    
+    <script src="/static/js/directory.js"></script>    
   </head>
 
   <body>
+    
     <div id="fb-root"></div>
     
     {% include 'nav.html' %}
-    
-    <div class="break">
-      
+
+    <div class="break">      
     </div>
 
     <div id="main">
@@ -40,8 +38,8 @@
         {% for user in year.list %}
         {% if not user.fbid == None %}
 	<div class="member">
-	  
 	  <a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
+          
 	  {% if not user.isfriend %}
 	  <div class="addFriend">
 	    Add Friend
@@ -52,12 +50,14 @@
 	  <div class="memberName">
 	    <a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
 	  </div>
-
 	</div>
         {% endif %}        
+        
         {% endfor %}
         {% endfor %}
       </div>
     </div>
+    
   </body>
+  
 </html>

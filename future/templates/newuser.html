@@ -7,114 +7,56 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
-    <script>
-      $(document).ready(function(){
-      
-      $('.netidform').focus(function(){
-      if (this.value == "netid") {
-      $('.netidform').css("color", "black");
-      $('.netidform').attr("value", "");
-      }
-      });
-      $('.netidform').blur(function(){
-      if (this.value == "") {
-      $('.netidform').css("color", "#ccc");
-      $('.netidform').attr("value", "netid");
-      }
-      });
-      
-      $('.firstform').focus(function(){
-      if (this.value == "first name") {
-      $('.firstform').css("color", "black");
-      $('.firstform').attr("value", "");
-      }
-      });
-      $('.firstform').blur(function(){
-      if (this.value == "") {
-      $('.firstform').css("color", "#ccc");
-      $('.firstform').attr("value", "first name");
-      }
-      });
-      
-      $('.lastform').focus(function(){
-      if (this.value == "last name") {
-      $('.lastform').css("color", "black");
-      $('.lastform').attr("value", "");
-      }
-      });
-      $('.lastform').blur(function(){
-      if (this.value == "") {
-      $('.lastform').css("color", "#ccc");
-      $('.lastform').attr("value", "last name");
-      }
-      });
-
-      $('textarea').keypress(function(){
-      if ($('.netidform').value != "netid") {
-      if ($('.firstform').value != "first name") {
-      if ($('.lastform').value != "last name") {
-      $('.submitButton').css("visibility", "invisible")
-      }
-      }
-      }
-      });
-
-      });
-    </script>
-    
-    
+    <script src="/static/js/newuser.js"></script>
   </head>
 
   <body>
     
     {% include 'nav.html' %}
-    <div class="break">
-      
+    <div class="break">      
     </div>
 
     <div id="main">
       <div id="container">
-        
-        
-
-
-        
-        
-        
+                
         <div class="heading">
           Wombling Creation
         </div>
         
-        
         <div class="content-container" style="width:450px;">
+          
           <div class='post'>
             <form action="/createuser/" method="post">
               {% csrf_token %}
+              
               <textarea name="netid" class="netidform">netid</textarea>
               <textarea name="firstname" class="firstform">first name</textarea>
               <textarea name="lastname" class="lastform">last name</textarea>
+              
               <div id="bottomForm" style="margin-top:10px;">	
                 <select name="year">
                   <option value="2014">Sophomore</option>
                   <option value="2013">Junior</option>
                   <option value="2012">Senior</option>
                 </select>
+                
                 <select name="admin">
                   <option value="ME">Member</option>
                   <option value="FC">Food Chair</option>
                   <option value="OF">Officer</option>
                 </select>
+                
                 <button class="submitButton" style="display:inline;">
                   Birth Wombling
                 </button>
+                
               </div>
-
             </form>
           </div>
           
-          
-          
         </div>
       </div>
+      
   </body>
+  
 </html>

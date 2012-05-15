@@ -1,3 +1,4 @@
+/* Member profile box */
 .member{
 	border: solid thin #ccc;
 	-moz-border-radius: 3px;
@@ -10,6 +11,7 @@
 	position:relative;
 }
 
+/* Member's picture */
 .member img{
 	padding: 6px;
 	width: 100px;
@@ -17,6 +19,7 @@
 	display: inline;
 }
 
+/* Member's name */
 .memberName{
 	color: #424242;
 	text-align: center;
@@ -27,6 +30,7 @@
         margin-right: 8px;
 }
 
+/* Button to add member as fb friend */
 .addFriend{        
     background: #899ECB;
     color: #F2F2F2;

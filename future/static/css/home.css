@@ -1,13 +1,18 @@
+
+/* Global settings for font, etc. */
 body, html{
     margin: 0 auto;
     font-family: 'Helvetica Neue', Helvetica, Arial, default;
 }
-
+/* Global Link styling */
 a {
     text-decoration: none;
     color: #424242;
 }
 
+/* UI Elements */
+
+/* form for submission of content */
 textarea {
     resize: none;
     width: 90%;
@@ -20,6 +25,7 @@ textarea {
     overflow: auto;
 }
 
+/* text box for searching through text of posts */
 textarea.searchBox{
     height:15px;
     padding-left:30px;
@@ -32,6 +38,7 @@ textarea.searchBox{
     margin-top:20px;
 }
 
+/* Wrappers for search form */
 .search{
     background: url('/static/images/icn_search.png') 0 2px no-repeat;
     position:absolute;
@@ -40,9 +47,87 @@ textarea.searchBox{
     margin-top:30px;
     margin-left:10px;
 }
-
 .searchWrapper{
     position:relative;
+}
+
+
+.submitButton{
+    background: #fafafa;
+    font-size:16px;
+    border:solid thin #ccc;
+    cursor:pointer;
+    padding-left:10px;
+    padding-right: 10px;
+    padding-top:4px;
+    padding-bottom: 4px;
+    float: right;
+    text-align: center;
+    display: none;
+    margin-right:4px;
+}
+.netidform {
+    width: 396px;
+}
+
+.firstform {
+    width: 396px;
+}
+
+.lastform {
+    width: 396px;
+}
+
+.postActions{
+    font-size:12px;
+    color: #6D8BC9;
+    margin-top:20px;
+    clear:both;
+    margin-bottom:10px;
+    overflow:auto;
+}
+
+.action{
+    margin-left: 10px;
+    float:right;
+    cursor: pointer;
+}
+
+.commentBox{
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border: solid thin #ccc;
+    clear: both;
+    padding-bottom:10px;
+    display: none;
+    background: #f2f2f2;
+    padding-top:5px;
+}
+
+.commentPrompt{
+    width:90%;
+    height:18px;
+    font-size:12px;
+    padding:5px;
+    display:block;
+    margin-top:10px;
+    margin-bottom:10px;
+    color: #ccc;
+    margin-left:15px;
+}
+
+.postPrompt{
+    width:95%;
+}
+.checkboxWork{
+    text-align:left;
+    margin-top:5px;
+    color: #424242;
+    float:right;
+}
+
+.commentBox .deleteButton{
+    margin-top:10px;
 }
 
 
@@ -237,22 +322,6 @@ article{
     height: 1%;
 }
 
-.submitButton{
-    background: #fafafa;
-    font-size:16px;
-    border:solid thin #ccc;
-    cursor:pointer;
-    padding-left:10px;
-    padding-right: 10px;
-    padding-top:4px;
-    padding-bottom: 4px;
-    float: right;
-    text-align: center;
-    display: none;
-    margin-right:4px;
-}
-
-
 /*posts */
 .post{
     max-width: 600px;
@@ -293,59 +362,6 @@ article{
     margin: 15px;
 }
 
-.netidform {
-    width: 396px;
-}
-
-.firstform {
-    width: 396px;
-}
-
-.lastform {
-    width: 396px;
-}
-
-.postActions{
-    font-size:12px;
-    color: #6D8BC9;
-    margin-top:20px;
-    clear:both;
-    margin-bottom:10px;
-    overflow:auto;
-}
-
-.action{
-    margin-left: 10px;
-    float:right;
-    cursor: pointer;
-}
-
-.commentBox{
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border: solid thin #ccc;
-    clear: both;
-    padding-bottom:10px;
-    display: none;
-    background: #f2f2f2;
-    padding-top:5px;
-}
-
-.commentPrompt{
-    width:90%;
-    height:18px;
-    font-size:12px;
-    padding:5px;
-    display:block;
-    margin-top:10px;
-    margin-bottom:10px;
-    color: #ccc;
-    margin-left:15px;
-}
-
-.postPrompt{
-    width:95%;
-}
 
 .comment{
     margin-left:14px;
@@ -389,12 +405,6 @@ aside .hashtag{
     margin-left:2px;
 }
 
-.checkboxWork{
-    text-align:left;
-    margin-top:5px;
-    color: #424242;
-    float:right;
-}
 
 .announceText{
     font-size:14px;
@@ -406,9 +416,6 @@ aside .hashtag{
     color: #0084B4;
 }
 
-.commentBox .deleteButton{
-    margin-top:10px;
-}
 
 .announcement{
     background: #fafafa;

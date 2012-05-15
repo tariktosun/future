@@ -25,6 +25,7 @@
         
         {% if curUser.admin == 'BAMF' or curUser.admin == 'FC' %}
         <div id="header">
+          
           <form action="/postMenu/" method="post">
             {% csrf_token %}
 	    <textarea name="text">Post new menu</textarea>
@@ -33,29 +34,34 @@
 	      POST NEW MENU
 	    </button>
 	  </form>
+          
         </div>
         {% endif %}
         
         {% for menu in menu_list %}
         <div class="content-container announcement">
           <div class='menu'>
+            
             <form action="/deleteMenu/" method="post">
               {% csrf_token %}
               {% if curUser.admin == 'BAMF' or curUser.admin == 'FC' %}
               <button class="deleteButton">
                 X
               </button>
-              {% endif %}   
-              <input type="hidden" name="postMenu" value={{ menu.pk }} />              
-	      {{menu.text|linebreaksbr}} 
+              {% endif %}
+              <input type="hidden" name="postMenu" value={{ menu.pk }} />                            
+            </form>
+            
+	  {{menu.text|linebreaksbr}} 
 	  </div>
-          </form>
+          
         </div>
         {% endfor %}
         
       </div>
     </div>
-    
     {% endautoescape %}    
+    
   </body>
+  
 </html>
