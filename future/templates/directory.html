@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Web F. Site</title>
   
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
@@ -38,7 +38,7 @@
       </div>
 
     {% for user in sophomore_list %}
-    {% if user.authenticated and user.fbid != '' %}
+    {% if not user.fbid == None %}
 	<div class="member">
 	      
 	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
@@ -62,7 +62,8 @@
       </div>
 
     {% for user in junior_list %}
-    {% if user.authenticated and user.fbid != '' %}
+    {% if not user.fbid == None %}
+
 <div class="member">
 	      
 	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
@@ -86,7 +87,7 @@
       </div>
 
     {% for user in senior_list %}
-    {% if user.authenticated and user.fbid != '' %}
+    {% if not user.fbid == None %}
 	<div class="member">
 	      
 	       	<a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>

@@ -219,6 +219,19 @@ def deleteMenu(request):
         return HttpResponse('Menu deletion failed!')
 
 
+
+def youtube_embed(text, post):
+   hasyoutubeurl = re.compile(r"[?&]v=[\w-]{11}")
+   vididlist = hasyoutubeurl.findall(text)
+   if len(vididlist) > 0:
+      post.youtubeid = vididlist[0][3:]
+      post.hasvideo = True
+      try:
+         post.save()
+      except IntegrityError:
+         pass
+   
+
 # ----      UserPost Manipulation       ----#
 
 # make a new UserPost.
@@ -228,21 +241,14 @@ def post(request):
         curAuthor = curAuthor[0]    #it's a querydict
         posttext = request.POST.get('text', '')
         if posttext == '':
-           return HttpReseponse('You must enter text.')
-        newPost = UserPost(title = 'foo', #title=request.POST['title'],
+           return HttpResponse('You must enter text.')
+        newPost = UserPost(title = 'foo',
                      text = posttext,
                      author = curAuthor,
                      hasvideo = False,
-        #             tags = (),
-        #             mentions = ()
                           )
         # video embedding:
-        hasyoutubeurl = re.compile(r"[?&]v=[\w-]{11}")
-        vididlist = hasyoutubeurl.findall(posttext)
-        if len(vididlist) > 0:
-           newPost.youtubeid = vididlist[0][3:]
-           newPost.hasvideo = True
-        
+        youtube_embed(posttext, newPost)
         # announcements
         is_announcement = request.POST.get('is_announcement','')
         if(is_announcement):
@@ -250,7 +256,6 @@ def post(request):
 
         newPost.save()
         link_tags_mentions(posttext, newPost)
-#        return renderHomepage(request) 
         return redirect('/home/')
     else:
         # we need to change this to a more general-purpose error.
@@ -303,21 +308,17 @@ def deleteIfUnused(tags):
 def postComment(request):
     if request.method == 'POST': 
         curAuthor = User.objects.filter(pk = request.session['uid'])
-        curAuthor = curAuthor[0]    #it's a querydict
- #       parentPost = UserPost.objects.filter(fk = request.POST['parentPost'])
-#        parentPost = parentPost[0]
+        curAuthor = curAuthor[0]
         parentPost = request.POST['parentPost']
         parentPost = UserPost.objects.get(id=parentPost)
-        newComment = Comment(#title=request.POST['title'],
+        newComment = Comment(
                      text = request.POST['commenttext'],
                      author = curAuthor,
                      parent = parentPost, 
-        #             tags = (),
-        #             mentions = ()
                           )
         newComment.save()
-        link_tags_mentions(newComment.text,newComment)
-#        return renderHomepage(request) 
+        link_tags_mentions(newComment.text, newComment)
+        youtube_embed(newComment.text, newComment)
         return redirect('/home/')
     else:
         # we need to change this to a more general-purpose error.

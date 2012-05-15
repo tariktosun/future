@@ -433,3 +433,15 @@ aside .hashtag{
 	border:solid thick #0084B4;
 	width:100%;
 }
+
+.postVideo{
+    width:100%;
+    height:300px;
+}
+
+.commentVideo{
+    width:70%;
+    height:200px;
+    margin-left:auto;
+    margin-right:auto;
+}
