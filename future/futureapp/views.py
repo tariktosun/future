@@ -34,6 +34,11 @@ def drop(request):
       return render_to_response('splash.html')
 
 
+def error(request, text):
+   c = RequestContext(request, {'errortext':text})
+   return render_to_response('error.html', c)
+   
+
 
 # ----      Social Feed-based Views       ---- #
 
@@ -98,7 +103,7 @@ def renderHashfiltered(request, hashtag):
    try:
       T = Tag.objects.get(text = hashtag)
    except:
-      return HttpResponse("Error: Hashtag %s does not exist." % hashtag)
+      return error(request, "Error: Hashtag %s does not exist." % hashtag)
    
    posts = UserPost.objects.filter(Tags = T).order_by('-time')
    hashtags = Tag.objects.all().order_by('-time')
@@ -226,7 +231,7 @@ def post(request):
    # Check user submitted data
    postText = request.POST.get('text', '')
    if postText == '':
-      return HttpResponse('You must enter text.')
+      return error(request, 'You must enter text.')
    
    # Create a new post and save it in the database
    newPost = UserPost(text = postText,
@@ -237,12 +242,12 @@ def post(request):
    is_announcement = request.POST.get('is_announcement', False)
    if (is_announcement):
       if (curUser.admin != 'BAMF'):
-         return HttpResponse('Error: Only officers may post announcements')
+         return error(request, 'Error: Only officers may post announcements')
       newPost.announce=True
    try:
       newPost.save()
    except IntegrityError:
-      return HttpResponse('Database Error: Posting failed.')
+      return error(request, 'Database Error: Posting failed.')
    
    # Parse the post text for hashtags/mentions and embedded vids
    link_tags_mentions(postText, newPost)
@@ -265,10 +270,10 @@ def postComment(request):
    # Check user submitted data.
    parentPost = request.POST.get('parentPost', '')
    if parentPost == '':
-      return HttpResponse('Error: Improperly formed post comment HTTP request.')
+      return error(request, 'Error: Improperly formed post comment HTTP request.')
    commentText = request.POST.get('commenttext', '')
    if commentText == '':
-      return HttpResponse('You must enter text.')
+      return error(request, 'You must enter text.')
 
    # Fetch the comment's parent post
    parentPost = UserPost.objects.get(pk=parentPost)
@@ -281,7 +286,7 @@ def postComment(request):
    try:
       newComment.save()
    except IntegrityError:
-      return HttpResponse('Database Error: Comment posting failed')
+      return error(request, 'Database Error: Comment posting failed')
 
    # Parse the comment text for hashtags, mentions, and embedded vids
    link_tags_mentions(commentText, newComment)
@@ -301,19 +306,19 @@ def postMenu(request):
    
    # Check permissions
    if(curUser.admin != u'FC' and curUser.admin != u'BAMF'):
-      return HttpResponse('Error: You do not have permission to post menus.') 
+      return error(request, 'Error: You do not have permission to post menus.') 
    
    # Fetch the text from the user's request and create the menu in the DB
    menutext = request.POST.get('text', '')
    if menutext == '':
-      return HttpResponse('Error: You may not post an empty menu.')
+      return error(request, 'Error: You may not post an empty menu.')
    newMenu = MenuPost(text = request.POST['text'],
                       author = curUser,
                      )
    try:
       newMenu.save()
    except IntegrityError:
-      return HttpResponse('Database Error: Menu posting failed.')
+      return error(request, 'Database Error: Menu posting failed.')
    
    return redirect('/menu/')
 
@@ -389,7 +394,7 @@ def deletePost(request):
    # Fetch the post to be deleted
    postid = request.POST.get('post', '')
    if (postid == ''):
-      return HttpResponse('Error: Badly formed post delete HTTP request.')
+      return error(request, 'Error: Badly formed post delete HTTP request.')
    p = UserPost.objects.filter(pk = postid)
    if p.count() == 0:      # if post does not exist... (catch double tap)
       return renderHomepage(request)
@@ -397,7 +402,7 @@ def deletePost(request):
    
    # Check permissions
    if p.author != curUser and curUser.admin != 'BAMF':
-      return HttpResponse('Error: You may not delete a post you do not own.')
+      return error(request, 'Error: You may not delete a post you do not own.')
    # If this is the last post with a given tag, delete the tag as well
    for tag in p.Tags.all():
       if tag.post_set.all().count() == 1:
@@ -419,7 +424,7 @@ def deleteComment(request):
    # Fetch the comment to be deleted
    commentid = request.POST.get('comment', '')
    if commentid == '':
-      return HttpResponse('Error: Badly formed comment delete HTTP request')
+      return error(request, 'Error: Badly formed comment delete HTTP request')
    c = Comment.objects.filter(pk = commentid)
    if c.count() == 0:      # if comment does not exist... (catch double tap)
       return redirect('/home/') 
@@ -427,7 +432,7 @@ def deleteComment(request):
    
    # Check permissions
    if c.author != curUser and curUser.admin != 'BAMF':
-      return HttpResponse('Error: You may not delete a comment you do not own.')
+      return error(request, 'Error: You may not delete a comment you do not own.')
    # If this comment is the last post of any type with a given tag,
    # delete the tag as well
    for tag in c.Tags.all():
@@ -452,12 +457,12 @@ def deleteMenu(request):
    
    # Check permissions
    if (curUser.admin != u'FC' and curUser.admin != u'BAMF'):
-      return HttpResponse('You do not have permission to delete menus.') 
+      return error(request, 'You do not have permission to delete menus.') 
    
    # Fetch the menu to be deleted and delete it
    menuid = request.POST.get('postMenu', '')
    if (menuid == ''):
-      return HttpResponse('Error: Badly formed menu delete HTTP request')
+      return error(request, 'Error: Badly formed menu delete HTTP request')
    p = MenuPost.objects.get(pk = menuid)
    p.delete()
    return redirect('/menu')
@@ -477,19 +482,19 @@ def signup(request):
        
    requestnetid = request.GET.get('netid', '')
    if requestnetid == '': # Http GET request has no netid parameter
-      return HttpResponse('Error: Not a valid signup HTTP request.')
+      return error(request, 'Error: Not a valid signup HTTP request.')
        
    signup_user = User.objects.filter(netid = requestnetid)
    if signup_user.count() == 0: # netid not found in database
-      return HttpResponse('Error: Given netid is not approved for signup.')
+      return error(request, 'Error: Given netid is not approved for signup.')
         
    signup_user = signup_user[0]
    if signup_user.authenticated == True:
-      return HttpResponse('Error: Given netid is already authenticated.')
+      return error(request, 'Error: Given netid is already authenticated.')
    
    # provided code does not match code in database or parameter is empty
    if request.GET.get('authcode', '') != signup_user.authcode:
-      return HttpResponse('Please check that signup link is correct, contains incorrect authentication code.')
+      return error(request, 'Please check that signup link is correct, contains incorrect authentication code.')
 
 
    # make necessary changes in database and session
@@ -497,7 +502,7 @@ def signup(request):
    try:
       signup_user.save()
    except IntegrityError:
-      return HttpResponse('Error during new user signup. Please contact a club officer to continue the signup process.')
+      return error(request, 'Error during new user signup. Please contact a club officer to continue the signup process.')
    request.session['authuser'] = signup_user;
   
    c = RequestContext(request, {'curUser':signup_user})
@@ -523,11 +528,11 @@ def createuser(request):
    
    # Check the permissions of the creating user
    if curUser.admin != 'BAMF':
-      return HttpResponse('Error: Only administrators may create new users.')
+      return error(request, 'Error: Only administrators may create new users.')
 
    # New Developer users may not be created
    if request.POST.get('admin', '') == 'BAMF':
-      return HttpResponse('Error: Get real, son.')
+      return error(request, 'Error: Get real, son.')
 
    # Grab the data for the new user from the POST form.
    new_netid = request.POST.get('netid', '')
@@ -552,7 +557,7 @@ def createuser(request):
          admin = new_admin
          )
    except IntegrityError:
-      return HttpResponse('Error while creating user. Please check submitted fields and ensure that user is not already signed up.')
+      return error(request, 'Error while creating user. Please check submitted fields and ensure that user is not already signed up.')
    
    # Create an authentication link and send it out in an email to the
    # user's netid
@@ -597,7 +602,7 @@ def newuser(request):
        return redirect('/fbauth/')
    curUser = User.objects.filter(pk = request.session['uid'])[0]
    if curUser.admin != 'BAMF':
-      return HttpResponse('Error: Only administrators may create new users')
+      return error(request, 'Error: Only administrators may create new users')
    c = RequestContext(request, {'curUser':curUser,})
    return render_to_response('newuser.html', c)
 
@@ -640,10 +645,10 @@ def fbauth(request):
                   try:
                      new_user.save()
                   except IntegrityError:
-                     return HttpResponse("Error occured during signup. Please contact a club officer to continue the signup process.")
+                     return error(request, "Error occured during signup. Please contact a club officer to continue the signup process.")
                   this_user = new_user
                else:
-                  return HttpResponse('Error: You are not authorized to use this site.')
+                  return error(request, 'You are not authorized to use this site.')
             else:
                this_user = this_user[0] #querydict
                
