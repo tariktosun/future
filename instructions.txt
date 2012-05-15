@@ -33,9 +33,3 @@ Instructions for setting up:
 That's it!  Everything is set up in your virtual environment.  Whenever you want
 to work in the environment again, just do
 'source ~/.virtualenvs/future/bin/activate' and everything will be there.
-
-NOTE: NEVER EVER EVER RUN PIP INSTALL WITHOUT FIRST GOING INTO YOUR VIRTUAL
-ENVIRONMENT!!!!
-
-PETER REMEMBER THIS.  FO SERIOUS.
-or I'll tell Zoe Deschanel that you pooped your pants.
