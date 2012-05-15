@@ -1,7 +1,6 @@
 body, html{
 	margin: 0 auto;
 	font-family: 'Helvetica Neue', Helvetica, Arial, default;
-	#	background: url('/static/images/paper.jpg');
 }
 
 a {
@@ -171,8 +170,6 @@ textarea.searchBox{
 
 #header
 {
-	#border-bottom: solid thin #ccc;
-	#border: solid thin #f2f2f2;
 	padding: 4px;
 	text-align: center;
     overflow: auto;
@@ -213,7 +210,6 @@ textarea.searchBox{
 {
 	border: solid thin #f2f2f2;
 	margin-top:10px;
-	#box-shadow: 0 1px 1px rgba(34,25,25,0.4);
 	background:#fafafa;	
 	width:100%;
 	display:inline-block;
@@ -256,8 +252,6 @@ article{
 	font-size:16px;
 	border:solid thin #ccc;
 	cursor:pointer;
-	/*-moz-border-radius:5px;*/
-	/*-webkit-border-radius:5px;*/
 	padding-left:10px;
 	padding-right: 10px;
 	padding-top:4px;
@@ -283,8 +277,6 @@ article{
 	border: solid thin white;
 	float: left;
 	margin-right: 10px;
-/*	margin-right: 20px;
-	margin-left: 10px;*/
 }
 
 .author{
@@ -383,6 +375,8 @@ article{
 
 .commentText{
 	margin-left:10px;
+        width:100%;
+        word-wrap: break-word;
 	font-size:12px;
 }
 

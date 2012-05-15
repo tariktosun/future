@@ -1,6 +1,5 @@
 .member{
 	border: solid thin #ccc;
-	#display: inline;
 	-moz-border-radius: 3px;
 	-webkit-border-rdaius: 3px;
 	overflow: none;

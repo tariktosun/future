@@ -60,8 +60,9 @@ def renderProfile(request, name):
       
       authoredPosts = UserPost.objects.filter(author=profileUser.pk).order_by('-time')
       c = RequestContext(request, {'post_list':authoredPosts,
-                             'curUser':curUser, 'profile': profileUser,})
-      return render_to_response('profile.html', c)
+                             'curUser':curUser, 'profile': profileUser,
+                                   'profile_view':True,})
+      return render_to_response('home.html', c)
    else:
       return redirect('/fbauth/')
 

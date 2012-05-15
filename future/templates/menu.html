@@ -6,7 +6,6 @@
   
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <!-- script src="bootsrap-modal.js"></script> --> 
         <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
     
        <script>
@@ -42,24 +41,7 @@
 </head>
 
 <body>
-  
- <!-- <div id="navigation">
-    <div id="top">
-      
-      <div class="smallItem">
-	Logout
-	</div>
-      
-      <div class="smallItem">
-	Directory
-	</div>
-      
-      
-      
-      <img src= {{curUser.pic}} /> 
-      <div class="topName"> {{ curUser.firstname}} {{ curUser.lastname }}</div>
-      </div>
-    </div>-->
+  {% autoescape on %}
   {% include 'nav.html' %}
   <div class="break">
     
@@ -97,12 +79,6 @@
             {% endif %}   
             <input type="hidden" name="postMenu" value={{ menu.pk }} />
             
-<!--		         <img src={{menu.author.pic}} /> -->
-<!--
-         <div class="author">
-                  {{ post.author.firstname }} {{ post.author.lastname }}
-          </div>
-          -->
 		        {{menu.text|linebreaksbr}} 
 		 </div>
             </form>
@@ -113,5 +89,6 @@
     
     </div>
     </div>
+    {% endautoescape %}    
 </body>
 </html>
