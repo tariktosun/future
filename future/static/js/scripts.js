@@ -1,8 +1,13 @@
 var sidebarOut = true, speed = 1000, 
 	sidebarWidth = 275, arrowbarWidth = 35,
-	tooltipHeight = 500, screenHeight = $(window).height();
+	tooltipHeight = 500, screenHeight = $(window).height(),
+	screenWidth = $(window).width(), screenWidthSidebar = $(window).width() - sidebarWidth - arrowbarWidth;
 
 $(document).ready(function() {
+
+$('#search-field').height(screenHeight);
+$('#search-field').width(screenWidthSidebar);
+
 //changes the image and retracts the sidebar
 $('#arrow img').click(function() {
 	if (sidebarOut) {
@@ -11,6 +16,7 @@ $('#arrow img').click(function() {
 		setTimeout(function(){ 
 			$('#arrow img').attr('src', '/static/images/right-arrow.png');
 		},1000);
+		$('#search-field').animate({width: screenWidth}, speed);
         sidebarOut = false;
 	}
 	else {
@@ -19,6 +25,7 @@ $('#arrow img').click(function() {
 		setTimeout(function(){ 
 	        $('#arrow img').attr('src', '/static/images/left-arrow.png');
     	},1000);
+    	$('#search-field').animate({width: screenWidthSidebar}, speed);
         sidebarOut = true;
 	}
 });
@@ -75,5 +82,13 @@ $('#add-game-button').click(function() {
 
 $(window).resize(function() {
 screenHeight = $(window).height();
-console.log(screenHeight);
+screenWidth = $(window).width();
+screenWidthSidebar = $(window).width() - sidebarWidth - arrowbarWidth;
+$('#search-field').height(screenHeight);
+if(!sidebarOut){
+$('#search-field').width(screenWidth);
+}
+else{
+$('#search-field').width(screenWidthSidebar);	
+}
 });
