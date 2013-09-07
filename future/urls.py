@@ -34,6 +34,9 @@ urlpatterns = patterns('',
                        url(r'^search/$', renderHomepage),
                        url(r'^search/$', search),
                        url(r'^lobby/$',renderLobby),
+                       url(r'^gameForm/$',renderGameForm),
+                       url(r'^createGame/$',createGame),
+                       url(r'^gameDisplayDummy/$',renderGameList),
                        hashtagged_url,
                        )
 

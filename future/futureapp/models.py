@@ -73,3 +73,34 @@ class MenuPost(Post):
 # A comment, subordinate to other posts
 class Comment(Post):
     parent = models.ForeignKey(UserPost)    
+
+# ---------------------------------------#
+
+class Game(models.Model):
+    """ Game model """
+    SPORT_CHOICES = (
+        (u'bskt', u'Basketball'),
+        (u'tnns', u'Tennis'),
+        (u'sccr', u'Soccer'),
+    )
+
+    GAME_STYLES = (
+        (u'casu', u'casual'),
+        (u'comp', u'competitive'),
+    )
+
+    # User info:
+    leader = models.ForeignKey(User) # only one leader per post.
+    players = models.ManyToManyField(User, related_name='user_joined_games')
+    #TODO: I don't know what related_name is.
+
+    # metadata
+    creation_time = models.DateTimeField(auto_now_add=True)
+    name = models.CharField('Game Name', max_length=30)
+    sport = models.CharField('Game Type', max_length=4, choices=SPORT_CHOICES)
+    location = models.CharField('Game Location', max_length=100)
+    game_datetime = models.CharField('Game Datetime', max_length=50) #TODO: Change me
+    style = models.CharField('Game Style', max_length=4, choices=GAME_STYLES)
+    min_number_players = models.IntegerField('min number of players', max_length=2)
+    max_number_players = models.IntegerField('max number of players', max_length=2)
+

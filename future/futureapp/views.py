@@ -39,13 +39,90 @@ def error(request, text):
    return render_to_response('error.html', c)
    
 
-
-# ----      Social Feed-based Views       ---- #
+#########################################################
+#                    NEW STUFF!!!!!
+#########################################################
 
 def renderLobby(request):
+   """ Renders the lobby """
    c = RequestContext(request)
    return render_to_response('index.html', c)
 
+def renderGameForm(request):
+   """ renders dummy game form """
+   c = RequestContext(request)
+   return render_to_response('gameFormDummy.html', c)
+
+def renderGameList(request):
+   """ render all games in feed. """
+   # Check user login status
+   if not request.session.get('logged_in', False):
+      return redirect('/fbauth/')
+   curUser = User.objects.filter(pk = request.session['uid'])[0]
+   
+   # Fetch all hashtags and posts to display
+   posts = UserPost.objects.order_by('-time')
+   hashtags = Tag.objects.order_by('-time')
+
+   # Fetch all games
+   games = Game.objects.order_by('-creation_time')
+   
+   # Render the feed using the main template
+   c = RequestContext(request, {'games_list':games,
+                                'tags_list':hashtags,
+                                'curUser':curUser,})
+   return render_to_response('gameDisplayDummy.html', c)
+
+def createGame(request):
+   """ Create a new game, which curuser leads. """
+
+   # May only be accessed through an HTML POST
+   if request.method != 'POST':
+      return HttpResponse   
+   if not request.session.get('logged_in', False):
+      return redirect('/fbauth')
+   curUser = User.objects.filter(pk = request.session['uid'])[0]
+
+   # User info:
+   game_leader = curUser
+   #metadata:
+   name = request.POST.get('name', 'FOO!')
+   sport = request.POST.get('sport', '')
+   style = request.POST.get('style', '')
+   location = request.POST.get('location', '') 
+   datetime = request.POST.get('datetime', '')
+   min_players = request.POST.get('min_players', '')
+   max_players = request.POST.get('max_players', '')
+
+   # create object:
+   newGame = Game( leader = game_leader,
+                   name = name,
+                   sport = sport,
+                   location = location,
+                   game_datetime = datetime,
+                   style = style,
+                   min_number_players = min_players,
+                   max_number_players = max_players,
+                  )
+
+   # save it:
+   try:
+      newGame.save()
+   except IntegrityError:
+      return error(request, 'Database Error: Game creation failed.')
+
+   # add m2m fields (must be done after saving)
+   newGame.players.add(game_leader) # leader should also be a player.
+   
+   return redirect('/lobby/')
+
+
+#########################################################
+#                      end new stuff.
+#########################################################
+
+
+# ----      Social Feed-based Views       ---- #
   
 # Render all posts in the social feed
 def renderHomepage(request):
