@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<body>
+
+  {% for game in games_list %}
+    <div class="game">
+      <div> game name: {{ game.name }} </div>
+      <div> sport: {{game.sport}} </div>
+      <div> location: {{ game.location }} </div>
+      <div> game_datetime: {{game.game_datetime}} </div>
+      <div> style: {{game.style}} </div>
+      <div> min_number_players: {{game.min_number_players}} </div>
+      <div> max number players: {{game.max_number_players}} </div>
+      <br>
+
+    </div>
+  {% endfor %}
+
+</body>
