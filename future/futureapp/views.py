@@ -472,7 +472,7 @@ def deleteMenu(request):
 # ----      Authentication       ---- #
 
 
-
+# THIS IS NOW DEFUNKT!!
 # Authenticate user's netid
 def signup(request):
     
@@ -519,20 +519,20 @@ def createuser(request):
    
    # This function may only be accessed through an HTML POST request
    if request.method != 'POST':
-      return HttpResponse(status=405)
+      return HttpResponse
    
    # Check the user's logged in status
-   if not request.session.get('logged_in', False):
-      return redirect('/fbauth/')
-   curUser = User.objects.filter(pk = request.session['uid'])[0]
+   # if not request.session.get('logged_in', False):
+   #    return redirect('/fbauth/')
+   # curUser = User.objects.filter(pk = request.session['uid'])[0]
    
-   # Check the permissions of the creating user
-   if curUser.admin != 'BAMF':
-      return error(request, 'Error: Only administrators may create new users.')
+   # # Check the permissions of the creating user
+   # if curUser.admin != 'BAMF':
+   #    return error(request, 'Error: Only administrators may create new users.')
 
-   # New Developer users may not be created
-   if request.POST.get('admin', '') == 'BAMF':
-      return error(request, 'Error: Get real, son.')
+   # # New Developer users may not be created
+   # if request.POST.get('admin', '') == 'BAMF':
+   #    return error(request, 'Error: Get real, son.')
 
    # Grab the data for the new user from the POST form.
    new_netid = request.POST.get('netid', '')
@@ -558,52 +558,87 @@ def createuser(request):
          )
    except IntegrityError:
       return error(request, 'Error while creating user. Please check submitted fields and ensure that user is not already signed up.')
+    
+   # code below sets up for signup view code
+   # signup_user = User.objects.filter(netid = new_netid) 
+   # if signup_user.count() == 0: # netid not found in database
+   #    return error(request, 'Error: Given netid is not approved for signup.')
+   # Code below adapted from old signup view
+   signup_user = User.objects.filter(netid = new_netid)
+   if signup_user.count() == 0: # netid not found in database
+      return error(request, 'Error: Given netid is not approved for signup.')
+        
+   signup_user = signup_user[0]
+   if signup_user.authenticated == True:
+      return error(request, 'Error: Given netid is already authenticated.')
    
-   # Create an authentication link and send it out in an email to the
-   # user's netid
-   link = settings.BASE_URI
-   link += 'signup?netid=' + new_netid
-   link += '&authcode=' + new_authcode
-   target_email = new_netid + '@princeton.edu'
-   subject = 'Web F. Site Registration'
-   message = 'Dear ' + new_firstname + ''',
+   # provided code does not match code in database or parameter is empty
+   #if request.GET.get('authcode', '') != signup_user.authcode:
+   #   return error(request, 'Please check that signup link is correct, contains incorrect authentication code.')
 
-You have been selected to help create the future of our dear mother on the webbernets.
+   # make necessary changes in database and session
+   signup_user.authenticated = True
+   try:
+      signup_user.save()
+   except IntegrityError:
+      return error(request, 'Error during new user signup. Please contact a club officer to continue the signup process.')
+   request.session['authuser'] = signup_user;
+  
+   c = RequestContext(request, {'curUser':signup_user})
+   return render_to_response('splash.html')
 
-Your mission, should you choose to accept it, is to visit the link below
+   #--- Link stuff...
+   # # Create an authentication link and send it out in an email to the
+   # # user's netid
+   # link = settings.BASE_URI
+   # link += 'signup?netid=' + new_netid
+   # link += '&authcode=' + new_authcode
 
-'''
-   message += link
+   # # REDIRECT TO LINK:
+   # return redirect(link)
+   #---
+
+   # target_email = new_netid + '@princeton.edu'
+   # subject = 'Web F. Site Registration'
+   # message = 'Dear ' + new_firstname + ''',
+
+# You have been selected to help create the future of our dear mother on the webbernets.
+
+# Your mission, should you choose to accept it, is to visit the link below
+
+# '''
+#    message += link
    
-   # compose a MIME header for the email
-   mime = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (
-                            settings.EMAIL_HOST_USER,
-                            target_email,
-                            subject,
-                            formatdate(), message)
+#    # compose a MIME header for the email
+#    mime = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (
+#                             settings.EMAIL_HOST_USER,
+#                             target_email,
+#                             subject,
+#                             formatdate(), message)
    
-   # Uses a workaround found on StackOverflow (Django's default email implementation
-   # is extremely buggy and will not work with TLS)
-   gmail = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
-   gmail.ehlo()
-   gmail.starttls()
-   gmail.ehlo()
-   gmail.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-   gmail.sendmail(settings.EMAIL_HOST_USER, target_email, mime)
-   gmail.close()
+#    # Uses a workaround found on StackOverflow (Django's default email implementation
+#    # is extremely buggy and will not work with TLS)
+#    gmail = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
+#    gmail.ehlo()
+#    gmail.starttls()
+#    gmail.ehlo()
+#    gmail.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+#    gmail.sendmail(settings.EMAIL_HOST_USER, target_email, mime)
+#    gmail.close()
    
-   # Return back to the newuser form
-   return newuser(request)
+#    # Return back to the newuser form
+#    return newuser(request)
  
 
 # Create a new user for use with the site
 def newuser(request):
-   if not request.session.get('logged_in', False):
-       return redirect('/fbauth/')
-   curUser = User.objects.filter(pk = request.session['uid'])[0]
-   if curUser.admin != 'BAMF':
-      return error(request, 'Error: Only administrators may create new users')
-   c = RequestContext(request, {'curUser':curUser,})
+   # if not request.session.get('logged_in', False):
+   #     return redirect('/fbauth/')
+   # curUser = User.objects.filter(pk = request.session['uid'])[0]
+   # if curUser.admin != 'BAMF':
+   #    return error(request, 'Error: Only administrators may create new users')
+   #c = RequestContext(request), {'curUser':curUser,})
+   c = RequestContext(request)
    return render_to_response('newuser.html', c)
 
 
@@ -648,7 +683,8 @@ def fbauth(request):
                      return error(request, "Error occured during signup. Please contact a club officer to continue the signup process.")
                   this_user = new_user
                else:
-                  return error(request, 'You are not authorized to use this site.')
+                  return redirect('/newuser/')  # if we don't recognize you, go to sign up page 
+                  #return error(request, 'You are not authorized to use this site.')
             else:
                this_user = this_user[0] #querydict
                
