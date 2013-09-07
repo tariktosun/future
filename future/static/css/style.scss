@@ -1,0 +1,128 @@
+$bg-main-color: gray;
+$bg-secondary-color: #282828;
+
+/*
+ __  _     _      _                
+/ _\(_) __| | ___| |__   __ _ _ __ 
+\ \ | |/ _` |/ _ \ '_ \ / _` | '__|
+_\ \| | (_| |  __/ |_) | (_| | |   
+\__/|_|\__,_|\___|_.__/ \__,_|_|   
+                                   
+*/
+
+@mixin abs_sidebar_features($width, $color, $left){
+	background-color: $color;
+	height: 100%;
+	width: $width;
+	top: 0;
+	left: $left;
+}
+
+#sidestream{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+}
+
+#sidebar{
+	@include abs_sidebar_features(275px, $bg-main-color, 0);
+	.profile-pic{
+		width: 100%;
+		position: relative;
+		text-align: center;
+		img{
+			margin-top: 15px;
+		}
+		span{
+		    display: block;
+		}
+		#stars{
+			img{
+				margin-top: 5px;
+				width: 15px;
+			}
+		}
+	}
+}
+
+.sidebar-break{
+	width: 100%;
+	height: 2px;
+	background-color: black;
+}
+
+.sidebar-game-list-title{
+		padding: 5px;
+}
+
+.sidebar-game-list{
+}
+
+#sidebar-options {
+	position: absolute;
+	bottom: 0;
+	table {
+	height: 45px;
+	width: 100%;
+	background-color: $bg-secondary-color;
+	table-layout:fixed;
+	td {
+		background-color: $bg-main-color;
+		width: 33%;
+	}
+	}
+}
+
+
+
+/*
+   _                          
+  /_\  _ __ _ __ _____      __
+ //_\\| '__| '__/ _ \ \ /\ / /
+/  _  \ |  | | | (_) \ V  V / 
+\_/ \_/_|  |_|  \___/ \_/\_/  
+*/                              
+
+#arrow{
+	@include abs_sidebar_features(35px, $bg-secondary-color, 275px);
+	display: block;
+	position: absolute;
+	img{
+		position: absolute;
+		width: 35px;
+		top: 45%;
+	}
+}
+
+#arrow-hover{
+	@include abs_sidebar_features(35px, none, 0);
+	position: absolute;
+}
+
+/*
+   ___              _ 
+  / __\__ _ _ __ __| |
+ / /  / _` | '__/ _` |
+/ /__| (_| | | | (_| |
+\____/\__,_|_|  \__,_|
+
+*/
+
+.card{
+	width: 100%;
+	height: 50px;
+	background-color: $bg-secondary-color;
+	img{
+		height: inherit;
+	}
+	.cardTooltip{
+		display: none;
+		z-index: 1;
+		background-color: #666;
+		left:275px;
+		width: 500px;
+		height: 500px;
+		position: absolute;
+	}
+}
