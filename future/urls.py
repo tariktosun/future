@@ -31,7 +31,8 @@ urlpatterns = patterns('',
                        url(r'^postComment/$',postComment),
                        url(r'^deleteComment/$',deleteComment),
                        url(r'^user/(\w+-\w+)/$', renderProfile),
-                       url(r'^search/$', search),
+                       url(r'^search/$', renderHomepage),
+                       url(r'^tariktest/$', renderHomepage),
                        hashtagged_url,
                        )
 

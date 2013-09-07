@@ -628,7 +628,12 @@ def createuser(request):
    
 #    # Return back to the newuser form
 #    return newuser(request)
- 
+
+def tariktest(request):
+   """ Test making a new page. """
+   c = RequestContext(request)
+   render_to_response('splash.html',c)
+   return
 
 # Create a new user for use with the site
 def newuser(request):
@@ -772,3 +777,5 @@ def fbauth(request):
 
    # redirect the user to facebook for OAuth
    return redirect(facebookurl)
+
+
