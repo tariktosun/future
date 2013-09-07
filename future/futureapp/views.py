@@ -23,7 +23,7 @@ from urllib import quote
 from itertools import chain # for dealing with lists in directory
 from django.db.models import Q # for search
 
-
+# TEST
 
 # Drop page: either render splash or homepage. Visited when the user
 # accesses http://siteurl/
