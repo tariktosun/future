@@ -45,7 +45,9 @@ def error(request, text):
 
 def renderLobby(request):
    """ Renders the lobby """
-   c = RequestContext(request)
+   curUser = User.objects.filer(pk = request.session['uid'])[0]
+   games_leading = Game.objects.filter(leader=curUser).order_by(-creation_time)
+   c = RequestContext(request, games_leading=games_leading)
    return render_to_response('index.html', c)
 
 def renderGameForm(request):
@@ -66,9 +68,13 @@ def renderGameList(request):
 
    # Fetch all games
    games = Game.objects.order_by('-creation_time')
+
+   # Games that curUser is leader of
+   games_leading = Game.objects.filter(leader=curUser).order_by('-creation_time')
    
    # Render the feed using the main template
    c = RequestContext(request, {'games_list':games,
+                                 'games_leading':games_leading,
                                 'tags_list':hashtags,
                                 'curUser':curUser,})
    return render_to_response('gameDisplayDummy.html', c)
