@@ -42,6 +42,9 @@ def error(request, text):
 
 # ----      Social Feed-based Views       ---- #
 
+def renderLobby(request):
+   c = RequestContext(request)
+   return render_to_response('index.html', c)
 
   
 # Render all posts in the social feed
