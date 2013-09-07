@@ -9,7 +9,7 @@ $('#arrow img').click(function() {
 		$('#sidestream').animate({left: -1*(arrowbarWidth+sidebarWidth)}, speed);
 		
 		setTimeout(function(){ 
-			$('#arrow img').attr('src', 'img/right-arrow.png');
+			$('#arrow img').attr('src', '/static/images/right-arrow.png');
 		},1000);
         sidebarOut = false;
 	}
@@ -17,7 +17,7 @@ $('#arrow img').click(function() {
 		$('#sidestream').animate({left: 0}, speed);
 
 		setTimeout(function(){ 
-	        $('#arrow img').attr('src', 'img/left-arrow.png');
+	        $('#arrow img').attr('src', '/static/images/left-arrow.png');
     	},1000);
         sidebarOut = true;
 	}
@@ -43,15 +43,31 @@ $('#arrow').mouseleave(
 
 //More information window
 $('.card').click(function() {
-	if(screenHeight > 500){
-		if(screenHeight - $(this).offset().top > 250){
-			$(this).find(">:first-child").css("top", $(this).offset().top - tooltipHeight/2  + 25+ "px");		
-		}
-		else{
-			$(this).find(">:first-child").css("top", screenHeight - 500 + "px");
-		}
+	if($('.active')[0] != this){
+	if($('.active')[0]){
+		$('.active').find(">:first-child").hide();
+		$('.active').removeClass('active');
 	}
-	$(this).find(">:first-child").toggle();
+		$(this).addClass('active');
+		if(screenHeight > 500){
+			if(screenHeight - $(this).offset().top > 250){
+				$(this).find(">:first-child").css("top", $(this).offset().top - tooltipHeight/2  + 25+ "px");		
+			}
+			else{	
+				$(this).find(">:first-child").css("top", screenHeight - 500 + "px");
+			}
+		}
+		$(this).find(">:first-child").toggle();
+	}
+	else{
+		$('.active').find(">:first-child").hide();
+		$('.active').removeClass('active');
+	}
+});
+
+//More information window
+$('#add-game-button').click(function() {
+	$('#add-game-screen').toggle();
 });
 
 
