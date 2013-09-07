@@ -7,8 +7,10 @@
     <link rel=stylesheet href="/static/css/style.css" type="text/css" media=screen>
   </head>
   <body>
+  	<!-- Retractable portion -->
   	<div id="sidestream">
 		<div id="sidebar">
+			<!-- User Info -->
 			<div class="profile-pic">
 				<img src="/static/images/profile-pic.png" alt="you">
 				<span id="username"> Samantha Swee Merritt </span> 
@@ -20,66 +22,80 @@
 					<img src="/static/images/star.png" alt="star">
 				</div>
 			</div>
+
 			<div class="sidebar-break"></div>
-			<div class="sidebar-game-list-title">Friends Games</div>
+			
+			<!-- Admin Games Info -->
+			<div class="sidebar-game-list-title">My Admin Games</div>
 			<div class="sidebar-game-list">
+			  {% for game in games_leading %}	
 				<div class="card">
 					<div class="cardTooltip">
 						<div class="icon" style="background-repeat: no-repeat; 
 												 height: 150px; width: 150px; 
 												 background-size: cover; display: block;">
 						</div>
-						<div class="game-title">Basketball Game</div>
-						<div class="game-sport">basketball</div><br>
+						<div class="game-title">{{ game.name }}</div>
+						<div class="game-sport">{{ game.sport }} </div><br>
 						<div class="textual-info">
 							<br>
-							Location : <div class="game-location"></div><br>
-							Date and Time : <div class="game-dandt"></div><br>
-							Notes : <div class="game-notes"></div><br>
-							Players : <div class="game-players"></div><br>	
+							Location : {{ game.location }}<br>
+							Date and Time : {{ game.game_datetime }}<br>
+							Notes : {{ game.notes }}<br>
+							Players : {{game.min_number_players}} - {{game.max_number_players}}<br>	
 						</div>					
+					<a href="#" class="join-button">Join</a>
+					<a href="#" class="game-page-button">-></a>
 					</div>
 					<div class="icon">
 					<img src="/static/images/skill.png" alt="skill" class="skill">
 					</div>
 					<div class="card-text">
-						<div class="card-date">Sunday, September 6</div>
+						<div class="card-date">{{ game.game_datetime }}</div>
 						<br>
-						<div class="card-location">West Philly High</div>
+						<div class="card-location">{{ game.location }}</div>
 						<br>
-						<div class="card-capacity">4/6</div>
+						<div class="card-capacity">{{ game.count }} / {{ game.max_number_players }}</div>
 					</div>
 				</div>
+  			{% endfor %}
 			</div>
+
+			<!-- Joined Games Info -->
 			<div class="sidebar-game-list-title">Joined Games</div>
-			<div class="sidebar-game-list">
-			</div>
+			<div class="sidebar-game-list"></div>
 		</div>
+
+		<!-- Bottom Sidebar Toolbar -->
 		<div id="sidebar-options">
 			<table>
 				<tr>
 					<td id="add-game-button">Add Game</td>
-					<td>Admin Games</td>
+					<td>Friends Games</td>
 					<td>Settings</td>
 				</tr>
 			</table>
 		</div>
+
+		<!-- Arrow -->
 		<div id="arrow">
 			<img src="/static/images/left-arrow.png" alt="arrow">
 		</div>
 	</div>
-	<div id="arrow-hover"></div>
+
+	<!-- Adding a game form -->
 	<div class="add-game-cont">
 		<div id="add-game-screen">
-			<form name="input" action="html_form_action.asp" method="get">
-				<span class="form-title">Game Title: </span><br>
-					<input type="text" name="game-title"><br><br>
-				<span class="form-title">Location: </span><br>
-					<input type="text" name="game-title"><br><br>
-				<span class="form-title">Challenge Level: </span> <br>
-					<input type="radio" name="skill" value="casual">Casual<br>
-					<input type="radio" name="skill" value="competitive">Competitive<br><br>
-				<span class="form-title">Sport: </span> <br>
+			<form name="input" action="/createGame/" method="post">
+              {% csrf_token %}
+				Game Title:<br>
+					<input type="text" name="name"><br><br>
+				Location: <br>
+					<input type="text" name="location"><br><br>
+				Challenge Level: <br>
+					<input type="radio" name="style" value="casual">Casual<br>
+					<input type="radio" name="style" value="competitive">Competitive<br><br>
+				Sport: <br>
 					<select name="sport">
 					  <option value="basketball">Basketball</option>
 					  <option value="tennis">Tennis</option>
@@ -87,18 +103,23 @@
 					  <option value="baseball">Baseball</option>
 					</select><br>
 					<br>
-				<span class="form-title">Date: </span> <br>
-					<input type="datetime-local" name="game-time"> <br>
+				Date: <br>
+					<input type="datetime-local" name="datetime"> <br>
 					<br>
-				<span class="form-title">Number of Players: </span> <br>
-					<input type="number" name="players"><br>
+				Number of Players: <br>
+					Min: <input type="number" name="min_players">, Max: <input type="number" name="max_players"><br>
 					<br>
-				<span class="form-title">Notes: </span> <br>				
+				Notes: <br>				
 					<textarea name="notes" rows="4" cols="50"></textarea> <br>
 					<br>
 				<input type="submit" value="Submit">
 			</form>
 		</div>
-	</div>
+	 </div>
+	
+	 <div id="search-field"></div>
+	
+	<!-- Javascript Hack -->
+	<div id="arrow-hover"></div>
   </body>
 </html>
