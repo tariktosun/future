@@ -25,4 +25,9 @@
     <div> leading game: {{game.name}} </div>
 
   {% endfor %}
+
+  <br>
+  {% for game in games_playing %}
+    <div> playing in game: {{game.name}} </div>
+  {% endfor %}
 </body>
