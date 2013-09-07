@@ -24,60 +24,81 @@
 			<div class="sidebar-game-list-title">Friends Games</div>
 			<div class="sidebar-game-list">
 				<div class="card">
-					<img src="/static/images/icon.png" alt="icon">
-					<div class="cardTooltip"></div>
-				</div>
-	<!--
-				<div class="card">
 					<div class="cardTooltip">
+						<div class="icon" style="background-repeat: no-repeat; 
+												 height: 150px; width: 150px; 
+												 background-size: cover; display: block;">
+						</div>
+						<div class="game-title">Basketball Game</div>
+						<div class="game-sport">basketball</div><br>
+						<div class="textual-info">
+							<br>
+							Location : <div class="game-location"></div><br>
+							Date and Time : <div class="game-dandt"></div><br>
+							Notes : <div class="game-notes"></div><br>
+							Players : <div class="game-players"></div><br>	
+						</div>					
+					</div>
+					<div class="icon">
+					<img src="/static/images/skill.png" alt="skill" class="skill">
+					</div>
+					<div class="card-text">
+						<div class="card-date">Sunday, September 6</div>
+						<br>
+						<div class="card-location">West Philly High</div>
+						<br>
+						<div class="card-capacity">4/6</div>
 					</div>
 				</div>
-				<div class="card">
-					<div class="cardTooltip">
-					</div>
-				</div>
-				<div class="card">
-					<div class="cardTooltip">
-					</div>
-				</div>
-	-->
 			</div>
-			<div class="sidebar-game-list-title">Friends Games</div>
+			<div class="sidebar-game-list-title">Joined Games</div>
 			<div class="sidebar-game-list">
-	<!--
-				<div class="card">
-					<div class="cardTooltip">
-					</div>
-				</div>
-				<div class="card">
-					<div class="cardTooltip">
-					</div>
-				</div>
-				<div class="card">
-					<div class="cardTooltip">
-					</div>
-				</div>
-				<div class="card">
-					<div class="cardTooltip">
-					</div>
-				</div>
-	-->
 			</div>
-
-			<div id="sidebar-options">
-				<table>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</table>
-			</div>
+		</div>
+		<div id="sidebar-options">
+			<table>
+				<tr>
+					<td id="add-game-button">Add Game</td>
+					<td>Admin Games</td>
+					<td>Settings</td>
+				</tr>
+			</table>
 		</div>
 		<div id="arrow">
 			<img src="/static/images/left-arrow.png" alt="arrow">
 		</div>
 	</div>
 	<div id="arrow-hover"></div>
+	<div class="add-game-cont">
+		<div id="add-game-screen">
+			<form name="input" action="html_form_action.asp" method="get">
+				<span class="form-title">Game Title: </span><br>
+					<input type="text" name="game-title"><br><br>
+				<span class="form-title">Location: </span><br>
+					<input type="text" name="game-title"><br><br>
+				<span class="form-title">Challenge Level: </span> <br>
+					<input type="radio" name="skill" value="casual">Casual<br>
+					<input type="radio" name="skill" value="competitive">Competitive<br><br>
+				<span class="form-title">Sport: </span> <br>
+					<select name="sport">
+					  <option value="basketball">Basketball</option>
+					  <option value="tennis">Tennis</option>
+					  <option value="lacrosse">Lacrosse</option>
+					  <option value="baseball">Baseball</option>
+					</select><br>
+					<br>
+				<span class="form-title">Date: </span> <br>
+					<input type="datetime-local" name="game-time"> <br>
+					<br>
+				<span class="form-title">Number of Players: </span> <br>
+					<input type="number" name="players"><br>
+					<br>
+				<span class="form-title">Notes: </span> <br>				
+					<textarea name="notes" rows="4" cols="50"></textarea> <br>
+					<br>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+	</div>
   </body>
 </html>
