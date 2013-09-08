@@ -81,6 +81,7 @@ def renderLobby(request):
                             'games_playing':games_playing,
                             'lobby_games':lobby_games,
                             'games_in_history':games_in_history,
+                            'sport_filter':'tnns'
                             'curUser':curUser})
     return render_to_response('index.html', c)
 
@@ -241,6 +242,7 @@ def renderFilteredLobby(request):
   c = RequestContext(request, {'games_leading':games_leading, 
                             'games_playing':games_playing,
                             'lobby_games':lobby_games,
+                            'sport_filter':sport,
                             'curUser':curUser})
   return render_to_response('index.html', c)
 
