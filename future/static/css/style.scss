@@ -74,6 +74,8 @@ _\ \| | (_| |  __/ |_) | (_| | |
 
 .sidebar-game-list{
 	width: 100%;
+	height: 200px;
+	overflow-y: scroll;
 }
 
 #sidebar-options {
@@ -284,7 +286,7 @@ _\ \  __/ (_| | | | (__| | | | / /   | |  __/ | (_| |
 		width: -webkit-calc(100% - 275px);
 		textarea {
 		    resize: none;
-		    width: 90%;
+		    width: 80%;
 		    height: 20px;
 		    font-size:16px;
 		    color: #ccc;
@@ -317,7 +319,7 @@ _\ \  __/ (_| | | | (__| | | | / /   | |  __/ | (_| |
 			width: inherit;
 			position: fixed;
 			.past-game{
-				height: 100px;
+				height: 150px;
 				float: left;
 				width: 60%;
 				background-color: $bg-main-color;

@@ -71,7 +71,7 @@ def renderLobby(request):
 
     games_leading = Game.objects.filter(leader=curUser).filter(status='actv').order_by('-creation_time')
     games_playing = curUser.user_joined_games.filter(status='actv').exclude(leader=curUser)
-    games_in_history = curUser.user_joined_games
+    games_in_history = curUser.user_joined_games.filter()
 
     lobby_games = Game.objects.filter(status='actv').order_by('-creation_time')
 
