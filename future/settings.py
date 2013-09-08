@@ -44,12 +44,6 @@ else:
 #     'PORT': url.port,
 #     }    
 
-
-
-
-
-
-
 # Settings for facebook authentication with our own Authentication
 FACEBOOK_APP_ID              = getenv('FUTURE_FB_KEY')
 FACEBOOK_API_SECRET          = getenv('FUTURE_FB_SECRET')
@@ -137,9 +131,14 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'future.urls'
 
-TEMPLATE_DIRS = (
-    getenv('FUTURE_DIR') + 'future/templates',
-)
+if not HEROKU_PROJECT_DIR:
+    TEMPLATE_DIRS = (
+        getenv('FUTURE_DIR') + 'future/templates',
+    )
+else:
+    TEMPLATE_DIRS = (
+        os.path.join(HEROKU_PROJECT_DIR, templates),
+    )
 
 INSTALLED_APPS = (
     'django.contrib.contenttypes',
