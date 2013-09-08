@@ -137,7 +137,7 @@ if not HEROKU_PROJECT_DIR:
     )
 else:
     TEMPLATE_DIRS = (
-        os.path.join(HEROKU_PROJECT_DIR, templates),
+        os.path.join(HEROKU_PROJECT_DIR, 'templates'),
     )
 
 INSTALLED_APPS = (
