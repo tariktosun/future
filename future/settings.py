@@ -1,19 +1,48 @@
 from os import getenv
+from os import environ
+import dj_database_url
 
 # Django settings for future project.
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-DATABASES = {
-    'default': {
+
+
+DATABASES = {}
+
+if environ.has_key('FUTURE_DIR'):
+    #this is local
+
+    DATABASES = {
+        'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': getenv('FUTURE_DIR') + 'future/futuredb',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        }
     }
-}
+else:
+    DATABASES['default'] =  dj_database_url.config()
+
+
+#url = urlparse(environ['DATABASE_URL'])
+    
+# DATABASES['default'] = {
+#     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#     'NAME': url.path[1:],
+#     'USER': url.username,
+#     'PASSWORD': url.password,
+#     'HOST': url.hostname,
+#     'PORT': url.port,
+#     }    
+
+
+
+
+
+
 
 # Settings for facebook authentication with our own Authentication
 FACEBOOK_APP_ID              = getenv('FUTURE_FB_KEY')
