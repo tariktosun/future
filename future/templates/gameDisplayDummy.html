@@ -17,6 +17,22 @@
       {% endfor %}
       <br>
 
+      <div>
+        <form action="/joinGame/" method="post">
+          {% csrf_token %}
+          <button>Join Game</button>
+          <input type="hidden" name="game_to_join_name" value={{game.name}} />
+        </form>
+      </div>
+
+      <div>
+        <form action="/leaveGame/" method="post">
+          {% csrf_token %}
+          <button>Leave Game</button>
+          <input type="hidden" name="game_to_leave_name" value={{game.name}} />
+        </form>
+      </div>
+
     </div>
   {% endfor %}
 

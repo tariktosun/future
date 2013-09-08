@@ -37,6 +37,9 @@ urlpatterns = patterns('',
                        url(r'^gameForm/$',renderGameForm),
                        url(r'^createGame/$',createGame),
                        url(r'^gameDisplayDummy/$',renderGameList),
+                       url(r'^joinGame/$',joinGame),
+                       url(r'^leaveGame/$',leaveGame),
+                       url(r'^deleteGame/$',deleteGame),
                        hashtagged_url,
                        )
 

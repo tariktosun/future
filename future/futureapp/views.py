@@ -95,7 +95,7 @@ def createGame(request):
    # User info:
    game_leader = curUser
    #metadata:
-   name = request.POST.get('name', 'FOO!')
+   name = request.POST.get('name', '')
    sport = request.POST.get('sport', '')
    style = request.POST.get('style', '')
    location = request.POST.get('location', '') 
@@ -123,6 +123,53 @@ def createGame(request):
    # add m2m fields (must be done after saving)
    newGame.players.add(game_leader) # leader should also be a player.
    
+   return redirect('/lobby/')
+
+def joinGame(request):
+   # This page may only be accessed through an HTML POST request
+   if request.method != 'POST':
+      return HttpResponse(status=405)
+
+   # Get the game object we are joining.  Make sure whatever form we get here
+   # from gives this input.
+   game_name = request.POST.get('game_to_join_name', '')
+   game = Game.objects.filter(name = game_name)[0]
+   curUser = User.objects.filter(pk = request.session['uid'])[0]
+
+   # Check that the current user is not already a player in this game.
+   # We should make it so that state can never be reached anyway
+   if not curUser in game.players.all():
+      game.players.add(curUser)
+   else:
+      return redirect('/menu/')
+
+   return redirect('/lobby/')
+
+def leaveGame(request):
+   # This page may only be accessed through an HTML POST request
+   if request.method != 'POST':
+      return HttpResponse(status=405)
+
+   game_name = request.POST.get('game_to_leave_name', '')
+   game = Game.objects.filter(name = game_name)[0]
+   curUser = User.objects.filter(pk = request.session['uid'])[0]
+
+   # Check that the current user is actually a player in this game.
+   # We should make it so that can never actually happen
+   if not curUser in game.players.all():
+      return redirect('/menu/')
+
+   # remove curUser from this game's list of players
+   game.players.remove(curUser)
+   # If curUser is the leader, delete the game
+   # (Not sure if that's how we want to handle that)
+   if game.leader == curUser:
+      game.delete()
+      return redirect('/gameForm/')
+
+   return redirect('/lobby/')
+
+def deleteGame(request):
    return redirect('/lobby/')
 
 
