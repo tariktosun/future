@@ -1,6 +1,10 @@
 <div id="profile" class="search-field">
 	<span class="image-container">
 		<img src={{curUser.largepic}}>
+        <form action="/logout/" method="post">
+          {% csrf_token %}
+          <button class="button" style="margin-left: 70px;">Logout</button>
+        </form>
 	</span>
 	<div class="search-query-field">
 		<div class="search"></div>
