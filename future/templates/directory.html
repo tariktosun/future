@@ -38,7 +38,7 @@
         {% for user in year.list %}
         {% if not user.fbid == None %}
 	<div class="member">
-	  <a href=/user/{{user.firstname}}-{{user.lastname}} ><img src= {{user.largepic}} /> </a>
+	  <img src= {{user.largepic}} /> 
           
 	  {% if not user.isfriend %}
 	  <div class="addFriend">
@@ -48,7 +48,7 @@
 	  {% endif %}
 	  
 	  <div class="memberName">
-	    <a href=/user/{{user.firstname}}-{{user.lastname}} > {{user.firstname}} {{user.lastname}} </a>
+	     {{user.firstname}} {{user.lastname}} 
 	  </div>
 	</div>
         {% endif %}        

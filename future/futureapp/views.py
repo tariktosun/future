@@ -73,7 +73,7 @@ def renderLobby(request):
     games_playing = curUser.user_joined_games.filter(status='actv').exclude(leader=curUser)
     games_in_history = curUser.user_joined_games.filter()
 
-    lobby_games = Game.objects.filter(status='actv').order_by('-creation_time')
+    lobby_games = Game.objects.filter(status='actv').exclude(pk__in = games_leading).exclude(pk__in = games_playing).order_by('-creation_time')
 
     # Only want to have games that we are playing in but NOT leading
     #games_playing = [game for game in games_playing if game.leader != curUser]
@@ -240,13 +240,13 @@ def renderFilteredLobby(request):
   sport = request.POST.get('sport', '')
   style = request.POST.get('style', '')
   if sport != 'any' and style != 'either':
-    lobby_games = Game.objects.filter(status='actv').filter(sport=sport).filter(style=style).order_by('-creation_time')
+    lobby_games = Game.objects.filter(status='actv').filter(sport=sport).filter(style=style).exclude(pk__in = games_leading).exclude(pk__in = games_playing).order_by('-creation_time')
   elif sport != 'any':
-    lobby_games = Game.objects.filter(status='actv').filter(sport=sport).order_by('-creation_time')
+    lobby_games = Game.objects.filter(status='actv').filter(sport=sport).exclude(pk__in = games_leading).exclude(pk__in = games_playing).order_by('-creation_time')
   elif style != 'either':
-    lobby_games = Game.objects.filter(status='actv').filter(style=style).order_by('-creation_time')
+    lobby_games = Game.objects.filter(status='actv').filter(style=style).exclude(pk__in = games_leading).exclude(pk__in = games_playing).order_by('-creation_time')
   else:
-    lobby_games = Game.objects.filter(status='actv').order_by('-creation_time')
+    lobby_games = Game.objects.filter(status='actv').exclude(pk__in = games_leading).exclude(pk__in = games_playing).order_by('-creation_time')
 
   c = RequestContext(request, {'games_leading':games_leading, 
                             'games_playing':games_playing,
