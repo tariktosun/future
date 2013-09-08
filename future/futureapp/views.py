@@ -81,7 +81,8 @@ def renderLobby(request):
                             'games_playing':games_playing,
                             'lobby_games':lobby_games,
                             'games_in_history':games_in_history,
-                            'sport_filter':'tnns',
+                            'sport_filter':'bskt',
+                            'style_filter':'comp',
                             'curUser':curUser})
     return render_to_response('index.html', c)
 
@@ -243,6 +244,7 @@ def renderFilteredLobby(request):
                             'games_playing':games_playing,
                             'lobby_games':lobby_games,
                             'sport_filter':sport,
+                            'style_filter':style,
                             'curUser':curUser})
   return render_to_response('index.html', c)
 
