@@ -90,6 +90,10 @@ $('.close-button').click(function() {
 });
 
 $('.switchToProfile').click(function() { switchToProfile(); });
+$('.switchToProfileDir').click(function() { 
+	
+	switchToProfile(); 
+	});
 $('.switchToLobby').click(function() { switchToLobby(); });
 $('.switchToGame').click(function() { switchToGame(); });
 
