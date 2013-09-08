@@ -1,5 +1,21 @@
 <div id="profile" class="search-field">
-	<div class="image-container">
+	<span class="image-container">
 		<img src={{curUser.largepic}}>
+	</span>
+	<div class="search-query-field">
+		<div class="search"></div>
+		<form action="/search/" method="post">
+	    	<div style="display:none">
+	    		<input type="hidden" name="csrfmiddlewaretoken" value="144b205117375ff44efdcd0f54d7003b">
+	    	</div>
+	    		<textarea class="searchBox" name="query" value="" style="color: black;">Search</textarea>
+	    	<button class="submitButton">
+	    		FILTER
+	    	</button>
+	  </form>
+	  <div class="game-history">
+		<div class="past-game"></div>
+		<div class="past-game"></div>
+	  </div>
 	</div>
 </div>
