@@ -49,7 +49,8 @@ FACEBOOK_APP_ID              = getenv('FUTURE_FB_KEY')
 FACEBOOK_API_SECRET          = getenv('FUTURE_FB_SECRET')
 #if getenv('FUTURE_ENVIRONMENT') == 'production':
 if HEROKU_PROJECT_DIR:
-    BASE_URI = 'http://webfsite.herokuapp.com/'
+    #BASE_URI = 'http://webfsite.herokuapp.com/'
+    BASE_URI = 'http://frozen-caverns-1324.herokuapp.com/'
 else:
     BASE_URI                     = 'http://localhost:5000/'
 
