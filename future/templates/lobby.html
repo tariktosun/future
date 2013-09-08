@@ -36,14 +36,15 @@
 							float: right;
 							background-image: url('/static/images/{{ game.sport }}larger.png');"></div>
 		<div><em>{{ game.name }}</em> <br> {{ game.get_sport_display }} </div> <br>
-		<div class="textual-info" style="height: 155px;">
+		<div class="textual-info" style="height: 100px;">
 			A {% if game.style == "comp" %}
 				competitive
 				{% else %}
 			    casual
 				{% endif %}
 				game of {{ game.get_sport_display }} <br>
-				at {{ game.location }}<br>
+				at {{ game.location }}<br> <br>
+				{{game.game_datetime}} <br>
 				{{game.players.count}} player(s)<br>
 		</div>
         <form action="/joinGame/" method="post">
