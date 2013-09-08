@@ -113,9 +113,9 @@ if not HEROKU_PROJECT_DIR:
 else:
     #STATIC_ROOT = os.path.join(HEROKU_PROJECT_DIR, 'static')
     STATIC_ROOT = 'staticfiles'
-    STATICFILES_DIRS = (
-        os.path.join(HEROKU_PROJECT_DIR, 'static'),
-    )
+    #STATICFILES_DIRS = (
+    #    os.path.join(HEROKU_PROJECT_DIR, 'static'),
+    #)
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
