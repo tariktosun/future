@@ -11,6 +11,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
                                    
 */
 #sidestream {
+  z-index: 1;
   position: absolute;
   top: 0;
   left: 0;
@@ -156,8 +157,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
                                                
 */
 .add-game-cont {
-  background-color: #222;
-  opacity: 0.2;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
   display: none;
   height: 100%;
@@ -176,7 +176,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
   text-align: left;
   display: none;
   margin: 10% auto;
-  background-color: gray;
+  background-color: white;
   width: calc(95% - 275px);
   width: -moz-calc(95% - 275px);
   width: -webkit-calc(95% - 275px);
