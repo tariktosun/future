@@ -1,0 +1,33 @@
+	<!-- Adding a game form -->
+	<div class="add-game-cont">
+		<div id="add-game-screen">
+			<form name="input" action="/createGame/" method="post">
+              {% csrf_token %}
+				Game Title:<br>
+					<input type="text" name="name"><br><br>
+				Location: <br>
+					<input type="text" name="location"><br><br>
+				Challenge Level: <br>
+					<input type="radio" name="style" value="casual">Casual<br>
+					<input type="radio" name="style" value="competitive">Competitive<br><br>
+				Sport: <br>
+					<select name="sport">
+					  <option value="basketball">Basketball</option>
+					  <option value="tennis">Tennis</option>
+					  <option value="lacrosse">Lacrosse</option>
+					  <option value="baseball">Baseball</option>
+					</select><br>
+					<br>
+				Date: <br>
+					<input type="datetime-local" name="datetime"> <br>
+					<br>
+				Number of Players: <br>
+					Min: <input type="number" name="min_players">, Max: <input type="number" name="max_players"><br>
+					<br>
+				Notes: <br>				
+					<textarea name="notes" rows="4" cols="50"></textarea> <br>
+					<br>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+	 </div>

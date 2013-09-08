@@ -156,6 +156,9 @@ _\ \| | (_| |  __/ |_) | (_| | |
                                                
 */
 .add-game-cont {
+  background-color: #222;
+  opacity: 0.2;
+  z-index: 1;
   display: none;
   height: 100%;
   top: 0;
@@ -167,6 +170,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
   text-align: center; }
 
 #add-game-screen {
+  opacity: 1.0;
   margin-top: 10%;
   font: italic bold 15px Candara, sans-serif;
   text-align: left;

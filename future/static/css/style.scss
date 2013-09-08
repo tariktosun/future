@@ -196,6 +196,9 @@ _\ \| | (_| |  __/ |_) | (_| | |
 */
 
 .add-game-cont{
+	background-color: #222;
+	opacity: 0.2;
+	z-index: 1;
 	display: none;
 	height: 100%;
 	top: 0;
@@ -208,6 +211,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
 }
 
 #add-game-screen{
+	opacity: 1.0;
 	margin-top: 10%;
 	font:italic bold 15px Candara, sans-serif;
 	text-align: left;
@@ -295,7 +299,7 @@ _\ \  __/ (_| | | | (__| | | | / /   | |  __/ | (_| |
 			width: 250px;
 			height: 250px;
 			margin: 10px;
-			background-color: $bg-main-color;
+			background-color: $bg-main-color ;
 		}
 	}
 }
