@@ -1,4 +1,4 @@
-$bg-main-color: gray;
+$bg-main-color: #D8D8D8;
 $bg-secondary-color: #282828;
 $card-height: 60px;
 $card-width: 250px;
@@ -7,6 +7,7 @@ $sidebar-width: 275px;
 * {
 	margin: 0px;
     padding: 0px;
+    font-family:Oxygen-Light;
 }
 
 /*
@@ -36,11 +37,15 @@ _\ \| | (_| |  __/ |_) | (_| | |
 
 #sidebar{
 	@include abs_sidebar_features($sidebar-width, $bg-main-color, 0);
+	#username{
+		font-size: 20px;
+	}
 	.profile-pic{
 		width: 100%;
 		position: relative;
 		text-align: center;
 		img{
+			border: 2px $bg-secondary-color;
 			margin-top: 15px;
 		}
 		span{
@@ -75,14 +80,15 @@ _\ \| | (_| |  __/ |_) | (_| | |
 	table {
 	height: 45px;
 	width: 100%;
-	background-color: $bg-secondary-color;
 	table-layout:fixed;
-	td {
-		cursor: pointer;
-		text-align: center;
-		background-color: $bg-main-color;
-		width: 33%;
-	}
+		td {
+			cursor: pointer;
+			text-align: center;
+			width: 33%;
+			img {
+				height: 50px;
+			}
+		}
 	}
 }
 
@@ -375,10 +381,14 @@ _\ \  __/ (_| | | | (__| | | | / /   | |  __/ | (_| |
 }
 
 #friends-games{
-	background-color: orange;
 	display: none;
 }
 
+@font-face
+{
+font-family: Oxygen;
+src: url(/static/font/Oxygen-Light.ttf);
+}
 
 
 

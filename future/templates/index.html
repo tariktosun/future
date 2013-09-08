@@ -14,7 +14,7 @@
 		<div id="sidebar">
 			<!-- User Info -->
 			<div class="profile-pic">
-				<a href="#" class="switchToProfile"><img src={{curUser.largepic}} alt="you"></a>
+				<div href="#" class="switchToProfile"><img src={{curUser.largepic}} alt="you"></div>
 				<span id="username"> {{curUser.firstname}} {{curUser.lastname}} </span> 
 				<div id="stars">
 					<img src="/static/images/star.png" alt="star">
@@ -33,9 +33,15 @@
 		<div id="sidebar-options">
 			<table>
 				<tr>
-					<td id="add-game-button">Add Game</td>
-					<td class="switchToFriendsGames">Friends Games</td>
-					<td class="switchToLobby">Lobby</td>
+					<td id="add-game-button">
+						<img src="/static/images/add.png">
+					</td>
+					<td class="switchToFriendsGames">
+						<img src="/static/images/profile.png">
+					</td>
+					<td class="switchToLobby">
+						<img src="/static/images/grid.png">
+					</td>
 				</tr>
 			</table>
 		</div>

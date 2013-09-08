@@ -2,6 +2,8 @@ from django.conf.urls.defaults import patterns, include, url
 from futureapp.views import * 
 from django.conf import settings
 
+from os import environ
+
 # Dynamically match hashtags to urls that do not match any other rules
 # and pass them to the hash filtered function
 # this function influenced by:
@@ -46,6 +48,14 @@ urlpatterns = patterns('',
                        )
 
 # URL patterns for static files (images, css, javascript)
-urlpatterns += patterns('',
-                        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-                        )
+
+if environ.has_key('FUTURE_DIR'):
+    # local
+  urlpatterns += patterns('',
+                         (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+                         )
+else:
+  urlpatterns += patterns('',
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+  )
+
