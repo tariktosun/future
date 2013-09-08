@@ -29,7 +29,8 @@ from django.db.models import Q # for search
 # accesses http://siteurl/
 def drop(request):
     if request.session.get('logged_in'):
-      return renderHomepage(request)
+      #return renderHomepage(request)
+      return renderLobby(request)
     else:
       return render_to_response('splash.html')
 
@@ -259,20 +260,21 @@ def renderFilteredLobby(request):
     
 # Render all posts in the social feed
 def renderHomepage(request):
-  # Check user login status
-  if not request.session.get('logged_in', False):
-      return redirect('/fbauth/')
-  curUser = User.objects.filter(pk = request.session['uid'])[0]
+  return renderLobby(request)
+  # # Check user login status
+  # if not request.session.get('logged_in', False):
+  #     return redirect('/fbauth/')
+  # curUser = User.objects.filter(pk = request.session['uid'])[0]
   
-  # Fetch all hashtags and posts to display
-  posts = UserPost.objects.order_by('-time')
-  hashtags = Tag.objects.order_by('-time')
+  # # Fetch all hashtags and posts to display
+  # posts = UserPost.objects.order_by('-time')
+  # hashtags = Tag.objects.order_by('-time')
   
-  # Render the feed using the main template
-  c = RequestContext(request, {'post_list':posts,
-                            'tags_list':hashtags,
-                            'curUser':curUser,})
-  return render_to_response('home.html', c)
+  # # Render the feed using the main template
+  # c = RequestContext(request, {'post_list':posts,
+  #                           'tags_list':hashtags,
+  #                           'curUser':curUser,})
+  # return render_to_response('home.html', c)
 
 
 # Renders the social feed as a user profile page, filterint so that
@@ -751,7 +753,7 @@ def createuser(request):
   new_netid = request.POST.get('netid', '')
   new_firstname = request.POST.get('firstname', '')
   new_lastname = request.POST.get('lastname', '')
-  new_year = request.POST.get('year', '')
+  new_year = request.POST.get('year', '2012')
   # Generate a random string of letters and numbers for the
   # authentication code.
   new_authcode = "".join([choice(string.letters+string.digits) for x in range(1, 40)])

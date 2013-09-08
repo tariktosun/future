@@ -20,7 +20,7 @@
       <div id="container">
                 
         <div class="heading">
-          Wombling Creation
+          Site Signup 
         </div>
         
         <div class="content-container" style="width:450px;">
@@ -29,25 +29,12 @@
             <form action="/createuser/" method="post">
               {% csrf_token %}
               
-              <textarea name="netid" class="netidform">netid</textarea>
               <textarea name="firstname" class="firstform">first name</textarea>
               <textarea name="lastname" class="lastform">last name</textarea>
               
               <div id="bottomForm" style="margin-top:10px;">	
-                <select name="year">
-                  <option value="2014">Sophomore</option>
-                  <option value="2013">Junior</option>
-                  <option value="2012">Senior</option>
-                </select>
-                
-                <select name="admin">
-                  <option value="ME">Member</option>
-                  <option value="FC">Food Chair</option>
-                  <option value="OF">Officer</option>
-                </select>
-                
                 <button class="submitButton" style="display:inline;">
-                  Birth Wombling
+                  Create New User
                 </button>
                 
               </div>
