@@ -49,6 +49,10 @@ def renderLobby(request):
 
    games_leading = Game.objects.filter(leader=curUser).order_by('-creation_time')
    games_playing = curUser.game_set.all()
+
+   # Only want to have games that we are playing in but NOT leading
+   games_playing = [game for game in games_playing if game.leader != curUser]
+
    c = RequestContext(request, {'games_leading':games_leading, 
                                 'games_playing':games_playing,
                                 'curUser':curUser})
@@ -76,6 +80,8 @@ def renderGameList(request):
    # Games that curUser is leader of
    games_leading = Game.objects.filter(leader=curUser).order_by('-creation_time')
    games_playing = curUser.game_set.all()
+
+   games_playing = [game for game in games_playing if game.leader != curUser]
    
    # Render the feed using the main template
    c = RequestContext(request, {'games_list':games,
