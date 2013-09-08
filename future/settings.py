@@ -111,8 +111,8 @@ if not HEROKU_PROJECT_DIR:
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     )
 else:
-    #STATIC_ROOT = os.path.join(HEROKU_PROJECT_DIR, 'static')
-    STATIC_ROOT = 'staticfiles'
+    STATIC_ROOT = os.path.join(HEROKU_PROJECT_DIR, 'static')
+    #STATIC_ROOT = 'staticfiles'
     STATICFILES_DIRS = (
         os.path.join(HEROKU_PROJECT_DIR, 'static'),
     )
