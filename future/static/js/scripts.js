@@ -5,8 +5,8 @@ var sidebarOut = true, speed = 1000,
 
 $(document).ready(function() {
 $(function() {
-	console.log($(".lobbySetSport"));
     $(".lobbySetSport").val($(".currentSelectedSport").attr('id'));
+    $(".lobbySetStyle").val($(".currentSelectedStyle").attr('id'));
 });
 updateSize(screenWidthSidebar, screenHeight);
 
