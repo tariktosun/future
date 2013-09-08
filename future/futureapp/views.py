@@ -70,6 +70,7 @@ def renderLobby(request):
 
     games_leading = Game.objects.filter(leader=curUser).filter(status='actv').order_by('-creation_time')
     games_playing = curUser.user_joined_games.filter(status='actv').exclude(leader=curUser)
+    games_in_history = curUser.user_joined_games
 
     lobby_games = Game.objects.filter(status='actv').order_by('-creation_time')
 
@@ -79,6 +80,7 @@ def renderLobby(request):
     c = RequestContext(request, {'games_leading':games_leading, 
                             'games_playing':games_playing,
                             'lobby_games':lobby_games,
+                            'games_in_history':games_in_history,
                             'curUser':curUser})
     return render_to_response('index.html', c)
 
@@ -220,6 +222,28 @@ def leaveGame(request):
 
 def deleteGame(request):
   return redirect('/lobby/')
+
+
+def renderFilteredLobby(request):
+  """ Renders the lobby """
+  if not request.session.get('logged_in', False):
+    return redirect('/fbauth/')
+
+  curUser = User.objects.filter(pk = request.session['uid'])[0]
+
+  games_leading = Game.objects.filter(leader=curUser).filter(status='actv').order_by('-creation_time')
+  games_playing = curUser.user_joined_games.filter(status='actv').exclude(leader=curUser)
+
+  sport = request.POST.get('sport', '')
+  style = request.POST.get('style', '')
+  lobby_games = Game.objects.filter(status='actv').filter(sport=sport).order_by('-creation_time')
+
+  c = RequestContext(request, {'games_leading':games_leading, 
+                            'games_playing':games_playing,
+                            'lobby_games':lobby_games,
+                            'curUser':curUser})
+  return render_to_response('index.html', c)
+
 
 
 #########################################################

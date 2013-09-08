@@ -2,18 +2,18 @@
 
 <div class="filters">
 	<form name="filter" action="/renderFilteredLobby/" method="post">
+		{% csrf_token %}
 		<div class="styled-select">
 			<select name="sport" class="setSport">
-				<option value="basketball">Basketball</option>
-				<option value="tennis">Tennis</option>
-				<option value="lacrosse">Lacrosse</option>
-				<option value="baseball">Baseball</option>
+				<option value="bskt">Basketball</option>
+				<option value="tnns">Tennis</option>
+				<option value="sccr">Soccer</option>
 			</select>
 		</div>
 		<div class="styled-select" style="float:right;">
 			<select name="style" class="setStyle">
-				<option value="competitive">Competitive</option>
-				<option value="tennis">Casual</option>
+				<option value="comp">Competitive</option>
+				<option value="casu">Casual</option>
 			</select>
 		</div>
 		<input type="submit" value="Filter">

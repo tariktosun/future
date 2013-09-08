@@ -9,7 +9,7 @@
 												 background-size: cover; display: block;">
 						</div>
 						<div class="game-title">{{ game.name }}</div>
-						<div class="game-sport">{{ game.sport }} </div><br>
+						<div class="game-sport">{{ game.get_sport_display }} </div><br>
 						<div class="textual-info">
 							<br>
 							Location : {{ game.location }}<br>
@@ -49,7 +49,7 @@
 												 background-size: cover; display: block;">
 						</div>
 						<div class="game-title">{{ game.name }}</div>
-						<div class="game-sport">{{ game.sport }} </div><br>
+						<div class="game-sport">{{ game.get_sport_display }} </div><br>
 						<div class="textual-info">
 							<br>
 							Location : {{ game.location }}<br>
