@@ -2,6 +2,12 @@
 	<div class="add-game-cont">
 		<div id="add-game-screen">
 			<div style="width: 100%; font-weight: 200; font-size: 30px; text-align:center; margin-bottom: 5px;">
+				<img src="/static/images/close.png" class="close-button" style="height: 50px;
+															position: relative;
+															top: -45px;
+															right: -45px;
+															float: right;
+															cursor: pointer;">
 				<u>Create a New Game</u></div>
 			<form name="input" action="/createGame/" method="post">
               {% csrf_token %}

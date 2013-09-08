@@ -83,10 +83,15 @@ $('#add-game-button').click(function() {
 	$('#add-game-screen').toggle();
 });
 
+//More information window
+$('.close-button').click(function() {
+	$('.add-game-cont').toggle();
+	$('#add-game-screen').toggle();
+});
+
 $('.switchToProfile').click(function() { switchToProfile(); });
 $('.switchToLobby').click(function() { switchToLobby(); });
 $('.switchToGame').click(function() { switchToGame(); });
-$('.switchToFriendsGames').click(function() { switchToFriendsGames(); });
 
 function switchToProfile()
 {
@@ -96,9 +101,6 @@ function switchToProfile()
 	if($('#lobby').is(":visible")){
 	$('#lobby').fadeOut(500);
 	}
-	if($('#friends-games').is(":visible")){
-	$('#friends-games').fadeOut(500);
-	}	
 	setTimeout(function(){$('#profile').fadeIn(500);}, 500);	
 }
 
@@ -110,9 +112,6 @@ function switchToLobby()
 	if($('#game').is(":visible")){
 	$('#game').fadeOut(500);
 	}
-	if($('#friends-games').is(":visible")){
-	$('#friends-games').fadeOut(500);
-	}	
 	setTimeout(function(){$('#lobby').fadeIn(500);}, 500);	
 }
 
@@ -124,35 +123,16 @@ function switchToGame()
 	if($('#profile').is(":visible")){
 	$('#profile').fadeOut(500);
 	}
-	if($('#friends-games').is(":visible")){
-	$('#friends-games').fadeOut(500);
-	}	
 	setTimeout(function(){$('#game').fadeIn(500);}, 500);
-}
-
-function switchToFriendsGames()
-{
-	if($('#lobby').is(":visible")){
-	$('#lobby').fadeOut(500);
-	}
-	if($('#profile').is(":visible")){
-	$('#profile').fadeOut(500);
-	}
-	if($('#game').is(":visible")){
-	$('#game').fadeOut(500);
-	}	
-	setTimeout(function(){$('#friends-games').fadeIn(500);}, 500);
 }
 
 function updateSize(width, height){
 	$('#profile').height(height);	
 	$('#lobby').height(height);	
 	$('#game').height(height);
-	$('#friends-games').height(height);	
 	$('#profile').animate({width: width}, speed);
 	$('#lobby').animate({width: width}, speed);
 	$('#game').animate({width: width}, speed);
-	$('#friends-games').animate({width: width}, speed);
 }
 
 function SelectElement(valueToSelect)
@@ -203,13 +183,11 @@ $('#search-field').height(screenHeight);
 if(!sidebarOut){
 	$('#profile').width(screenWidth);	
 	$('#lobby').width(screenWidth);	
-	$('#game').width(screenWidth);
-	$('#friends-games').width(screenWidth);		
+	$('#game').width(screenWidth);	
 }
 else{
 	$('#profile').width(screenWidthSidebar);	
 	$('#lobby').width(screenWidthSidebar);	
-	$('#game').width(screenWidthSidebar);
-	$('#friends-games').width(screenWidthSidebar);		
+	$('#game').width(screenWidthSidebar);	
 }
 });
