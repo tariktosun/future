@@ -81,8 +81,8 @@ def renderLobby(request):
                             'games_playing':games_playing,
                             'lobby_games':lobby_games,
                             'games_in_history':games_in_history,
-                            'sport_filter':'bskt',
-                            'style_filter':'comp',
+                            'sport_filter':'any',
+                            'style_filter':'either',
                             'curUser':curUser})
     return render_to_response('index.html', c)
 
@@ -238,7 +238,14 @@ def renderFilteredLobby(request):
 
   sport = request.POST.get('sport', '')
   style = request.POST.get('style', '')
-  lobby_games = Game.objects.filter(status='actv').filter(sport=sport).filter(style=style).order_by('-creation_time')
+  if sport != 'any' and style != 'either':
+    lobby_games = Game.objects.filter(status='actv').filter(sport=sport).filter(style=style).order_by('-creation_time')
+  elif sport != 'any':
+    lobby_games = Game.objects.filter(status='actv').filter(sport=sport).order_by('-creation_time')
+  elif style != 'either':
+    lobby_games = Game.objects.filter(status='actv').filter(style=style).order_by('-creation_time')
+  else:
+    lobby_games = Game.objects.filter(status='actv').order_by('-creation_time')
 
   c = RequestContext(request, {'games_leading':games_leading, 
                             'games_playing':games_playing,
