@@ -22,6 +22,10 @@
 							at {{ game.location }},  <div class="fillDate"></div><br>
 							<em>{{ game.notes }}</em>
 							{{game.min_number_players}} - {{game.max_number_players}} players<br>
+							Players:<br>
+							{% for player in game.players.all %}
+								<a href=http://facebook.com/{{player.fbid}}> {{ player.firstname }} </a><br>
+							{% endfor %}
 							<div class="buttons">	
 					        <form action="/leaveGame/" method="post" style="float: right;">
 					          {% csrf_token %}
@@ -70,6 +74,10 @@
 							at {{ game.location }},  <div class="fillDate"></div><br>
 							<em>{{ game.notes }}</em><br>
 							{{game.min_number_players}} - {{game.max_number_players}} players<br>
+							Players:<br>
+							{% for player in game.players.all %}
+								<a href=http://facebook.com/{{player.fbid}}> {{ player.firstname }} </a><br>
+							{% endfor %}
 							<div class="buttons">	
 					        <form action="/leaveGame/" method="post" style="float: right;">
 					          {% csrf_token %}

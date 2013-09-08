@@ -16,7 +16,7 @@ class User(models.Model):
     )
 
     # Basic user information
-    netid = models.CharField(max_length=8, unique=True)
+    #netid = models.CharField(max_length=8, unique=True)
     firstname = models.CharField("first name", max_length=30)
     lastname = models.CharField("last name", max_length=30)
     year = models.IntegerField("class year", max_length=4, choices=CLASS_YEAR_CHOICES)
@@ -31,7 +31,7 @@ class User(models.Model):
     authcode = models.CharField("authentication code", max_length=40)
     
     # Permissions of the user for administrative purposes
-    admin = models.CharField("administrator title", max_length=4, choices=ADMIN_TITLE_CHOICES)
+    #admin = models.CharField("administrator title", max_length=4, choices=ADMIN_TITLE_CHOICES)
     
     # URLS for different sizes of pictures, pulled from facebook's cdn
     # for now
