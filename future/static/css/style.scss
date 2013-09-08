@@ -344,18 +344,19 @@ _\ \  __/ (_| | | | (__| | | | / /   | |  __/ | (_| |
 }
 
 .filters{
+	margin-top: 8px;
 	padding-top: 20px;
 	margin: 0 auto;
 	width: 80%;
 	height: 100px;
 	text-align: center;
-	background: url('/static/images/close.png') no-repeat;
 	background-position: center center;
 	div{
 		float: left;
 	}
 	.styled-select {
 	   width: 240px;
+	   float: right;
 	   height: 34px;
 	   overflow: hidden;
 	   background: url('/static/images/new-arrow.jpg') no-repeat right #ddd;
@@ -374,6 +375,7 @@ _\ \  __/ (_| | | | (__| | | | / /   | |  __/ | (_| |
 	}
 }
 .games-grid{
+	margin-top: 15px;
 	width: 100%;
 	height: calc(100% - 100px);
 	height: -moz-calc(100% - 100px);

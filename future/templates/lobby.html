@@ -1,6 +1,7 @@
 <div id="lobby" class="search-field">
 
-<div class="filters">
+<div class="filters" style="background: url('/static/images/logo.png') no-repeat;
+	background-position: bottom left;">
 	<form name="filter" action="/renderFilteredLobby/" method="post">
 		{% csrf_token %}
 		<div class="styled-select">
@@ -11,14 +12,16 @@
 				<option value="sccr">Soccer</option>
 			</select>
 		</div>
-		<div class="styled-select" style="float:right;">
+		<br><br>
+		<div class="styled-select">
 			<select name="style" class="lobbySetStyle">
 				<option value="either">Either</option>				
 				<option value="comp">Competitive</option>
 				<option value="casu">Casual</option>
 			</select>
 		</div>
-		<input type="submit" value="Filter">
+		<br><br>
+		<input class="button" type="submit" value="Filter" style="float: right;">
 	</form>
 </div>
 
