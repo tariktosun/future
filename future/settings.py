@@ -104,19 +104,29 @@ MEDIA_URL = '/media/'
 # Example: "/home/media/media.lawrence.com/static/"
 if not HEROKU_PROJECT_DIR:
     STATIC_ROOT = ''
+    # List of finder classes that know how to find static files in
+    # various locations.
+    STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    )
 else:
-    STATIC_ROOT = os.path.join(HEROKU_PROJECT_DIR, 'static')
+    #STATIC_ROOT = os.path.join(HEROKU_PROJECT_DIR, 'static')
+    STATIC_ROOT = 'staticfiles'
+    STATICFILES_DIRS = (
+        os.path.join(HEROKU_PROJECT_DIR, 'static'),
+    )
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
+# # List of finder classes that know how to find static files in
+# # various locations.
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# )
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = getenv('FUTURE_PYTHON_SECRET')
