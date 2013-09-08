@@ -238,7 +238,7 @@ def renderFilteredLobby(request):
 
   sport = request.POST.get('sport', '')
   style = request.POST.get('style', '')
-  lobby_games = Game.objects.filter(status='actv').filter(sport=sport).order_by('-creation_time')
+  lobby_games = Game.objects.filter(status='actv').filter(sport=sport).filter(style=style).order_by('-creation_time')
 
   c = RequestContext(request, {'games_leading':games_leading, 
                             'games_playing':games_playing,
