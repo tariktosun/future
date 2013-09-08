@@ -52,23 +52,33 @@ def inactivateGame(request):
       return redirect('/fbauth/')
 
   game_to_inactivate_pk = request.POST.get('game_to_inactivate_pk', '')
-  game_to_inactivate = Game.objects.filter(pk = game_to_inactivate_pk)
-  # INCOMPLETE!
+  game = Game.objects.filter(pk = game_to_inactivate_pk)[0]
+  game.status = 'inac'
+  # save it:
+  try:
+      game.save()
+  except IntegrityError:
+      return error(request, 'Database Error: Game inactivation failed.')
+  return renderLobby(request)
+
 
 def renderLobby(request):
-   """ Renders the lobby """
-   curUser = User.objects.filter(pk = request.session['uid'])[0]
+  """ Renders the lobby """
+  if not request.session.get('logged_in', False):
+      return redirect('/fbauth/')
 
-   games_leading = Game.objects.filter(leader=curUser).order_by('-creation_time')
-   games_playing = curUser.user_joined_games.all()
+  curUser = User.objects.filter(pk = request.session['uid'])[0]
 
-   # Only want to have games that we are playing in but NOT leading
-   games_playing = [game for game in games_playing if game.leader != curUser]
+  games_leading = Game.objects.filter(leader=curUser).order_by('-creation_time')
+  games_playing = curUser.user_joined_games.all()
 
-   c = RequestContext(request, {'games_leading':games_leading, 
+  # Only want to have games that we are playing in but NOT leading
+  games_playing = [game for game in games_playing if game.leader != curUser]
+
+  c = RequestContext(request, {'games_leading':games_leading, 
                                 'games_playing':games_playing,
                                 'curUser':curUser})
-   return render_to_response('index.html', c)
+  return render_to_response('index.html', c)
 
 def renderGameForm(request):
    """ renders dummy game form """

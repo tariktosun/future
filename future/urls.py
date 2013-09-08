@@ -40,6 +40,7 @@ urlpatterns = patterns('',
                        url(r'^joinGame/$',joinGame),
                        url(r'^leaveGame/$',leaveGame),
                        url(r'^deleteGame/$',deleteGame),
+                       url(r'^inactivateGame/$',inactivateGame),
                        hashtagged_url,
                        )
 
