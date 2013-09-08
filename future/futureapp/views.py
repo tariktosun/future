@@ -171,8 +171,10 @@ def joinGame(request):
 
   # Get the game object we are joining.  Make sure whatever form we get here
   # from gives this input.
-  game_name = request.POST.get('game_to_join_name', '')
-  game = Game.objects.filter(name = game_name)[0]
+  game_pk = request.POST.get('game_to_join_pk')
+  #game_name = request.POST.get('game_to_join_name', '')
+  #game = Game.objects.filter(name = game_name)[0]
+  game = Game.objects.filter(pk = game_pk)[0]
   curUser = User.objects.filter(pk = request.session['uid'])[0]
 
   if game.status == 'inac':
@@ -193,8 +195,10 @@ def leaveGame(request):
   if request.method != 'POST':
     return HttpResponse(status=405)
 
-  game_name = request.POST.get('game_to_leave_name', '')
-  game = Game.objects.filter(name = game_name)[0]
+  #game_name = request.POST.get('game_to_leave_name', '')
+  game_pk = request.POST.get('game_to_leave_pk', '')
+  #game = Game.objects.filter(name = game_name)[0]
+  game = Game.objects.filter(pk = game_pk)[0]
   curUser = User.objects.filter(pk = request.session['uid'])[0]
 
   if game.status == 'inac':

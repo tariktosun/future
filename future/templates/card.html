@@ -26,7 +26,7 @@
 					        <form action="/leaveGame/" method="post" style="float: right;">
 					          {% csrf_token %}
 							  <button href="#" class="button">Leave Game</button>
-					          <input type="hidden" name="game_to_leave_name" value={{game.name}} />
+					          <input type="hidden" name="game_to_leave_pk" value={{game.pk}} />
 					        </form>
 							</div>
 						</div>
@@ -74,7 +74,7 @@
 					        <form action="/leaveGame/" method="post" style="float: right;">
 					          {% csrf_token %}
 							  <button href="#" class="button">Leave Game</button>
-					          <input type="hidden" name="game_to_leave_name" value={{game.name}} />
+					          <input type="hidden" name="game_to_leave_pk" value={{game.pk}} />
 					        </form>
 							</div>
 						</div>
