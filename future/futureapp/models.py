@@ -89,12 +89,18 @@ class Game(models.Model):
         (u'comp', u'competitive'),
     )
 
+    STATUS_CHOICES = (
+        (u'actv', u'active'),
+        (u'inac', u'inactive'),
+    )
+
     # User info:
     leader = models.ForeignKey(User) # only one leader per post.
     players = models.ManyToManyField(User, related_name='user_joined_games')
     #TODO: I don't know what related_name is.
 
     # metadata
+    status = models.CharField('Game Status', max_length=4)
     creation_time = models.DateTimeField(auto_now_add=True)
     name = models.CharField('Game Name', max_length=30)
     sport = models.CharField('Game Type', max_length=4, choices=SPORT_CHOICES)

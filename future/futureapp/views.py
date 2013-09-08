@@ -43,12 +43,24 @@ def error(request, text):
 #                    NEW STUFF!!!!!
 #########################################################
 
+def inactivateGame(request):
+  """ changes the status of a game from active to inactive. """
+  if request.method != 'POST':
+      return HttpResponse(status=405)
+   
+  if not request.session.get('logged_in', False):
+      return redirect('/fbauth/')
+
+  game_to_inactivate_pk = request.POST.get('game_to_inactivate_pk', '')
+  game_to_inactivate = Game.objects.filter(pk = game_to_inactivate_pk)
+  # INCOMPLETE!
+
 def renderLobby(request):
    """ Renders the lobby """
    curUser = User.objects.filter(pk = request.session['uid'])[0]
 
    games_leading = Game.objects.filter(leader=curUser).order_by('-creation_time')
-   games_playing = curUser.game_set.all()
+   games_playing = curUser.user_joined_games.all()
 
    # Only want to have games that we are playing in but NOT leading
    games_playing = [game for game in games_playing if game.leader != curUser]
@@ -64,7 +76,7 @@ def renderGameForm(request):
    return render_to_response('gameFormDummy.html', c)
 
 def renderGameList(request):
-   """ render all games in feed. """
+   """ render all games in dummy feed. """
    # Check user login status
    if not request.session.get('logged_in', False):
       return redirect('/fbauth/')
@@ -79,7 +91,7 @@ def renderGameList(request):
 
    # Games that curUser is leader of
    games_leading = Game.objects.filter(leader=curUser).order_by('-creation_time')
-   games_playing = curUser.game_set.all()
+   games_playing = curUser.user_joined_games.all()
 
    games_playing = [game for game in games_playing if game.leader != curUser]
    
