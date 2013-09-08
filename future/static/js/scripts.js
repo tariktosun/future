@@ -74,6 +74,7 @@ $('.card').click(function() {
 
 //More information window
 $('#add-game-button').click(function() {
+	$('.add-game-cont').toggle();
 	$('#add-game-screen').toggle();
 });
 

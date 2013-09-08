@@ -27,6 +27,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
 }
 
 #sidestream{
+	z-index: 1;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -103,6 +104,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
 		position: absolute;
 		width: 35px;
 		top: 45%;
+		cursor: pointer;
 	}
 }
 
@@ -195,6 +197,9 @@ _\ \| | (_| |  __/ |_) | (_| | |
 */
 
 .add-game-cont{
+	background-color: rgba(0,0,0,0.5);
+	z-index: 1;
+	display: none;
 	height: 100%;
 	top: 0;
 	right: 0;
@@ -206,12 +211,13 @@ _\ \| | (_| |  __/ |_) | (_| | |
 }
 
 #add-game-screen{
+	opacity: 1.0;
 	margin-top: 10%;
 	font:italic bold 15px Candara, sans-serif;
 	text-align: left;
 	display: none;
 	margin: 10% auto;
-	background-color: $bg-main-color;
+	background-color: white;
 	width: calc(95% - 275px);
 	width: -moz-calc(95% - 275px);
 	width: -webkit-calc(95% - 275px);
@@ -242,9 +248,62 @@ _\ \  __/ (_| | | | (__| | | | / /   | |  __/ | (_| |
 	background-color: yellow;	
 	display: none;
 }
+
+/* __       _     _           
+  / /  ___ | |__ | |__  _   _ 
+ / /  / _ \| '_ \| '_ \| | | |
+/ /__| (_) | |_) | |_) | |_| |
+\____/\___/|_.__/|_.__/ \__, |
+                        |___/ 
+*/
 #lobby{
-	background-color: green;
+	.filters{
+		padding-top: 20px;
+		margin: 0 auto;
+		width: 80%;
+		height: 100px;
+		text-align: center;
+		background: url('/static/images/close.png') no-repeat;
+		background-position: center center;
+		div{
+			float: left;
+		}
+		.styled-select {
+		   width: 240px;
+		   height: 34px;
+		   overflow: hidden;
+		   background: url('/static/images/new-arrow.jpg') no-repeat right #ddd;
+		   border: 1px solid #ccc;
+		   select {
+			   background: transparent;
+			   width: 268px;
+			   padding: 5px;
+			   font-size: 16px;
+			   line-height: 1;
+			   border: 0;
+			   border-radius: 0;
+			   height: 34px;
+			   -webkit-appearance: none;
+		   }
+		}
+	}
+	.games-grid{
+		width: 100%;
+		height: calc(100% - 100px);
+		height: -moz-calc(100% - 100px);
+		height: -webkit-calc(100% - 100px);
+		overflow-y: scroll;
+		position: fixed;
+		.box{
+			float: left;
+			width: 250px;
+			height: 250px;
+			margin: 10px;
+			background-color: $bg-main-color ;
+		}
+	}
 }
+
 #friends-games{
 	background-color: orange;
 	display: none;

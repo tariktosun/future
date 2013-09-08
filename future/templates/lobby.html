@@ -1,0 +1,29 @@
+<div id="lobby" class="search-field">
+
+<div class="filters">
+	<div class="styled-select">
+		<select name="sport">
+			<option value="basketball">Basketball</option>
+			<option value="tennis">Tennis</option>
+			<option value="lacrosse">Lacrosse</option>
+			<option value="baseball">Baseball</option>
+		</select>
+	</div>
+	<div class="styled-select" style="float:right;">
+		<select name="style" class="styled-select">
+			<option value="competitive">Competitive</option>
+			<option value="tennis">Casual</option>
+		</select>
+	</div>
+</div>
+
+<div class="games-grid">
+
+{% for game in lobby_games %}	
+<div class="box">
+</div>
+{% endfor %}
+
+</div>
+
+</div>
