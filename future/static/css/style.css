@@ -11,6 +11,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
                                    
 */
 #sidestream {
+  z-index: 1;
   position: absolute;
   top: 0;
   left: 0;
@@ -156,8 +157,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
                                                
 */
 .add-game-cont {
-  background-color: #222;
-  opacity: 0.2;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
   display: none;
   height: 100%;
@@ -176,7 +176,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
   text-align: left;
   display: none;
   margin: 10% auto;
-  background-color: gray;
+  background-color: white;
   width: calc(95% - 275px);
   width: -moz-calc(95% - 275px);
   width: -webkit-calc(95% - 275px);
@@ -196,9 +196,24 @@ _\ \  __/ (_| | | | (__| | | | / /   | |  __/ | (_| |
   height: 100%;
   width: calc(100% - 275px - 35px); }
 
+/*
+   ___            __ _ _      
+  / _ \_ __ ___  / _(_) | ___ 
+ / /_)/ '__/ _ \| |_| | |/ _ \
+/ ___/| | | (_) |  _| | |  __/
+\/    |_|  \___/|_| |_|_|\___|
+                              
+*/
 #profile {
   background-color: pink;
   display: none; }
+  #profile .image-container {
+    padding: 50px;
+    height: 100%; }
+  #profile .verticalLine {
+    height: 100%;
+    width: 3px;
+    background-color: blue; }
 
 #game {
   background-color: yellow;

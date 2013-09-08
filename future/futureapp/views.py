@@ -170,36 +170,51 @@ def joinGame(request):
   game = Game.objects.filter(name = game_name)[0]
   curUser = User.objects.filter(pk = request.session['uid'])[0]
 
+  if game.status == 'inac':
+    return
+
   # Check that the current user is not already a player in this game.
   # We should make it so that state can never be reached anyway
-  if not curUser in game.players.all():
-      game.players.add(curUser)
-  else:
-      return redirect('/menu/')
+  if curUser in game.players.all():
+    return
 
+  game.players.add(curUser)
+
+  # TODO: This should redirect to the game page
   return redirect('/lobby/')
 
 def leaveGame(request):
   # This page may only be accessed through an HTML POST request
   if request.method != 'POST':
-      return HttpResponse(status=405)
+    return HttpResponse(status=405)
 
   game_name = request.POST.get('game_to_leave_name', '')
   game = Game.objects.filter(name = game_name)[0]
   curUser = User.objects.filter(pk = request.session['uid'])[0]
 
+  if game.status == 'inac':
+    return
+
   # Check that the current user is actually a player in this game.
   # We should make it so that can never actually happen
   if not curUser in game.players.all():
-      return redirect('/menu/')
+    return
 
   # remove curUser from this game's list of players
   game.players.remove(curUser)
   # If curUser is the leader, delete the game
   # (Not sure if that's how we want to handle that)
   if game.leader == curUser:
+    # Check if the game is now empty.  If so, delete.
+    if not game.players.all():
       game.delete()
-      return redirect('/gameForm/')
+    # Otherwise, make someone else the leader
+    else:
+      game.leader = game.players.all()[0]
+      try:
+        game.save()
+      except IntegrityError:
+        return error(request, 'Database Error: Game creation failed.')
 
   return redirect('/lobby/')
 
