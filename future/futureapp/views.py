@@ -46,6 +46,7 @@ def error(request, text):
 def renderLobby(request):
    """ Renders the lobby """
    curUser = User.objects.filter(pk = request.session['uid'])[0]
+
    games_leading = Game.objects.filter(leader=curUser).order_by('-creation_time')
    games_playing = curUser.game_set.all()
    c = RequestContext(request, {'games_leading':games_leading, 

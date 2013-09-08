@@ -12,7 +12,7 @@
 		<div id="sidebar">
 			<!-- User Info -->
 			<div class="profile-pic">
-				<img src="/static/images/profile-pic.png" alt="you">
+				<a href="#" class="switchToProfile"><img src={{curUser.largepic}} alt="you"></a>
 				<span id="username"> Samantha Swee Merritt </span> 
 				<div id="stars">
 					<img src="/static/images/star.png" alt="star">
@@ -43,9 +43,13 @@
 							Date and Time : {{ game.game_datetime }}<br>
 							Notes : {{ game.notes }}<br>
 							Players : {{game.min_number_players}} - {{game.max_number_players}}<br>	
-						</div>					
-					<a href="#" class="join-button">Join</a>
-					<a href="#" class="game-page-button">-></a>
+						</div>
+			        <form action="/leaveGame/" method="post">
+			          {% csrf_token %}
+			          <button>Leave Game</button>
+			          <input type="hidden" name="game_to_leave_name" value={{game.name}} />
+			        </form>
+					<a href="#" class="game-page-button">Game Page</a>
 					</div>
 					<div class="icon">
 					<img src="/static/images/skill.png" alt="skill" class="skill">
@@ -63,7 +67,39 @@
 
 			<!-- Joined Games Info -->
 			<div class="sidebar-game-list-title">Joined Games</div>
-			<div class="sidebar-game-list"></div>
+			<div class="sidebar-game-list">
+			  {% for game in games_playing %}	
+				<div class="card">
+					<div class="cardTooltip">
+						<div class="icon" style="background-repeat: no-repeat; 
+												 height: 150px; width: 150px; 
+												 background-size: cover; display: block;">
+						</div>
+						<div class="game-title">{{ game.name }}</div>
+						<div class="game-sport">{{ game.sport }} </div><br>
+						<div class="textual-info">
+							<br>
+							Location : {{ game.location }}<br>
+							Date and Time : {{ game.game_datetime }}<br>
+							Notes : {{ game.notes }}<br>
+							Players : {{game.min_number_players}} - {{game.max_number_players}}<br>	
+						</div>					
+					<a href="#" class="join-button">Join</a>
+					<a href="#" class="game-page-button">-></a>
+					</div>
+					<div class="icon">
+					<img src="/static/images/skill.png" alt="skill" class="skill">
+					</div>
+					<div class="card-text">
+						<div class="card-date">{{ game.game_datetime }}</div>
+						<br>
+						<div class="card-location">{{ game.location }}</div>
+						<br>
+						<div class="card-capacity">{{  game.count }} / {{ game.max_number_players }}</div>
+					</div>
+				</div>
+  			{% endfor %}
+			</div>
 		</div>
 
 		<!-- Bottom Sidebar Toolbar -->
@@ -71,8 +107,8 @@
 			<table>
 				<tr>
 					<td id="add-game-button">Add Game</td>
-					<td>Friends Games</td>
-					<td>Settings</td>
+					<td class="switchToFriendsGames">Friends Games</td>
+					<td class="switchToLobby">Lobby</td>
 				</tr>
 			</table>
 		</div>
@@ -117,8 +153,11 @@
 		</div>
 	 </div>
 	
-	 <div id="search-field"></div>
-	
+	 <div id="profile" class="search-field"></div>
+	 <div id="game" class="search-field"></div>
+	 <div id="lobby" class="search-field"></div>
+	 <div id="friends-games" class="search-field"></div>
+
 	<!-- Javascript Hack -->
 	<div id="arrow-hover"></div>
   </body>
