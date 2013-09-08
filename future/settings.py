@@ -6,11 +6,16 @@ import dj_database_url
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+if not environ.has_key('FUTURE_DIR'):
+    # we're on heroku
+    HEROKU_PROJECT_DIR = os.path.dirname(__file__)
+else:
+    HEROKU_PROJECT_DIR = None 
 
 
 DATABASES = {}
 
-if environ.has_key('FUTURE_DIR'):
+if not HEROKU_PROJECT_DIR:
     #this is local
 
     DATABASES = {
@@ -82,9 +87,13 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = getenv('FUTURE_DIR') + 'future/static/'
+if not HEROKU_PROJECT_DIR:
+    # local:
+    # Absolute filesystem path to the directory that will hold user-uploaded files.
+    # Example: "/home/media/media.lawrence.com/media/"
+    MEDIA_ROOT = getenv('FUTURE_DIR') + 'future/static/'
+else:
+    MEDIA_ROOT = os.path.join(HEROKU_PROJECT_DIR, "templates")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
