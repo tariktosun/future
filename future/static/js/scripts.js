@@ -1,6 +1,6 @@
 var sidebarOut = true, speed = 1000, 
 	sidebarWidth = 275, arrowbarWidth = 35,
-	tooltipHeight = 500, screenHeight = $(window).height(),
+	tooltipHeight = 300, screenHeight = $(window).height(),
 	screenWidth = $(window).width(), screenWidthSidebar = $(window).width() - sidebarWidth - arrowbarWidth;
 
 $(document).ready(function() {
@@ -58,6 +58,8 @@ $('.card').click(function() {
 		$('.active').find(">:first-child").hide();
 		$('.active').removeClass('active');
 	}
+		console.log(prettify($(".thisDate").attr('id')));
+		$(".fillDate").html(prettify($(".thisDate").attr('id')));
 		$(this).addClass('active');
 		if(screenHeight > 500){
 			if(screenHeight - $(this).offset().top > 250){
@@ -160,6 +162,37 @@ function SelectElement(valueToSelect)
     console.log(element.select());
 }
 
+//2013-01-01T01:00
+function prettify(input){
+	var array = input.split('-');
+	var year = array[0];
+	var month = array[1];
+	array = array[2].split('T');
+	var day = array[0];
+	var time = array[1];
+	var output_date = getMonth(month) + " "+day+", "+year+" at "+time;
+	return output_date;
+}
+
+function getMonth(input){
+	input = parseInt(input);
+	input = input - 1;
+	var month=[];
+	month[0]="January";
+	month[1]="February";
+	month[2]="March";
+	month[3]="April";
+	month[4]="May";
+	month[5]="June";
+	month[6]="July";
+	month[7]="August";
+	month[8]="September";
+	month[9]="October";
+	month[10]="November";
+	month[11]="December";
+
+	return month[input];
+}
 });
 
 $(window).resize(function() {

@@ -1,5 +1,5 @@
 $bg-main-color: #D8D8D8;
-$bg-secondary-color: #400000;
+$bg-secondary-color: #404040;
 $card-height: 60px;
 $card-width: 250px;
 $sidebar-width: 275px;
@@ -141,12 +141,10 @@ _\ \| | (_| |  __/ |_) | (_| | |
 		float: left;
 		height: inherit;
 		width: $card-height;
-		background-image: url('/static/images/icon.png');
 		margin: 0;
 		.skill{
 			height: 25px;
 			width: 25px;
-			background-color: green;
 			position: relative;
 			top: $card-height - 25;
 			float: right;
@@ -172,19 +170,27 @@ _\ \| | (_| |  __/ |_) | (_| | |
 	.cardTooltip{
 		display: none;
 		z-index: 1;
-		background-color: #666;
+		background-color: $bg-main-color;
+		-webkit-box-shadow: 0 6px 6px 0 black;
+	   	-moz-box-shadow: 0 6px 6px 0 black;
+	    box-shadow: 0 6px 6px 0 black;
 		left:275px;
-		width: 500px;
-		height: 500px;
+		width: 300px;
+		height: 300px;
 		position: absolute;
 		.game-title{
+			font-style: italic;
+			font-weight: 200;
+			font-size: 20px;
 
 		}
 		.textual-info{
+			padding-top: 5px;
+			width: 100%;
 			clear: both;
 			float: left;
 		}
-		.join-button{
+		.leave-button{
 			clear: both;
 			float: left;
 		}
@@ -219,6 +225,7 @@ _\ \| | (_| |  __/ |_) | (_| | |
 }
 
 #add-game-screen{
+	padding: 25px;
 	opacity: 1.0;
 	margin-top: 10%;
 	font:italic bold 15px Candara, sans-serif;
@@ -226,10 +233,10 @@ _\ \| | (_| |  __/ |_) | (_| | |
 	display: none;
 	margin: 10% auto;
 	background-color: white;
-	width: calc(95% - 275px);
-	width: -moz-calc(95% - 275px);
-	width: -webkit-calc(95% - 275px);
-	height: 500px;
+	width: calc(75% - 275px);
+	width: -moz-calc(75% - 275px);
+	width: -webkit-calc(75% - 275px);
+	height: 420px;
 }
 
 /*
@@ -392,12 +399,51 @@ font-family: Oxygen;
 src: url(/static/font/Oxygen-Light.ttf);
 }
 
+.buttons{
+	padding: 8px;
+}
 
-
-
-
-
-
-
-
-
+.button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9) );
+	background:-moz-linear-gradient( center top, #f9f9f9 5%, #e9e9e9 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e9e9e9');
+	background-color:#f9f9f9;
+	-webkit-border-top-left-radius:14px;
+	-moz-border-radius-topleft:14px;
+	border-top-left-radius:14px;
+	-webkit-border-top-right-radius:14px;
+	-moz-border-radius-topright:14px;
+	border-top-right-radius:14px;
+	-webkit-border-bottom-right-radius:14px;
+	-moz-border-radius-bottomright:14px;
+	border-bottom-right-radius:14px;
+	-webkit-border-bottom-left-radius:14px;
+	-moz-border-radius-bottomleft:14px;
+	border-bottom-left-radius:14px;
+	text-indent:0;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#666666;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:normal;
+	font-style:normal;
+	height:36px;
+	line-height:36px;
+	width:86px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #ffffff;
+}
+.button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e9e9e9), color-stop(1, #f9f9f9) );
+	background:-moz-linear-gradient( center top, #e9e9e9 5%, #f9f9f9 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f9f9f9');
+	background-color:#e9e9e9;
+}.button:active {
+	position:relative;
+	top:1px;
+}

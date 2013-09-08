@@ -1,32 +1,49 @@
 	<!-- Adding a game form -->
 	<div class="add-game-cont">
 		<div id="add-game-screen">
+			<div style="width: 100%; font-weight: 200; font-size: 30px; text-align:center; margin-bottom: 5px;">
+				<u>Create a New Game</u></div>
 			<form name="input" action="/createGame/" method="post">
               {% csrf_token %}
-				Game Title:<br>
-					<input type="text" name="name"><br><br>
+              	<div style="float: left; padding-right: 50px;">
+					Game Title:<br>
+						<input type="text" name="name">
+				</div>
+				<div style="float: left; padding-right: 50px;">
 				Location: <br>
-					<input type="text" name="location"><br><br>
-				Challenge Level: <br>
-					<input type="radio" name="style" value="casu">Casual<br>
-					<input type="radio" name="style" value="comp">Competitive<br><br>
+					<input type="text" name="location">
+				</div>
+				<div style="float: left; padding-right: 50px;">
 				Sport: <br>
 					<select name="sport">
 					  <option value="tnns">Tennis</option>
 					  <option value="bskt">Basketball</option>
 					  <option value="sccr">Soccer</option>
-					</select><br>
-					<br>
+					</select>
+				</div>
+				<br><br><br><br>
+				<div style="float: left; padding-right: 50px;">
+				Challenge Level: <br>
+					<input type="radio" name="style" value="casu">Casual<br>
+					<input type="radio" name="style" value="comp">Competitive<br><br>
+				</div>
+				<br>
+					<br><br><br><br>
+				<div style="float: left;padding-right: 50px;">
 				Date: <br>
 					<input type="datetime-local" name="datetime"> <br>
+				</div>
+				<div style="float: left;">
+				Players: <br>
+					Min:  <input type="number" name="min_players"> <br>Max: <input type="number" name="max_players"><br>
 					<br>
-				Number of Players: <br>
-					Min: <input type="number" name="min_players">, Max: <input type="number" name="max_players"><br>
-					<br>
+				</div>
+				<br><br><br><br>
 				Notes: <br>				
 					<textarea name="notes" rows="4" cols="50"></textarea> <br>
 					<br>
-				<input type="submit" value="Submit">
+			 <div style="width: 100%; text-align:center;">
+			 	<input type="submit" class="button" value="Submit"></div>
 			</form>
 		</div>
 	 </div>
