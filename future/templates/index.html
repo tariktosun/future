@@ -24,83 +24,8 @@
 			</div>
 
 			<div class="sidebar-break"></div>
-			
-			<!-- Admin Games Info -->
-			<div class="sidebar-game-list-title">My Admin Games</div>
-			<div class="sidebar-game-list">
-			  {% for game in games_leading %}	
-				<div class="card">
-					<div class="cardTooltip">
-						<div class="icon" style="background-repeat: no-repeat; 
-												 height: 150px; width: 150px; 
-												 background-size: cover; display: block;">
-						</div>
-						<div class="game-title">{{ game.name }}</div>
-						<div class="game-sport">{{ game.sport }} </div><br>
-						<div class="textual-info">
-							<br>
-							Location : {{ game.location }}<br>
-							Date and Time : {{ game.game_datetime }}<br>
-							Notes : {{ game.notes }}<br>
-							Players : {{game.min_number_players}} - {{game.max_number_players}}<br>	
-						</div>
-			        <form action="/leaveGame/" method="post">
-			          {% csrf_token %}
-			          <button>Leave Game</button>
-			          <input type="hidden" name="game_to_leave_name" value={{game.name}} />
-			        </form>
-					<a href="#" class="game-page-button">Game Page</a>
-					</div>
-					<div class="icon">
-					<img src="/static/images/skill.png" alt="skill" class="skill">
-					</div>
-					<div class="card-text">
-						<div class="card-date">{{ game.game_datetime }}</div>
-						<br>
-						<div class="card-location">{{ game.location }}</div>
-						<br>
-						<div class="card-capacity">{{ game.players.count }} / {{ game.max_number_players }}</div>
-					</div>
-				</div>
-  			{% endfor %}
-			</div>
-
-			<!-- Joined Games Info -->
-			<div class="sidebar-game-list-title">Joined Games</div>
-			<div class="sidebar-game-list">
-			  {% for game in games_playing %}	
-				<div class="card">
-					<div class="cardTooltip">
-						<div class="icon" style="background-repeat: no-repeat; 
-												 height: 150px; width: 150px; 
-												 background-size: cover; display: block;">
-						</div>
-						<div class="game-title">{{ game.name }}</div>
-						<div class="game-sport">{{ game.sport }} </div><br>
-						<div class="textual-info">
-							<br>
-							Location : {{ game.location }}<br>
-							Date and Time : {{ game.game_datetime }}<br>
-							Notes : {{ game.notes }}<br>
-							Players : {{game.min_number_players}} - {{game.max_number_players}}<br>	
-						</div>					
-					<a href="#" class="join-button">Join</a>
-					<a href="#" class="game-page-button">-></a>
-					</div>
-					<div class="icon">
-					<img src="/static/images/skill.png" alt="skill" class="skill">
-					</div>
-					<div class="card-text">
-						<div class="card-date">{{ game.game_datetime }}</div>
-						<br>
-						<div class="card-location">{{ game.location }}</div>
-						<br>
-						<div class="card-capacity">{{  game.players.count }} / {{ game.max_number_players }}</div>
-					</div>
-				</div>
-  			{% endfor %}
-			</div>
-		</div>
+    	
+    	{% include 'card.html' %}
 
 		<!-- Bottom Sidebar Toolbar -->
 		<div id="sidebar-options">
@@ -119,39 +44,11 @@
 		</div>
 	</div>
 
-	<!-- Adding a game form -->
-	<div class="add-game-cont">
-		<div id="add-game-screen">
-			<form name="input" action="/createGame/" method="post">
-              {% csrf_token %}
-				Game Title:<br>
-					<input type="text" name="name"><br><br>
-				Location: <br>
-					<input type="text" name="location"><br><br>
-				Challenge Level: <br>
-					<input type="radio" name="style" value="casual">Casual<br>
-					<input type="radio" name="style" value="competitive">Competitive<br><br>
-				Sport: <br>
-					<select name="sport">
-					  <option value="basketball">Basketball</option>
-					  <option value="tennis">Tennis</option>
-					  <option value="lacrosse">Lacrosse</option>
-					  <option value="baseball">Baseball</option>
-					</select><br>
-					<br>
-				Date: <br>
-					<input type="datetime-local" name="datetime"> <br>
-					<br>
-				Number of Players: <br>
-					Min: <input type="number" name="min_players">, Max: <input type="number" name="max_players"><br>
-					<br>
-				Notes: <br>				
-					<textarea name="notes" rows="4" cols="50"></textarea> <br>
-					<br>
-				<input type="submit" value="Submit">
-			</form>
-		</div>
-	 </div>
+    	{% include 'add_game.html' %}
+    	{% include 'profile.html' %}
+    	{% include 'game.html' %}
+    	{% include 'lobby.html' %}
+    	{% include 'friends-games.html' %}
 	
 	 <div id="profile" class="search-field"></div>
 	 <div id="game" class="search-field"></div>
