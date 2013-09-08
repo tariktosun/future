@@ -4,7 +4,7 @@ var sidebarOut = true, speed = 1000,
 	screenWidth = $(window).width(), screenWidthSidebar = $(window).width() - sidebarWidth - arrowbarWidth;
 
 $(document).ready(function() {
-
+console.log($(".currentSelectedSport").attr('id'));
 updateSize(screenWidthSidebar, screenHeight);
 
 
@@ -148,6 +148,12 @@ function updateSize(width, height){
 	$('#lobby').animate({width: width}, speed);
 	$('#game').animate({width: width}, speed);
 	$('#friends-games').animate({width: width}, speed);
+}
+
+function SelectElement(valueToSelect)
+{    
+    var element = document.getElementById('setSport');
+    element.value = valueToSelect;
 }
 
 });
