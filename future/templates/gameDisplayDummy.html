@@ -33,6 +33,14 @@
         </form>
       </div>
 
+      <div>
+        <form action="/inactivateGame/" method="post">
+          {% csrf_token %}
+          <button>Inactivate Game</button>
+          <input type="hidden" name="game_to_inactivate_pk" value={{game.pk}} />
+        </form>
+      </div>
+
     </div>
   {% endfor %}
 

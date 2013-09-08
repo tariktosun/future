@@ -100,7 +100,7 @@ class Game(models.Model):
     #TODO: I don't know what related_name is.
 
     # metadata
-    status = models.CharField('Game Status', max_length=4)
+    status = models.CharField('Game Status', max_length=4, choices=STATUS_CHOICES)
     creation_time = models.DateTimeField(auto_now_add=True)
     name = models.CharField('Game Name', max_length=30)
     sport = models.CharField('Game Type', max_length=4, choices=SPORT_CHOICES)
